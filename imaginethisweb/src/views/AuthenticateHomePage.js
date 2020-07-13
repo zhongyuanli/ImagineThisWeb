@@ -8,6 +8,7 @@ import "../css/authenticatehomepage.css"
 export class AuthenticateHomePage extends Component{
     render() {
         return(
+<<<<<<< Updated upstream:imaginethisweb/src/views/AuthenticateHomePage.js
             // <div className="container">
             //     <div className="row">
             //         <div className='col align-self-center'>
@@ -29,6 +30,12 @@ export class AuthenticateHomePage extends Component{
                     </div>
                     <div className="d-flex justify-content-center">
                         <a className='btn btn-primary auth-button' href='/'>Oauth 2.0 Authentication</a>
+=======
+           
+            <div className="body-content" >
+                    <div className="d-flex justify-content-center auth-content">
+                        We need to obtain your authorization before accessing your Figma projects
+>>>>>>> Stashed changes:imaginethisweb/src/components/AuthenticateHomePage.js
                     </div>
                 </div>
             </Fragment>
