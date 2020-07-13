@@ -1,0 +1,18 @@
+.body-content{
+    width: 100vw;
+    height: 100vh;
+    color: black;
+}
+
+.auth-content{
+    margin-top: 10vh;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.auth-button{
+    margin-top: 10vh;
+    padding: 20px 40px;
+    background-color: #005EB8;
+    font-weight: bold;
+}
