@@ -16,3 +16,24 @@
     background-color: #005EB8;
     font-weight: bold;
 }
+.outline-box{
+
+}
+
+.auth-form{
+    border: #e1e4e8 solid 1px;
+    border-radius: 10px;
+    padding: 5vh;
+    height: 50vh;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    margin-top: 10vh;
+}
+
+.auth-form-item {
+    margin-top: 15px;
+}
+
+.btn-primary{
+    background-color: #005EB8;
+}
