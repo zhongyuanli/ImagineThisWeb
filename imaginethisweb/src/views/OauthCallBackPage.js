@@ -11,6 +11,11 @@ export class OauthCallBackPage extends Component {
         let currentURL = window.location.search;
         let params = new URLSearchParams(currentURL);
         let code = params.get('code')
+        console.log(code)
+        if (code === null) {
+            window.location.href = 'http://localhost:3000'
+        }
+
         let state = params.get('state')
         this.state = {
             code: code,
@@ -88,13 +93,14 @@ export class OauthCallBackPage extends Component {
                 },
                 error: function (xhr, status, err) {
                     console.log('error');
-                    console.log(err)
                 }
             })
             if(result){
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
+            }else{
+                $(".error_message").css('display','block');
             }
         }
 
@@ -108,16 +114,14 @@ export class OauthCallBackPage extends Component {
                 <div className="auth-form">
                     <Tabs defaultActiveKey="auth-token" id="uncontrolled-tab-example">
                         <Tab eventKey="auth-token" title="Access Project with ID">
-                            <p className="auth-form-item">Please enter your Figma project ID, see <a
-                                href="https://www.figma.com/developers/api#access-tokens" target="_blank">here</a> to
-                                learn how to generate your and project ID</p>
+                            <p className="auth-form-item">Please enter your Figma project ID, Project ID is the string between [file\] and [your project name] in your Figma project URL</p>
                             <input
                                 className={'form-control auth-form-item ' + (this.state.projectIDError ? 'is-invalid' : '')}
                                 placeholder="Enter your Figma project ID" onChange={this.handleChangeProjectID}/>
                             <button className='btn btn-primary auth-form-item'
                                     onClick={(e) => this.getFigmaProject()}>Submit
                             </button>
-                            <br/>
+                            <p className="auth-form-item error_message">*The project ID is not correct, please try again</p>
                         </Tab>
                     </Tabs>
                 </div>
