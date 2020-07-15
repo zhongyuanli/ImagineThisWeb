@@ -17,6 +17,7 @@ export class WireframesPage extends Component{
             wireframeList : this.props.history.location.state.wireframeList
         }
     }
+
     render() {
         return(
             <div>
@@ -26,7 +27,7 @@ export class WireframesPage extends Component{
                         this.state.wireframeList.map(function (item,index) {
                             return(
                                 <div className={'col-12 col-sm-6 col-lg-4 col-xl-3 card-wrapper'}>
-                                <WireframeCard title={item.name} image = {item.imageURL}/>
+                                <WireframeCard title={item.name} image = {item.imageURL} id = {item.id}/>
                                 </div>
                                 )
                         })
