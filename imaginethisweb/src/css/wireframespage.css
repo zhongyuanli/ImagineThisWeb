@@ -1,0 +1,12 @@
+.card-container{
+    border: #e1e4e8 1px solid;
+    margin-top: 3vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    padding: 2vh 2vw 2vw 2vh;
+    border-radius: 10px;
+}
+
+.card-wrapper{
+    margin-top: 10px;
+}

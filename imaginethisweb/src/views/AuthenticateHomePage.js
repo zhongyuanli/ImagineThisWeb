@@ -4,7 +4,6 @@ import "../css/authenticatehomepage.css"
 import {Tab, Tabs} from "react-bootstrap";
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
-import {Redirect} from "react-router";
 
 export class AuthenticateHomePage extends Component {
     constructor(props) {
@@ -51,6 +50,7 @@ export class AuthenticateHomePage extends Component {
     getFigmaProject() {
         if (!this.validateForm()) {
             let result = false;
+            let responseData = null;
             $.ajax({
                 type: "GET",
                 url: 'http://localhost:8080/authToken',
@@ -63,6 +63,7 @@ export class AuthenticateHomePage extends Component {
                 },
                 success: function (data) {
                     result = true;
+                    responseData = data;
                 },
                 error: function (xhr, status, err) {
                     console.log('error');
@@ -70,20 +71,24 @@ export class AuthenticateHomePage extends Component {
 
             })
             if (result) {
-                $(".error_message").css('display','none');
+                $(".error_message").css('display', 'none');
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
-                window.location.href = '/wireframes'
-
-            }else{
-                $(".error_message").css('display','block');
+                this.props.history.push({
+                    pathname: '/wireframes',
+                    state:{
+                        projectName:responseData.projectName,
+                        wireframeList: responseData.wireframeList
+                    }
+                })
+            } else {
+                $(".error_message").css('display', 'block');
             }
         }
     }
 
     oauthRedirect() {
-        window.location.href = 'https://www.figma.com/oauth?client_id=HbTuw2lrfAC84htJy0Rtf1&redirect_uri=http://localhost:3000/auth&scope=file_read&state=get_token&response_type=code'
     }
 
     render() {
@@ -107,7 +112,8 @@ export class AuthenticateHomePage extends Component {
                                 <button className='btn btn-primary auth-form-item'
                                         onClick={(e) => this.getFigmaProject()}>Submit
                                 </button>
-                                <p className="auth-form-item error_message">*The token or the project ID is not correct, please try again</p>
+                                <p className="auth-form-item error_message">*The token or the project ID is not correct,
+                                    please try again</p>
                             </Tab>
                             <Tab eventKey="Oauth2" title="Oauth 2.0 Authentication">
                                 <p className="auth-form-item">Generate your Figma project access authorization with

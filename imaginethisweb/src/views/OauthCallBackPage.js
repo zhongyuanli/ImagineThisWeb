@@ -78,6 +78,7 @@ export class OauthCallBackPage extends Component {
     getFigmaProject(){
         if(!this.validateForm()){
             let result = false;
+            let responseData = null;
             $.ajax({
                 type: "GET",
                 url: 'http://localhost:8080/authToken',
@@ -90,6 +91,7 @@ export class OauthCallBackPage extends Component {
                 },
                 success: function (data){
                     result = true;
+                    responseData = data;
                     console.log(data)
                 },
                 error: function (xhr, status, err) {
@@ -100,7 +102,6 @@ export class OauthCallBackPage extends Component {
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
-                window.location.href = '/wireframes'
             }else{
                 $(".error_message").css('display','block');
             }
