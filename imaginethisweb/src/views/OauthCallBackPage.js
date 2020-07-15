@@ -4,6 +4,7 @@ import "../css/authenticatehomepage.css"
 import {Tab, Tabs} from 'react-bootstrap'
 import Cookies from "universal-cookie";
 import $ from 'jquery'
+import {Redirect} from "react-router-dom";
 
 export class OauthCallBackPage extends Component {
     constructor(props) {
@@ -99,6 +100,7 @@ export class OauthCallBackPage extends Component {
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
+                window.location.href = '/wireframes'
             }else{
                 $(".error_message").css('display','block');
             }

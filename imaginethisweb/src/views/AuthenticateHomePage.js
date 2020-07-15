@@ -4,6 +4,7 @@ import "../css/authenticatehomepage.css"
 import {Tab, Tabs} from "react-bootstrap";
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
+import {Redirect} from "react-router";
 
 export class AuthenticateHomePage extends Component {
     constructor(props) {
@@ -73,6 +74,8 @@ export class AuthenticateHomePage extends Component {
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
+                window.location.href = '/wireframes'
+
             }else{
                 $(".error_message").css('display','block');
             }
