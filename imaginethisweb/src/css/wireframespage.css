@@ -10,3 +10,12 @@
 .card-wrapper{
     margin-top: 10px;
 }
+
+.redirect-Convert{
+    background-color: #1E90FF;
+    margin-top: 15px;
+    margin-left: 34vw;
+    margin-right: 34vw;
+    padding: 20px 40px;
+    font-weight: bold;
+}
