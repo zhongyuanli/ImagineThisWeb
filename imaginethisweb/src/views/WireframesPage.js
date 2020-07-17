@@ -25,6 +25,9 @@ export class WireframesPage extends Component{
         })
     }
 
+    onChangeHandle() {
+        console.log('Clicked');
+    }
 
     render() {
         return(
@@ -43,6 +46,11 @@ export class WireframesPage extends Component{
                                     image = {item.imageURL}
                                     id = {item.id}
                                 />
+                                <input
+                                    type="checkbox"
+                                    id={item.id}
+                                    onChange={(e) => this.onChangeHandle()}
+                                />
                                 </div>
                                 )
                         })
@@ -52,3 +60,5 @@ export class WireframesPage extends Component{
         )
     }
 }
+
+export default WireframesPage
