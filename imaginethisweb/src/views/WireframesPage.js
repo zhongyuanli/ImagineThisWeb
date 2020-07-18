@@ -14,7 +14,8 @@ export class WireframesPage extends Component{
         }
         this.state = {
             projectName : this.props.history.location.state.projectName,
-            wireframeList : this.props.history.location.state.wireframeList
+            wireframeList : this.props.history.location.state.wireframeList,
+            selected:[]
         }
         this.onChangeHandle = this.onChangeHandle.bind(this)
     }
@@ -22,11 +23,18 @@ export class WireframesPage extends Component{
     toConvertPage() {
         this.props.history.push({
             pathname: '/convert',
+            state:{
+                selected:this.state.selected
+            }
         })
     }
 
-    onChangeHandle() {
-        console.log('Clicked')
+    onChangeHandle(newelement) {
+        this.setState({
+            selected:[...this.state.selected, newelement]
+        });
+        console.log('Clicked',newelement);
+        console.log(this.state.selected);
     }
 
     render() {
@@ -47,7 +55,7 @@ export class WireframesPage extends Component{
                             <input
                                 type="checkbox"
                                 id={item.id}
-                                onChange={this.onChangeHandle}
+                                onChange={() => this.onChangeHandle(item.id)}
                             />
                         </div>
                     ))}
