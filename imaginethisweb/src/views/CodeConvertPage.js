@@ -17,7 +17,11 @@ export class CodeConvertPage extends Component{
         return(
             <div>
                 <Navigation/>
-                {this.state.selected}
+                {this.state.selected.map((wireframe) => (
+                    <div>
+                    {JSON.stringify(wireframe)}
+                    </div>
+                ))}
             </div>
         )
     }

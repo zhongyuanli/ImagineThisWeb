@@ -17,7 +17,10 @@ export class WireframesPage extends Component{
             wireframeList : this.props.history.location.state.wireframeList,
             selected:[]
         }
-        this.onChangeHandle = this.onChangeHandle.bind(this)
+        this.onChangeHandle = this.onChangeHandle.bind(this);
+        this.toConvertPage = this.toConvertPage.bind(this);
+        this.addToSelected = this.addToSelected.bind(this);
+        this.deleteFromSelected = this.deleteFromSelected.bind(this);
     }
 
     toConvertPage() {
@@ -29,12 +32,40 @@ export class WireframesPage extends Component{
         })
     }
 
-    onChangeHandle(newelement) {
-        this.setState({
-            selected:[...this.state.selected, newelement]
-        });
-        console.log('Clicked',newelement);
-        console.log(this.state.selected);
+    addToSelected(chosenID) {
+      let list = this.state.wireframeList;
+      let chosenOne = list.filter(element => element.id == chosenID);
+      let newelement = chosenOne[0]
+      this.setState({
+          selected:[...this.state.selected, newelement]
+      });
+    }
+
+    deleteFromSelected(chosenID) {
+      let toFilter = this.state.selected;
+      let selectOnce = toFilter.filter(element => element.id != chosenID);
+      this.setState({
+          selected:selectOnce
+      });
+    }
+
+    onChangeHandle(id) {
+        let list = this.state.wireframeList;
+        let exist = this.state.selected;
+        if(exist.length == 0){
+            console.log("select 1",id);
+            this.addToSelected(id);
+        }else{
+            let selectOnce = exist.filter(element => element.id == id);
+            if(selectOnce.length == 0){
+                console.log("select 2",id);
+                this.addToSelected(id);
+            }else{
+                console.log("delete",id);
+                this.deleteFromSelected(id)
+            }
+        }
+        console.log("Selected NOW:", this.state.selected)
     }
 
     render() {
