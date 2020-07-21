@@ -9,6 +9,10 @@ class WireframeCard extends Component{
         super(props);
     }
 
+    clickedCard() {
+        console.log('Clicked:', this.props.id);
+    }
+
     render() {
         return(
             <div>
@@ -16,6 +20,12 @@ class WireframeCard extends Component{
                     <Card.Img varint="top" src={this.props.image}/>
                     <Card.Body>
                         <Card.Title>{this.props.title}</Card.Title>
+<<<<<<< HEAD
+=======
+                        <Button variant='primary' onClick={(e) => this.clickedCard()}>
+                            Choose
+                        </Button>
+>>>>>>> getClickedID
                     </Card.Body>
                 </Card>
             </div>
