@@ -20,12 +20,9 @@ class WireframeCard extends Component{
                     <Card.Img varint="top" src={this.props.image}/>
                     <Card.Body>
                         <Card.Title>{this.props.title}</Card.Title>
-<<<<<<< HEAD
-=======
                         <Button variant='primary' onClick={(e) => this.clickedCard()}>
                             Choose
                         </Button>
->>>>>>> getClickedID
                     </Card.Body>
                 </Card>
             </div>
