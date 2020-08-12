@@ -10,7 +10,7 @@ class Navigation extends Component {
     render() {
         return(
             <div className="guide-bar">
-                <Navbar bg="primary" variant ="dark">
+                <Navbar className="navbar-style" variant ="dark">
                     <Navbar.Brand href="/">
                         <img 
                             alt="nhs logo"
