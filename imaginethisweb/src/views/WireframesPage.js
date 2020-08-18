@@ -3,8 +3,10 @@ import Navigation from "../components/Navigation"
 import WireframeCard from "../components/WireframeCard"
 import NHSLogo from "../images/nhs.jpeg"
 import '../css/wireframespage.css'
+import $ from 'jquery'
 
 import Button from 'react-bootstrap/Button'
+import Cookies from "universal-cookie";
 
 export class WireframesPage extends Component{
     constructor(props) {
@@ -12,29 +14,59 @@ export class WireframesPage extends Component{
         if(this.props.history.location.state.wireframeList === undefined){
             window.location.href = 'http://localhost:3000'
         }
+        const cookie = new Cookies();
         this.state = {
             projectName : this.props.history.location.state.projectName,
             wireframeList : this.props.history.location.state.wireframeList,
+            projectID: cookie.get('projectID'),
+            accessToken: cookie.get('accessToken'),
+            authType: cookie.get('authType'),
             selected:[]
         }
         this.onChangeHandle = this.onChangeHandle.bind(this);
         this.toConvertPage = this.toConvertPage.bind(this);
         this.addToSelected = this.addToSelected.bind(this);
         this.deleteFromSelected = this.deleteFromSelected.bind(this);
+
     }
 
     toConvertPage() {
-        this.props.history.push({
-            pathname: '/convert',
-            state:{
-                selected:this.state.selected
+        // this.props.history.push({
+        //     pathname: '/convert',
+        //     state:{
+        //         selected:this.state.selected
+        //     }
+        // })
+        console.log(this.state.selected);
+        let responseData = undefined;
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/generatePage',
+            contentType: 'application/json',
+            dataType: "json",
+            async: false,
+            data: JSON.stringify({
+                'accessToken': this.state.accessToken,
+                'projectID': this.state.projectID,
+                'authType': this.state.authType,
+                'pageList': this.state.selected
+            }),
+            success: function (data) {
+                responseData = data;
+            },
+            error: function (xhr, status, err) {
+                console.log('error');
             }
+
         })
     }
 
     addToSelected(chosenID) {
-      let list = this.state.wireframeList;
-      let chosenOne = list.filter(element => element.id == chosenID);
+      let IDlist = [];
+      this.state.wireframeList.forEach(function (item) {
+          IDlist = [...IDlist, item.id];
+      });
+      let chosenOne = IDlist.filter(element => element === chosenID);
       let newelement = chosenOne[0]
       this.setState({
           selected:[...this.state.selected, newelement]
@@ -43,7 +75,7 @@ export class WireframesPage extends Component{
 
     deleteFromSelected(chosenID) {
       let toFilter = this.state.selected;
-      let selectOnce = toFilter.filter(element => element.id != chosenID);
+      let selectOnce = toFilter.filter(element => element !== chosenID);
       this.setState({
           selected:selectOnce
       });
@@ -56,7 +88,7 @@ export class WireframesPage extends Component{
             console.log("select 1",id);
             this.addToSelected(id);
         }else{
-            let selectOnce = exist.filter(element => element.id == id);
+            let selectOnce = exist.filter(element => element === id);
             if(selectOnce.length == 0){
                 console.log("select 2",id);
                 this.addToSelected(id);
