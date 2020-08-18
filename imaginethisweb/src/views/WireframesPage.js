@@ -109,26 +109,17 @@ export class WireframesPage extends Component{
         return(
             <Fragment>
                 <Navigation/>
-                <div className='container-fluid'>
+                <div className='container-fluid container--margin-bottom'>
                     <div className='row'>
                         <div className='col-12 d-flex flex-column align-items-center'>
                             <h3 className='mt-5 mb-3'>Please select the wireframes that you wish to convert:</h3>
-                            <div>
-                                <span>Currently selected: {this.state.selected.length}</span>
-                                <Button onClick={() => this.selectAll()}>
-                                    Select all
-                                </Button>
-                                <Button onClick={() => this.clearSelected()}>
-                                    Unselect all
-                                </Button>
-                            </div>
                         </div>
                     </div>
                     <div className='row'>
                     </div>
                     <div className='row'>
                         {this.state.wireframeList.map((item, index) => (
-                            <div className={'col-6 col-sm-4 col-lg-3 col-xl-2 p-4'} key={index}>
+                            <div className={'col-6 col-sm-4 col-lg-3 col-xl-2 pt-4 pb-4 pr-3 pl-3'} key={index}>
                                 <div 
                                     className='card-wrapper'
                                     onClick={() => this.onChangeHandle(item.id)}>
@@ -143,14 +134,28 @@ export class WireframesPage extends Component{
                             </div>
                         ))}
                     </div>
-                    <div className='row'>
-                        <div className='col-12 d-flex justify-content-center'>
-                            <Button className='redirect-Convert' onClick={(e) => this.toConvertPage()}>
-                                Convert to code
-                            </Button>
-                        </div>
-                    </div>
                 </div>
+                <nav className="navbar fixed-bottom navbar-light bottom-actionbar">
+                    <div>
+                        <Button
+                            className='mt-1'
+                            onClick={() => this.selectAll()}>
+                            Select all
+                        </Button>
+                        <Button
+                            className='mt-1 ml-2'
+                            onClick={() => this.clearSelected()}>
+                            Unselect all
+                        </Button>
+                    </div>
+                    <span className="bottom-actionbar__selected-text">Currently selected: {this.state.selected.length}</span>
+                    <Button 
+                        className='bottom-actionbar__button-convert mt-1' 
+                        onClick={(e) => this.toConvertPage()}>
+                        Convert to code
+                    </Button>
+                </nav>
+
             </Fragment>
         )
     }

@@ -1,14 +1,26 @@
-.card-wrapper{
+.card-wrapper {
     cursor: pointer;
     transition: all 400ms ease-in-out;
 }
-.card-wrapper:hover{
+.card-wrapper:hover {
     transform: scale(1.02);
 }
 
-.redirect-Convert{
+.container--margin-bottom {
+    margin-bottom: 80px;
+}
+
+.bottom-actionbar {
+    background-color: #cce5ff;
+    border-top: 2px solid #1E90FF;
+}
+.bottom-actionbar__selected-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 4px 8px;
+}
+.bottom-actionbar__button-convert {
     background-color: #1E90FF;
-    margin-top: 15px;
-    padding: 20px 40px;
+    padding: 10px 20px;
     font-weight: bold;
 }
