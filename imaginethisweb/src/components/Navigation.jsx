@@ -25,6 +25,24 @@ class Navigation extends Component {
                     <Navbar.Text className="navbar-title">
                         Imagine This
                     </Navbar.Text>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="#features">Getting Started</Nav.Link>
+                            <Nav.Link href="#guidelines">Guidelines</Nav.Link>
+                        </Nav>
+                        <Nav>
+                            <NavDropdown
+                              alignRight
+                              title="GitHub"
+                              id="collasible-nav-dropdown"
+                            >
+                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisWeb">Web App</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisServer">Server</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/VojtaAdam/ImagineThis-Mobile">Mobile Components</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
                 </Navbar>
             </div>
         )
