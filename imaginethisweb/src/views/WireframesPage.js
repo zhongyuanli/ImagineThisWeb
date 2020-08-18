@@ -141,7 +141,8 @@ export class WireframesPage extends Component{
                     <span className="bottom-actionbar__selected-text">Currently selected: {this.state.selected.length}</span>
                     <Button 
                         className='bottom-actionbar__button-convert mt-1' 
-                        onClick={(e) => this.toConvertPage()}>
+                        onClick={(e) => this.toConvertPage()}
+                        disabled={this.state.selected.length === 0}>
                         Convert to code
                     </Button>
                 </nav>
