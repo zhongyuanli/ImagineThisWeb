@@ -1,12 +1,10 @@
-import React, {Component} from "react"
+import React, {Component, Fragment} from "react"
 import Navigation from "../components/Navigation"
 import WireframeCard from "../components/WireframeCard"
-import NHSLogo from "../images/nhs.jpeg"
 import '../css/wireframespage.css'
 import $ from 'jquery'
-
 import Button from 'react-bootstrap/Button'
-import Cookies from "universal-cookie";
+import Cookies from "universal-cookie"
 
 export class WireframesPage extends Component{
     constructor(props) {
@@ -14,7 +12,7 @@ export class WireframesPage extends Component{
         if(this.props.history.location.state.wireframeList === undefined){
             window.location.href = 'http://localhost:3000'
         }
-        const cookie = new Cookies();
+        const cookie = new Cookies()
         this.state = {
             projectName : this.props.history.location.state.projectName,
             wireframeList : this.props.history.location.state.wireframeList,
@@ -23,11 +21,10 @@ export class WireframesPage extends Component{
             authType: cookie.get('authType'),
             selected:[]
         }
-        this.onChangeHandle = this.onChangeHandle.bind(this);
-        this.toConvertPage = this.toConvertPage.bind(this);
-        this.addToSelected = this.addToSelected.bind(this);
-        this.deleteFromSelected = this.deleteFromSelected.bind(this);
-
+        this.onChangeHandle = this.onChangeHandle.bind(this)
+        this.toConvertPage = this.toConvertPage.bind(this)
+        this.addToSelected = this.addToSelected.bind(this)
+        this.removeSelected = this.removeSelected.bind(this)
     }
 
     toConvertPage() {
@@ -61,69 +58,96 @@ export class WireframesPage extends Component{
         })
     }
 
-    addToSelected(chosenID) {
-      let IDlist = [];
-      this.state.wireframeList.forEach(function (item) {
-          IDlist = [...IDlist, item.id];
-      });
-      let chosenOne = IDlist.filter(element => element === chosenID);
-      let newelement = chosenOne[0]
-      this.setState({
-          selected:[...this.state.selected, newelement]
-      });
+    addToSelected(id) {
+        this.setState({
+            selected:[...this.state.selected, id]
+        })
     }
 
-    deleteFromSelected(chosenID) {
-      let toFilter = this.state.selected;
-      let selectOnce = toFilter.filter(element => element !== chosenID);
-      this.setState({
-          selected:selectOnce
-      });
+    removeSelected(id) {
+        let array = Array.from(this.state.selected)
+        let index = array.indexOf(id)
+        if (index !== -1) {
+            array.splice(index, 1)
+            this.setState({selected: array})
+        }
+    }
+
+    selectAll = () => {
+        let array = []
+        this.state.wireframeList.forEach(element => {
+            array.push(element.id)
+        })
+        this.setState({ selected: array })
+    }
+
+    clearSelected = () => {
+        this.setState({ selected: [] })
     }
 
     onChangeHandle(id) {
-        let list = this.state.wireframeList;
-        let exist = this.state.selected;
-        if(exist.length == 0){
-            console.log("select 1",id);
-            this.addToSelected(id);
-        }else{
-            let selectOnce = exist.filter(element => element === id);
-            if(selectOnce.length == 0){
-                console.log("select 2",id);
-                this.addToSelected(id);
-            }else{
-                console.log("delete",id);
-                this.deleteFromSelected(id)
-            }
+        let array = this.state.selected
+        console.log(array.includes(id))
+        if(array.includes(id)){
+            this.removeSelected(id)
+        } else {
+            this.addToSelected(id)
         }
-        console.log("Selected NOW:", this.state.selected)
     }
 
     render() {
         return(
-            <div>
+            <Fragment>
                 <Navigation/>
-                <Button className='redirect-Convert' onClick={(e) => this.toConvertPage()}>
-                    Convert to code
-                </Button>
-                <div className={'card-container row'}>
-                    {this.state.wireframeList.map((item, index) => (
-                        <div className={'col-12 col-sm-6 col-lg-4 col-xl-3 card-wrapper'} key={index}>
-                            <WireframeCard
-                                title={item.name}
-                                image = {item.imageURL}
-                                id = {item.id}
-                            />
-                            <input
-                                type="checkbox"
-                                id={item.id}
-                                onChange={() => this.onChangeHandle(item.id)}
-                            />
+                <div className='container-fluid container--margin-bottom'>
+                    <div className='row'>
+                        <div className='col-12 d-flex flex-column align-items-center'>
+                            <h3 className='mt-5 mb-3'>Please select the wireframes that you wish to convert:</h3>
                         </div>
-                    ))}
+                    </div>
+                    <div className='row'>
+                    </div>
+                    <div className='row'>
+                        {this.state.wireframeList.map((item, index) => (
+                            <div className={'col-6 col-sm-4 col-lg-3 col-xl-2 pt-4 pb-4 pr-3 pl-3'} key={index}>
+                                <div 
+                                    className='card-wrapper'
+                                    onClick={() => this.onChangeHandle(item.id)}>
+                                    <WireframeCard
+                                        title={item.name}
+                                        image = {item.imageURL}
+                                        id = {item.id}
+                                        selected={this.state.selected.includes(item.id)}
+                                        onChange={() => this.onChangeHandle(item.id)}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+                <nav className="navbar fixed-bottom navbar-light bottom-actionbar">
+                    <div>
+                        <Button
+                            className='mt-1'
+                            onClick={() => this.selectAll()}>
+                            Select all
+                        </Button>
+                        <Button
+                            className='mt-1 ml-2'
+                            onClick={() => this.clearSelected()}>
+                            Unselect all
+                        </Button>
+                    </div>
+                    <span className="bottom-actionbar__selected-text">Currently selected: {this.state.selected.length}</span>
+                    <Button 
+                        className='bottom-actionbar__button-convert mt-1' 
+                        onClick={(e) => this.toConvertPage()}
+                        disabled={this.state.selected.length === 0}>
+                        Convert to code
+                    </Button>
+                </nav>
+
+            </Fragment>
         )
     }
 }

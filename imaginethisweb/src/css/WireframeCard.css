@@ -1,0 +1,15 @@
+.card {
+    overflow: hidden;
+    border-radius: 7px;
+}
+.card-selected {
+    border: 1px solid green;
+}
+.card-body{
+    background-color: #5d5d5d;
+    color: white;
+}
+.card-body-selected{
+    background-color: green;
+    color: white;
+}
