@@ -75,6 +75,7 @@ export class AuthenticateHomePage extends Component {
                 const cookies = new Cookies();
                 cookies.set('accessToken', this.state.accessToken, {path: '/'})
                 cookies.set('projectID', this.state.projectID, {path: '/'})
+                cookies.set('authType', 'originalToken', {path: '/'})
                 this.props.history.push({
                     pathname: '/wireframes',
                     state:{

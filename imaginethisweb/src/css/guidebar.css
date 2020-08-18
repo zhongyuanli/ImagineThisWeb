@@ -1,9 +1,11 @@
-.imagine-this-text{
+.navbar-title{
     color: white !important;
     font-size: 25px;
     font-weight: bold;
+    padding-right:15px;
 }
 .navbar-style{
     background-color: #005eb8;
 }
+
 
