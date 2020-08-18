@@ -1,12 +1,10 @@
 import React, {Component, Fragment} from "react"
 import Navigation from "../components/Navigation"
 import WireframeCard from "../components/WireframeCard"
-import NHSLogo from "../images/nhs.jpeg"
 import '../css/wireframespage.css'
 import $ from 'jquery'
-
 import Button from 'react-bootstrap/Button'
-import Cookies from "universal-cookie";
+import Cookies from "universal-cookie"
 
 export class WireframesPage extends Component{
     constructor(props) {
@@ -14,7 +12,7 @@ export class WireframesPage extends Component{
         if(this.props.history.location.state.wireframeList === undefined){
             window.location.href = 'http://localhost:3000'
         }
-        const cookie = new Cookies();
+        const cookie = new Cookies()
         this.state = {
             projectName : this.props.history.location.state.projectName,
             wireframeList : this.props.history.location.state.wireframeList,
@@ -23,11 +21,10 @@ export class WireframesPage extends Component{
             authType: cookie.get('authType'),
             selected:[]
         }
-        this.onChangeHandle = this.onChangeHandle.bind(this);
-        this.toConvertPage = this.toConvertPage.bind(this);
-        this.addToSelected = this.addToSelected.bind(this);
-        this.removeSelected = this.removeSelected.bind(this);
-
+        this.onChangeHandle = this.onChangeHandle.bind(this)
+        this.toConvertPage = this.toConvertPage.bind(this)
+        this.addToSelected = this.addToSelected.bind(this)
+        this.removeSelected = this.removeSelected.bind(this)
     }
 
     toConvertPage() {
@@ -65,8 +62,6 @@ export class WireframesPage extends Component{
         this.setState({
             selected:[...this.state.selected, id]
         })
-        console.log("Added to state:", id)
-        console.log("State now:", this.state.selected)
     }
 
     removeSelected(id) {
@@ -76,8 +71,6 @@ export class WireframesPage extends Component{
             array.splice(index, 1)
             this.setState({selected: array})
         }
-        console.log("Removed from state:", id)
-        console.log("State now:", this.state.selected)
     }
 
     selectAll = () => {
@@ -97,12 +90,9 @@ export class WireframesPage extends Component{
         console.log(array.includes(id))
         if(array.includes(id)){
             this.removeSelected(id)
-            console.log("deleting",id)
         } else {
             this.addToSelected(id)
-            console.log("adding",id)
         }
-        console.log("Selected NOW:", this.state.selected)
     }
 
     render() {
