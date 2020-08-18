@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {Component, Fragment} from "react"
 import Navigation from "../components/Navigation"
 import WireframeCard from "../components/WireframeCard"
 import NHSLogo from "../images/nhs.jpeg"
@@ -26,7 +26,7 @@ export class WireframesPage extends Component{
         this.onChangeHandle = this.onChangeHandle.bind(this);
         this.toConvertPage = this.toConvertPage.bind(this);
         this.addToSelected = this.addToSelected.bind(this);
-        this.deleteFromSelected = this.deleteFromSelected.bind(this);
+        this.removeSelected = this.removeSelected.bind(this);
 
     }
 
@@ -61,69 +61,80 @@ export class WireframesPage extends Component{
         })
     }
 
-    addToSelected(chosenID) {
-      let IDlist = [];
-      this.state.wireframeList.forEach(function (item) {
-          IDlist = [...IDlist, item.id];
-      });
-      let chosenOne = IDlist.filter(element => element === chosenID);
-      let newelement = chosenOne[0]
-      this.setState({
-          selected:[...this.state.selected, newelement]
-      });
+    addToSelected(id) {
+        this.setState({
+            selected:[...this.state.selected, id]
+        })
+        console.log("Added to state:", id)
+        console.log("State now:", this.state.selected)
     }
 
-    deleteFromSelected(chosenID) {
-      let toFilter = this.state.selected;
-      let selectOnce = toFilter.filter(element => element !== chosenID);
-      this.setState({
-          selected:selectOnce
-      });
+    removeSelected(id) {
+        var array = Array.from(this.state.selected)
+        var index = array.indexOf(id)
+        if (index !== -1) {
+            array.splice(index, 1)
+            this.setState({selected: array})
+        }
+        console.log("Removed from state:", id)
+        console.log("State now:", this.state.selected)
+    }
+
+    clearSelected = () => {
+        this.setState({ selected: [] })
     }
 
     onChangeHandle(id) {
-        let list = this.state.wireframeList;
-        let exist = this.state.selected;
-        if(exist.length == 0){
-            console.log("select 1",id);
-            this.addToSelected(id);
-        }else{
-            let selectOnce = exist.filter(element => element === id);
-            if(selectOnce.length == 0){
-                console.log("select 2",id);
-                this.addToSelected(id);
-            }else{
-                console.log("delete",id);
-                this.deleteFromSelected(id)
-            }
+        let array = this.state.selected
+        console.log(array.includes(id))
+        if(array.includes(id)){
+            this.removeSelected(id)
+            console.log("deleting",id)
+        } else {
+            this.addToSelected(id)
+            console.log("adding",id)
         }
         console.log("Selected NOW:", this.state.selected)
     }
 
     render() {
         return(
-            <div>
+            <Fragment>
                 <Navigation/>
-                <Button className='redirect-Convert' onClick={(e) => this.toConvertPage()}>
-                    Convert to code
-                </Button>
-                <div className={'card-container row'}>
-                    {this.state.wireframeList.map((item, index) => (
-                        <div className={'col-12 col-sm-6 col-lg-4 col-xl-3 card-wrapper'} key={index}>
-                            <WireframeCard
-                                title={item.name}
-                                image = {item.imageURL}
-                                id = {item.id}
-                            />
-                            <input
-                                type="checkbox"
-                                id={item.id}
-                                onChange={() => this.onChangeHandle(item.id)}
-                            />
+                <div className='container-fluid'>
+                    <div className='row'>
+                        <div className='col-12 d-flex justify-content-center'>
+                            <h3 className='mt-5 mb-5'>Please select the wireframes that you wish to convert to code:</h3>
                         </div>
-                    ))}
+                    </div>
+                    <div className='row'>
+                    </div>
+                    <div className='row'>
+                        {this.state.wireframeList.map((item, index) => (
+                            <div className={'col-12 col-sm-6 col-lg-4 col-xl-3 p-4'} key={index}>
+                                <WireframeCard
+                                    title={item.name}
+                                    image = {item.imageURL}
+                                    id = {item.id}
+                                    selected={this.state.selected.includes(item.id)}
+                                />
+                                <input
+                                    type="checkbox"
+                                    id={item.id}
+                                    onChange={() => this.onChangeHandle(item.id)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <div className='row'>
+                        <div className='col-12 d-flex justify-content-center'>
+                            <Button className='redirect-Convert' onClick={(e) => this.toConvertPage()}>
+                                Convert to code
+                            </Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }
