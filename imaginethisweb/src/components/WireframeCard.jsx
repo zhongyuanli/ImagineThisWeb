@@ -17,7 +17,7 @@ class WireframeCard extends Component{
                 {this.props.selected  &&
                     <Card className='card-selected'>
                         <Card.Img src={this.props.image}/>
-                        <Card.Body>
+                        <Card.Body className='card-body-selected'>
                             <Card.Title>{this.props.title}</Card.Title>
                         </Card.Body>
                     </Card>

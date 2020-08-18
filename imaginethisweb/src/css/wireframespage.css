@@ -1,16 +1,9 @@
-.card-container{
-    border: #e1e4e8 1px solid;
-    margin-top: 3vh;
-    margin-left: 3vw;
-    margin-right: 3vw;
-    padding: 2vh 2vw 2vw 2vh;
-    border-radius: 10px;
-}
-
 .card-wrapper{
-    border: green 2px solid;
-    margin-top: 10px;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+}
+.card-wrapper:hover{
+    transform: scale(1.02);
 }
 
 .redirect-Convert{

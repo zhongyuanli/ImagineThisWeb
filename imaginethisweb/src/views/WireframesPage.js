@@ -70,14 +70,22 @@ export class WireframesPage extends Component{
     }
 
     removeSelected(id) {
-        var array = Array.from(this.state.selected)
-        var index = array.indexOf(id)
+        let array = Array.from(this.state.selected)
+        let index = array.indexOf(id)
         if (index !== -1) {
             array.splice(index, 1)
             this.setState({selected: array})
         }
         console.log("Removed from state:", id)
         console.log("State now:", this.state.selected)
+    }
+
+    selectAll = () => {
+        let array = []
+        this.state.wireframeList.forEach(element => {
+            array.push(element.id)
+        })
+        this.setState({ selected: array })
     }
 
     clearSelected = () => {
@@ -103,26 +111,35 @@ export class WireframesPage extends Component{
                 <Navigation/>
                 <div className='container-fluid'>
                     <div className='row'>
-                        <div className='col-12 d-flex justify-content-center'>
-                            <h3 className='mt-5 mb-5'>Please select the wireframes that you wish to convert to code:</h3>
+                        <div className='col-12 d-flex flex-column align-items-center'>
+                            <h3 className='mt-5 mb-3'>Please select the wireframes that you wish to convert:</h3>
+                            <div>
+                                <span>Currently selected: {this.state.selected.length}</span>
+                                <Button onClick={() => this.selectAll()}>
+                                    Select all
+                                </Button>
+                                <Button onClick={() => this.clearSelected()}>
+                                    Unselect all
+                                </Button>
+                            </div>
                         </div>
                     </div>
                     <div className='row'>
                     </div>
                     <div className='row'>
                         {this.state.wireframeList.map((item, index) => (
-                            <div className={'col-12 col-sm-6 col-lg-4 col-xl-3 p-4'} key={index}>
-                                <WireframeCard
-                                    title={item.name}
-                                    image = {item.imageURL}
-                                    id = {item.id}
-                                    selected={this.state.selected.includes(item.id)}
-                                />
-                                <input
-                                    type="checkbox"
-                                    id={item.id}
-                                    onChange={() => this.onChangeHandle(item.id)}
-                                />
+                            <div className={'col-6 col-sm-4 col-lg-3 col-xl-2 p-4'} key={index}>
+                                <div 
+                                    className='card-wrapper'
+                                    onClick={() => this.onChangeHandle(item.id)}>
+                                    <WireframeCard
+                                        title={item.name}
+                                        image = {item.imageURL}
+                                        id = {item.id}
+                                        selected={this.state.selected.includes(item.id)}
+                                        onChange={() => this.onChangeHandle(item.id)}
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
