@@ -54,8 +54,11 @@ export class WireframesPage extends Component{
             error: function (xhr, status, err) {
                 console.log('error');
             }
-
         })
+        if(responseData.isSuccess){
+            window.location.href = 'http://localhost:8080/downloadFile?fileName='+responseData.fileName;
+        }
+
     }
 
     addToSelected(id) {
@@ -112,13 +115,13 @@ export class WireframesPage extends Component{
                             <div className={'col-6 col-sm-4 col-lg-3 col-xl-2 pt-4 pb-4 pr-3 pl-3'} key={index}>
                                 <div 
                                     className='card-wrapper'
-                                    onClick={() => this.onChangeHandle(item.id)}>
+                                    onClick={() => this.onChangeHandle(item.name)}>
                                     <WireframeCard
                                         title={item.name}
                                         image = {item.imageURL}
                                         id = {item.id}
-                                        selected={this.state.selected.includes(item.id)}
-                                        onChange={() => this.onChangeHandle(item.id)}
+                                        selected={this.state.selected.includes(item.name)}
+                                        onChange={() => this.onChangeHandle(item.name)}
                                     />
                                 </div>
                             </div>
