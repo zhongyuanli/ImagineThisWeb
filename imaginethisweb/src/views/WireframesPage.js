@@ -60,15 +60,15 @@ export class WireframesPage extends Component{
 
     }
 
-    addToSelected(id) {
+    addToSelected(name) {
         this.setState({
-            selected:[...this.state.selected, id]
+            selected:[...this.state.selected, name]
         })
     }
 
-    removeSelected(id) {
+    removeSelected(name) {
         let array = Array.from(this.state.selected)
-        let index = array.indexOf(id)
+        let index = array.indexOf(name)
         if (index !== -1) {
             array.splice(index, 1)
             this.setState({selected: array})
@@ -78,7 +78,7 @@ export class WireframesPage extends Component{
     selectAll = () => {
         let array = []
         this.state.wireframeList.forEach(element => {
-            array.push(element.id)
+            array.push(element.name)
         })
         this.setState({ selected: array })
     }
@@ -87,12 +87,12 @@ export class WireframesPage extends Component{
         this.setState({ selected: [] })
     }
 
-    onChangeHandle(id) {
+    onChangeHandle(name) {
         let array = this.state.selected
-        if(array.includes(id)){
-            this.removeSelected(id)
+        if(array.includes(name)){
+            this.removeSelected(name)
         } else {
-            this.addToSelected(id)
+            this.addToSelected(name)
         }
     }
 
