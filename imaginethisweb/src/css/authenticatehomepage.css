@@ -1,37 +1,13 @@
-.body-content{
-    width: 100vw;
-    height: 100vh;
-    color: black;
-}
-
-.auth-content{
-    margin-top: 10vh;
-    font-size: 25px;
-    font-weight: bold;
-}
-
 .auth-button{
     margin-top: 10vh;
     padding: 20px 40px;
     background-color: #005EB8;
     font-weight: bold;
 }
-.outline-box{
-
-}
 
 .auth-form{
-    border: #e1e4e8 solid 1px;
-    border-radius: 10px;
-    padding: 5vh;
-    min-height: 50vh;
-    margin-left: 30vw;
-    margin-right: 30vw;
-    margin-top: 10vh;
-}
-
-.auth-form-item {
-    margin-top: 15px;
+    margin-top: 30px;
+    margin-bottom: 60px;
 }
 
 .btn-primary{
@@ -41,4 +17,17 @@
 .error_message{
     color: red;
     display: none;
+}
+
+.nav {
+    flex-wrap: nowrap;
+}
+
+.tab-pane {
+    padding: 25px 15px 20px;
+    border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
