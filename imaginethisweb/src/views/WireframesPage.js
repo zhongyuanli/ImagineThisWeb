@@ -5,6 +5,8 @@ import '../css/wireframespage.css'
 import $ from 'jquery'
 import Button from 'react-bootstrap/Button'
 import Cookies from "universal-cookie"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 export class WireframesPage extends Component{
     constructor(props) {
@@ -19,28 +21,29 @@ export class WireframesPage extends Component{
             projectID: cookie.get('projectID'),
             accessToken: cookie.get('accessToken'),
             authType: cookie.get('authType'),
-            selected:[]
+            selected:[],
+            loaderVisible: false,
+            timeMinutes: 0,
+            timeSeconds: 0,
         }
         this.onChangeHandle = this.onChangeHandle.bind(this)
         this.toConvertPage = this.toConvertPage.bind(this)
         this.addToSelected = this.addToSelected.bind(this)
         this.removeSelected = this.removeSelected.bind(this)
+        this.calcTimeEstimate = this.calcTimeEstimate.bind(this)
     }
 
     toConvertPage() {
-        // this.props.history.push({
-        //     pathname: '/convert',
-        //     state:{
-        //         selected:this.state.selected
-        //     }
-        // })
-        let responseData = undefined;
+        this.calcTimeEstimate(this.state.selected.length)
+        this.setState({ 
+            loaderVisible: true,
+        })
         $.ajax({
             type: "POST",
             url: 'http://localhost:8080/generatePage',
             contentType: 'application/json',
             dataType: "json",
-            async: false,
+            async: true,
             data: JSON.stringify({
                 'accessToken': this.state.accessToken,
                 'projectID': this.state.projectID,
@@ -48,16 +51,16 @@ export class WireframesPage extends Component{
                 'pageList': this.state.selected
             }),
             success: function (data) {
-                responseData = data;
-            },
+                if(data.isSuccess){
+                    window.location.href = 'http://localhost:8080/downloadFile?fileName='+data.fileName
+                }
+                this.setState({ loaderVisible: false })
+            }.bind(this),
             error: function (xhr, status, err) {
-                console.log('error');
-            }
+                console.log('error')
+                this.setState({ loaderVisible: false })
+            }.bind(this)
         })
-        if(responseData.isSuccess){
-            window.location.href = 'http://localhost:8080/downloadFile?fileName='+responseData.fileName;
-        }
-
     }
 
     addToSelected(name) {
@@ -94,6 +97,16 @@ export class WireframesPage extends Component{
         } else {
             this.addToSelected(name)
         }
+    }
+
+    calcTimeEstimate(numberOfScreens) {
+        let total = numberOfScreens * 15
+        let minutes = total/60>>0
+        let seconds = total % 60
+        this.setState({ 
+            timeMinutes: minutes,
+            timeSeconds: seconds,
+        })
     }
 
     render() {
@@ -142,12 +155,24 @@ export class WireframesPage extends Component{
                     <span className="bottom-actionbar__selected-text">Currently selected: {this.state.selected.length}</span>
                     <Button 
                         className='bottom-actionbar__button-convert mt-1' 
-                        onClick={(e) => this.toConvertPage()}
+                        onClick={() => this.toConvertPage()}
                         disabled={this.state.selected.length === 0}>
                         Convert to code
                     </Button>
                 </nav>
-
+                {this.state.loaderVisible &&
+                    <div className="d-flex justify-content-center align-items-center loader-background">
+                        <div className="d-flex align-items-center flex-column loader-wrapper">
+                            <h4 className="mb-4">We are generating your App template</h4>
+                            <Loader
+                                type="Watch"
+                                color="#005EB8"
+                                width={50}
+                                height={50}/>
+                            <p className="lead mt-4">This will take approximatelly {this.state.timeMinutes} minute(s) and {this.state.timeSeconds} seconds.</p>
+                        </div>
+                    </div>
+                }
             </Fragment>
         )
     }
