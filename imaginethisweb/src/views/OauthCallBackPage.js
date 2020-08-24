@@ -6,6 +6,7 @@ import Cookies from "universal-cookie"
 import $ from 'jquery'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import {DOMAIN, BACKEND_ADDRESS} from '../consts'
 
 export class OauthCallBackPage extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export class OauthCallBackPage extends Component {
         let params = new URLSearchParams(currentURL)
         let code = params.get('code')
         if (code === null) {
-            window.location.href = 'http://localhost:3000'
+            window.location.href = DOMAIN
         }
 
         this.state = {
@@ -41,7 +42,7 @@ export class OauthCallBackPage extends Component {
                 data: {
                     'client_id': 'HbTuw2lrfAC84htJy0Rtf1',
                     'client_secret': 'ARJJi2cIa7pQLUhN6bJ2d93fWFALfe',
-                    'redirect_uri':'http://localhost:3000/auth',
+                    'redirect_uri': DOMAIN+'/auth',
                     'code':this.state.code,
                     'grant_type':'authorization_code'
                 },
@@ -82,7 +83,7 @@ export class OauthCallBackPage extends Component {
             })
             $.ajax({
                 type: "GET",
-                url: 'http://localhost:8080/authToken',
+                url: BACKEND_ADDRESS+'/authToken',
                 dataType: "json",
                 async: true,
                 data:{

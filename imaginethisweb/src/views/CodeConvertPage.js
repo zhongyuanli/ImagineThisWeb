@@ -1,14 +1,14 @@
-import React, {Component} from "react";
-import Navigation from "../components/Navigation";
-import NHSLogo from "../images/nhs.jpeg"
-import Cookies from "universal-cookie";
+import React, {Component} from "react"
+import Navigation from "../components/Navigation"
+import Cookies from "universal-cookie"
+import {DOMAIN} from '../consts'
 
 export class CodeConvertPage extends Component{
     constructor(props) {
         super(props);
         const cookies = new Cookies();
         if(this.props.history.location.state.selected === undefined){
-            window.location.href = 'http://localhost:3000'
+            window.location.href = DOMAIN
         }
         this.state = {
             selected : this.props.history.location.state.selected,

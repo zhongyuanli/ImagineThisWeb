@@ -7,12 +7,13 @@ import Button from 'react-bootstrap/Button'
 import Cookies from "universal-cookie"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import { DOMAIN, BACKEND_ADDRESS } from '../consts'
 
 export class WireframesPage extends Component{
     constructor(props) {
         super(props)
         if(this.props.history.location.state.wireframeList === undefined){
-            window.location.href = 'http://localhost:3000'
+            window.location.href = DOMAIN
         }
         const cookie = new Cookies()
         this.state = {
@@ -40,7 +41,7 @@ export class WireframesPage extends Component{
         })
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/generatePage',
+            url: BACKEND_ADDRESS + '/generatePage',
             contentType: 'application/json',
             dataType: "json",
             async: true,
@@ -52,7 +53,7 @@ export class WireframesPage extends Component{
             }),
             success: function (data) {
                 if(data.isSuccess){
-                    window.location.href = 'http://localhost:8080/downloadFile?fileName='+data.fileName
+                    window.location.href = BACKEND_ADDRESS + '/downloadFile?fileName='+ data.fileName
                 }
                 this.setState({ loaderVisible: false })
             }.bind(this),

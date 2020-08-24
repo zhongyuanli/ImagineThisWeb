@@ -1,9 +1,9 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {AuthenticateHomePage} from "./views/AuthenticateHomePage"
-import OauthCallBackPage, {Authenticated} from "./views/OauthCallBackPage"
-import {WireframesPage} from "./views/WireframesPage";
-import {CodeConvertPage} from "./views/CodeConvertPage";
+import OauthCallBackPage from "./views/OauthCallBackPage"
+import {WireframesPage} from "./views/WireframesPage"
+import {CodeConvertPage} from "./views/CodeConvertPage"
 
 import { Route, Switch } from 'react-router-dom'
 

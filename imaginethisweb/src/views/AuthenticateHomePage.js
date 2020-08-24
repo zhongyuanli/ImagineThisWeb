@@ -6,6 +6,7 @@ import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import {DOMAIN, BACKEND_ADDRESS} from '../consts'
 
 export class AuthenticateHomePage extends Component {
     constructor(props) {
@@ -59,7 +60,7 @@ export class AuthenticateHomePage extends Component {
             })
             $.ajax({
                 type: "GET",
-                url: 'http://localhost:8080/authToken',
+                url: BACKEND_ADDRESS + '/authToken',
                 dataType: "json",
                 async: true,
                 data: {
@@ -98,7 +99,7 @@ export class AuthenticateHomePage extends Component {
     }
 
     oauthRedirect() {
-        window.location.href = "https://www.figma.com/oauth?client_id=HbTuw2lrfAC84htJy0Rtf1&redirect_uri=http://localhost:3000/auth&scope=file_read&state=get_token&response_type=code"
+        window.location.href = "https://www.figma.com/oauth?client_id=HbTuw2lrfAC84htJy0Rtf1&redirect_uri="+DOMAIN+"/auth&scope=file_read&state=get_token&response_type=code"
     }
 
     render() {
