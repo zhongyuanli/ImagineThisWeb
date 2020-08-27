@@ -25,7 +25,7 @@ class Navigation extends Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Getting Started</Nav.Link>
+                            <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Get Started</Nav.Link>
                             <Nav.Link href="https://imaginethisucl.github.io/guidelines/design%20introduction.html">Guidelines</Nav.Link>
                         </Nav>
                         <Nav>
