@@ -1,7 +1,7 @@
 import React, {
     Component,
 } from 'react'
-import NHSLogo from "../images/nhs.jpeg"
+import Logo from "../images/ImagineThis Text White.png"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
@@ -13,18 +13,15 @@ class Navigation extends Component {
         return(
             <div className="guide-bar">
                 <Navbar collapseOnSelect expand="lg" className="navbar-style" variant="dark">
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand href="/" className="navbar-brand">
                         <img
-                          alt="NHS logo"
-                          src={NHSLogo}
+                          alt="Imagine This logo"
+                          src={Logo}
                           className="d-inline-block align-top"
-                          width="70"
+                          width="170"
                           height="30"
                         />
                     </Navbar.Brand>
-                    <Navbar.Text className="navbar-title">
-                        Imagine This
-                    </Navbar.Text>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
