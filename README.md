@@ -1,4 +1,4 @@
-# ImagineThisWeb
+# Imagine This Web Frontend
 
 ## Access Token && OAuth 2.0 Authentication:
 See this [link](https://www.figma.com/developers/api#access-tokens) to learn how to get Access tokens.
