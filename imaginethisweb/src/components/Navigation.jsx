@@ -28,8 +28,8 @@ class Navigation extends Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="https://imaginethisnhs.github.io/">Getting Started</Nav.Link>
-                            <Nav.Link href="https://imaginethisnhs.github.io/guidelines/introduction.html">Guidelines</Nav.Link>
+                            <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Getting Started</Nav.Link>
+                            <Nav.Link href="https://imaginethisucl.github.io/guidelines/design%20introduction.html">Guidelines</Nav.Link>
                         </Nav>
                         <Nav>
                             <NavDropdown
@@ -37,9 +37,9 @@ class Navigation extends Component {
                               title="GitHub"
                               id="collasible-nav-dropdown"
                             >
-                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisWeb">Web App</NavDropdown.Item>
-                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisServer">Server</NavDropdown.Item>
-                                <NavDropdown.Item href="https://github.com/VojtaAdam/ImagineThis-Mobile">Mobile Components</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisWeb">Web App</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisServer">Server</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThis-Mobile">Mobile Components</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
