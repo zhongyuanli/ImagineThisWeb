@@ -1,7 +1,7 @@
 import React, {
     Component,
 } from 'react'
-import NHSLogo from "../images/nhs.jpeg"
+import Logo from "../images/ImagineThisLogo.png"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
@@ -13,23 +13,20 @@ class Navigation extends Component {
         return(
             <div className="guide-bar">
                 <Navbar collapseOnSelect expand="lg" className="navbar-style" variant="dark">
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand href="/" className="navbar-brand">
                         <img
-                          alt="NHS logo"
-                          src={NHSLogo}
+                          alt="Imagine This logo"
+                          src={Logo}
                           className="d-inline-block align-top"
-                          width="70"
+                          width="165"
                           height="30"
                         />
                     </Navbar.Brand>
-                    <Navbar.Text className="navbar-title">
-                        Imagine This
-                    </Navbar.Text>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="https://imaginethisnhs.github.io/">Getting Started</Nav.Link>
-                            <Nav.Link href="https://imaginethisnhs.github.io/guidelines/introduction.html">Guidelines</Nav.Link>
+                            <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Get Started</Nav.Link>
+                            <Nav.Link href="https://imaginethisucl.github.io/guidelines/design%20introduction.html">Guidelines</Nav.Link>
                         </Nav>
                         <Nav>
                             <NavDropdown
@@ -37,9 +34,9 @@ class Navigation extends Component {
                               title="GitHub"
                               id="collasible-nav-dropdown"
                             >
-                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisWeb">Web App</NavDropdown.Item>
-                                <NavDropdown.Item href="https://github.com/tutuchui/ImagineThisServer">Server</NavDropdown.Item>
-                                <NavDropdown.Item href="https://github.com/VojtaAdam/ImagineThis-Mobile">Mobile Components</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisWeb">Web App</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisServer">Server</NavDropdown.Item>
+                                <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThis-Mobile">Mobile Components</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
