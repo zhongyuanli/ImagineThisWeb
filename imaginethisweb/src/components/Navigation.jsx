@@ -1,7 +1,7 @@
 import React, {
     Component,
 } from 'react'
-import Logo from "../images/ImagineThis Text White.png"
+import Logo from "../images/ImagineThisLogo.png"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
@@ -18,7 +18,7 @@ class Navigation extends Component {
                           alt="Imagine This logo"
                           src={Logo}
                           className="d-inline-block align-top"
-                          width="170"
+                          width="165"
                           height="30"
                         />
                     </Navbar.Brand>
