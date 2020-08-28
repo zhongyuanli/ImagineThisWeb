@@ -1,7 +1,7 @@
 #!/bin/sh
 
-echo "Switching to branch move-to-root"
-git checkout move-to-root
+echo "Switching to branch master"
+git checkout master
 
 echo "Building app"
 npm run build
