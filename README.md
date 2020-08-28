@@ -1,5 +1,5 @@
 # Imagine This Web Frontend
-[![CircleCI](https://circleci.com/gh/ImagineThisUCL/ImagineThisWeb.svg?style=shield&circle-token=27d147dd173387718d5e753769982df6147f014e)](https://app.circleci.com/pipelines/github/ImagineThisUCL)
+[![CircleCI](https://circleci.com/gh/ImagineThisUCL/imaginethisweb.svg?style=shield&circle-token=27d147dd173387718d5e753769982df6147f014e)](https://app.circleci.com/pipelines/github/ImagineThisUCL)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
