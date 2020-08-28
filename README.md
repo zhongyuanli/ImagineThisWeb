@@ -1,4 +1,5 @@
 # Imagine This Web Frontend
+[![CircleCI](https://circleci.com/gh/ImagineThisUCL/ImagineThisWeb.svg?style=shield&circle-token=27d147dd173387718d5e753769982df6147f014e)](https://app.circleci.com/pipelines/github/ImagineThisUCL)
 
 ## Access Token && OAuth 2.0 Authentication:
 See this [link](https://www.figma.com/developers/api#access-tokens) to learn how to get Access tokens.
