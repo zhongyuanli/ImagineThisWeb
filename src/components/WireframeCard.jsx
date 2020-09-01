@@ -2,6 +2,9 @@ import React, {Component, Fragment} from 'react'
 import Card from 'react-bootstrap/Card'
 import '../css/WireframeCard.css'
 
+/*
+* A component to display a single Figma view
+*/
 class WireframeCard extends Component{
     render() {
         return(

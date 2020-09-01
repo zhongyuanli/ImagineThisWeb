@@ -8,6 +8,9 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import {DOMAIN, BACKEND_ADDRESS} from '../consts'
 
+/*
+* A view handling Figma project ID after successful OAuth authentication
+*/
 export class OauthCallBackPage extends Component {
     constructor(props) {
         super(props)
@@ -31,6 +34,9 @@ export class OauthCallBackPage extends Component {
         this.getFigmaProject = this.getFigmaProject.bind(this)
     }
 
+    /*
+    * Authorise the App upon successful page load
+    */
     componentDidMount() {
         let accessToken = undefined
         if (this.state.code !== undefined) {
@@ -60,10 +66,16 @@ export class OauthCallBackPage extends Component {
         }
     }
 
+    /*
+    * OnChange handler to store input field content in state
+    */
     handleChangeProjectID(event) {
         this.setState({projectID: event.target.value})
     }
 
+    /*
+    * Basic form validation
+    */
     validateForm() {
         let error = false
         if (!(this.state.projectID.length > 0)) {
@@ -75,6 +87,9 @@ export class OauthCallBackPage extends Component {
         return error
     }
 
+    /*
+    * Authentication with Access Token and Project ID
+    */
     getFigmaProject(){
         if(!this.validateForm()){
             this.setState({ 

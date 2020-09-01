@@ -5,11 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Access Token && OAuth 2.0 Authentication:
 See this [link](https://www.figma.com/developers/api#access-tokens) to learn how to get Access tokens.
-See this [link](https://www.figma.com/developers/api#oauth2) to learn how to get Access tokens.
-If the app notice you that "the token or the project ID is not correct" please check and make sure that your ImagineThisServer is running before you submit the tokens. 
+See this [link](https://www.figma.com/developers/api#oauth2) to learn how to use OAuth.
 
-## How to run
-If it's your first time running this project, you should probabliy use:
+If the app notices you that "the token or the project ID is not correct" please check again and make sure that your [ImagineThisServer](https://github.com/ImagineThisUCL/ImagineThisServer) is running before you submit the tokens.
+
+## Quick Start Guide
+If it's your first time running this project, you should install all dependencies first:
 ```bash
 $ npm install
 ```

@@ -8,6 +8,9 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import {DOMAIN, BACKEND_ADDRESS} from '../consts'
 
+/*
+* A view handling all authentication
+*/
 export class AuthenticateHomePage extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +30,9 @@ export class AuthenticateHomePage extends Component {
 
     }
 
+    /*
+    * OnChange handlers to store input field contents in state
+    */
     handleChangeToken(event) {
         this.setState({accessToken: event.target.value})
     }
@@ -35,6 +41,9 @@ export class AuthenticateHomePage extends Component {
         this.setState({projectID: event.target.value})
     }
 
+    /*
+    * Basic form validation
+    */
     validateForm() {
         let error = false;
         if (!(this.state.accessToken.length > 0)) {
@@ -52,6 +61,9 @@ export class AuthenticateHomePage extends Component {
         return error
     }
 
+    /*
+    * Authentication with Access Token and Project ID
+    */
     getFigmaProject() {
         if (!this.validateForm()) {
             this.setState({ 
@@ -98,6 +110,10 @@ export class AuthenticateHomePage extends Component {
         }
     }
 
+    /*
+    * Authentication with OAuth 
+    * (Redirect to Figma's OAuth API)
+    */
     oauthRedirect() {
         window.location.href = "https://www.figma.com/oauth?client_id=HbTuw2lrfAC84htJy0Rtf1&redirect_uri="+DOMAIN+"/auth&scope=file_read&state=get_token&response_type=code"
     }
