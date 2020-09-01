@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {AuthenticateHomePage} from "./views/AuthenticateHomePage"
 import OauthCallBackPage from "./views/OauthCallBackPage"
 import {WireframesPage} from "./views/WireframesPage"
-import {CodeConvertPage} from "./views/CodeConvertPage"
 
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
