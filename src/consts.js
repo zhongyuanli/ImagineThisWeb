@@ -1,5 +1,5 @@
 /** application domain */
-export const DOMAIN = 'http://178.79.140.13'
+export const DOMAIN = 'http://212.71.234.198'
 // export const DOMAIN = 'http://localhost:3000'
 
 /** backend address */
