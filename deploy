@@ -10,5 +10,5 @@ echo "Building app"
 npm run build
 
 echo "Deploying files to server"
-rsync -avP build/ deploy@212.71.234.198:/var/www/212.71.234.198/
+rsync -avP build/ deploy@212.71.245.46:/var/www/212.71.245.46/
 echo "Deployment complete"
