@@ -47,7 +47,9 @@ export class OauthCallBackPage extends Component {
                 async: false,
                 data: {
                     'client_id': 'HbTuw2lrfAC84htJy0Rtf1',
-                    'client_secret': 'ARJJi2cIa7pQLUhN6bJ2d93fWFALfe',
+                    // Client Secret for localhost Figma API callback
+                    'client_secret': '7FDsxBbjsgaK1oENh7Qyp5Ep5iLG52',
+                    // 'client_secret': 'ARJJi2cIa7pQLUhN6bJ2d93fWFALfe',
                     'redirect_uri': DOMAIN+'/auth',
                     'code':this.state.code,
                     'grant_type':'authorization_code'
