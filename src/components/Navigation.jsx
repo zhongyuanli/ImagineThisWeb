@@ -7,7 +7,9 @@ import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
 import "../css/guidebar.css"
 
-
+/*
+* Top navigation containing links to all external pages
+*/
 class Navigation extends Component {
     render() {
         return(
@@ -32,7 +34,7 @@ class Navigation extends Component {
                             <NavDropdown
                               alignRight
                               title="GitHub"
-                              id="collasible-nav-dropdown"
+                              id="collapsible-nav-dropdown"
                             >
                                 <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisWeb">Web App</NavDropdown.Item>
                                 <NavDropdown.Item href="https://github.com/ImagineThisUCL/ImagineThisServer">Server</NavDropdown.Item>

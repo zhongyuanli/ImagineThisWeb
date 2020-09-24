@@ -9,6 +9,12 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import { DOMAIN, BACKEND_ADDRESS } from '../consts'
 
+/*
+* A view showing the thumbnails of Figma frames/artboards available for
+* conversion.
+*
+* Allows the selection of frames and their conversion
+*/
 export class WireframesPage extends Component{
     constructor(props) {
         super(props)
@@ -34,6 +40,10 @@ export class WireframesPage extends Component{
         this.calcTimeEstimate = this.calcTimeEstimate.bind(this)
     }
 
+    /*
+    * Send all Figma access data and a list of wireframes to be converted to the backend
+    * Request the conversion
+    */
     toConvertPage() {
         this.calcTimeEstimate(this.state.selected.length)
         this.setState({ 
@@ -64,12 +74,18 @@ export class WireframesPage extends Component{
         })
     }
 
+    /*
+    * Add the wireframe to the list of selected wireframes
+    */
     addToSelected(name) {
         this.setState({
             selected:[...this.state.selected, name]
         })
     }
 
+    /*
+    * Remove the wireframe from the list of selected wireframes
+    */
     removeSelected(name) {
         let array = Array.from(this.state.selected)
         let index = array.indexOf(name)
@@ -79,6 +95,9 @@ export class WireframesPage extends Component{
         }
     }
 
+    /*
+    * Select all wireframes
+    */
     selectAll = () => {
         let array = []
         this.state.wireframeList.forEach(element => {
@@ -87,10 +106,16 @@ export class WireframesPage extends Component{
         this.setState({ selected: array })
     }
 
+    /*
+    * Unselect all wireframes
+    */
     clearSelected = () => {
         this.setState({ selected: [] })
     }
 
+    /*
+    * Handle clicks on wireframes - select/unselect
+    */
     onChangeHandle(name) {
         let array = this.state.selected
         if(array.includes(name)){
@@ -100,6 +125,11 @@ export class WireframesPage extends Component{
         }
     }
 
+    /*
+    * Calculate estimated conversion time
+    *
+    * (Currently works with average conversion time of 15s per screen)
+    */
     calcTimeEstimate(numberOfScreens) {
         let total = numberOfScreens * 15
         let minutes = total/60>>0
@@ -170,7 +200,7 @@ export class WireframesPage extends Component{
                                 color="#005EB8"
                                 width={50}
                                 height={50}/>
-                            <p className="lead mt-4">This will take approximatelly {this.state.timeMinutes} minute(s) and {this.state.timeSeconds} seconds.</p>
+                            <p className="lead mt-4">This will take approximately {this.state.timeMinutes} minute(s) and {this.state.timeSeconds} seconds.</p>
                         </div>
                     </div>
                 }
