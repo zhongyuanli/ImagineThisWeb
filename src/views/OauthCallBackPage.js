@@ -6,7 +6,7 @@ import Cookies from "universal-cookie"
 import $ from 'jquery'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import {DOMAIN, BACKEND_ADDRESS} from '../consts'
+import {DOMAIN, BACKEND_ADDRESS, CLIENT_SECRET} from '../consts'
 
 /*
 * A view handling Figma project ID after successful OAuth authentication
@@ -29,7 +29,7 @@ export class OauthCallBackPage extends Component {
             loaderVisible: false,
             errorMessageVisible: false,
         }
-        
+
         this.handleChangeProjectID = this.handleChangeProjectID.bind(this)
         this.getFigmaProject = this.getFigmaProject.bind(this)
     }
@@ -47,9 +47,7 @@ export class OauthCallBackPage extends Component {
                 async: false,
                 data: {
                     'client_id': 'HbTuw2lrfAC84htJy0Rtf1',
-                    // Client Secret for localhost Figma API callback
-                    'client_secret': '7FDsxBbjsgaK1oENh7Qyp5Ep5iLG52',
-                    // 'client_secret': 'ARJJi2cIa7pQLUhN6bJ2d93fWFALfe',
+                    'client_secret': CLIENT_SECRET,
                     'redirect_uri': DOMAIN+'/auth',
                     'code':this.state.code,
                     'grant_type':'authorization_code'
@@ -94,7 +92,7 @@ export class OauthCallBackPage extends Component {
     */
     getFigmaProject(){
         if(!this.validateForm()){
-            this.setState({ 
+            this.setState({
                 loaderVisible: true,
                 errorMessageVisible: false,
             })
@@ -109,7 +107,7 @@ export class OauthCallBackPage extends Component {
                     'authType': 'oauth2Token'
                 },
                 success: function (data){
-                    this.setState({ 
+                    this.setState({
                         loaderVisible: false,
                         errorMessageVisible: false,
                     })
@@ -128,7 +126,7 @@ export class OauthCallBackPage extends Component {
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.log('error' + err)
-                    this.setState({ 
+                    this.setState({
                         loaderVisible: false,
                         errorMessageVisible: true,
                         projectIDError: true,

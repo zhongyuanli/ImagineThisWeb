@@ -1,7 +1,7 @@
 # Deployment Commands
 
 ## IP Addresses
-Public IP Address: `212.71.245.46`
+Public IP Address: `88.80.186.99`
 
 ## Guides used:
 [Install Nginx](https://www.linode.com/docs/web-servers/nginx/how-to-install-nginx-ubuntu-18-04/)
@@ -13,14 +13,14 @@ Public IP Address: `212.71.245.46`
 
 ## SSH commnad to Linode
 ```bash
-ssh root@212.71.245.46
+ssh root@88.80.186.99
 ```
 
 ## Ubuntu Accounts
 
 ### Root password:
 
-`LujZSKieCKc`
+`imaginethis101`
 
 ### Deployment Account: 
 This is used within the deploy script
@@ -54,12 +54,12 @@ sudo apt install npm
 create folder to hold web app
 
 ```bash
-sudo mkdir /var/www/212.71.245.46
+sudo mkdir /var/www/88.80.186.99
 ```
 
 Allow all users to modify the folder
 ```bash
-sudo chmod 755 -R /var/www/212.71.245.46
+sudo chmod 755 -R /var/www/88.80.186.99
 ```
 
 Disable the default configuration file by removing the symlink in /etc/nginx/sites-enabled/:
@@ -72,7 +72,7 @@ Create the Nginx config file using nano (or vim)
 
 Stored in: `/etc/nginx/sites-available`
 
-File name: `212.71.245.46`
+File name: `88.80.186.99`
 
 *The filename will need to be the name of the IP address or Domain.*
 
@@ -80,9 +80,9 @@ File name: `212.71.245.46`
 server {
     listen  80;
     listen [::]:80;
-    server_name 212.71.245.46;
+    server_name 88.80.186.99;
 
-    root /var/www/212.71.245.46/imaginethisweb/build;
+    root /var/www/88.80.186.99/imaginethisweb/build;
     index index.html;
 
     location / {
@@ -93,7 +93,7 @@ server {
 
 Relink
 ```bash
-sudo ln -s /etc/nginx/sites-available/212.71.245.46 /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/88.80.186.99 /etc/nginx/sites-enabled/
 ```
 
 Test Config for errors:
@@ -107,10 +107,10 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-## Deploy Script
+## Deploy Script - This is already in the imaginethisweb repo
 root of project repo within your local copy (i.e. not on the server)
 
-within the file replace deploy@212.71.245.46 with username and ip address of the server
+within the file replace deploy@88.80.186.99 with username and ip address of the server
 
 file name: `deploy`
 ```
@@ -126,7 +126,7 @@ echo "Building app"
 npm run build
 
 echo "Deploying files to server"
-rsync -avP build/ deploy@212.71.245.46:/var/www/212.71.245.46/
+rsync -avP build/ deploy@88.80.186.99:/var/www/88.80.186.99/
 echo "Deployment complete"
 ```
 
@@ -138,11 +138,11 @@ Make sure to run the commnad from your local machine, not in Linode
 
 [rSync Tutorial 2](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
 
-Synced to `/var/www/212.71.245.46`
+Synced to `/var/www/88.80.186.99`
 
 From local git repo:
 ```bash
-rsync -a /Users/jeremychang/git/imaginethisweb root@212.71.245.46:/var/www/212.71.245.46
+rsync -a /Users/jeremychang/git/imaginethisweb root@88.80.186.99:/var/www/88.80.186.99
 ```
 
 Make the file runable
@@ -150,7 +150,7 @@ Make the file runable
 sudo chmod u+x deploy
 ```
 
-On Nginx Server in `/var/www/212.71.245.46`:
+On Nginx Server in `/var/www/88.80.186.99`:
 
 Run the deploy script
 ```bash
@@ -162,13 +162,13 @@ Run the deploy script
 1. Navigate to project and rsync changes
 
 ```bash
-rsync -a /Users/jeremychang/git/imaginethisweb root@212.71.245.46:/var/www/212.71.245.46
+rsync -a /Users/jeremychang/git/imaginethisweb root@88.80.186.99:/var/www/88.80.186.99
 ```
 Will need to enter __root__ password
 
 2. SSH into Linode Server
 
-Navigate to `/var/www/212.71.245.46/imaginethisweb` folder
+Navigate to `/var/www/88.80.186.99/imaginethisweb` folder
 
 3. Make deploy file executeable 
 ```bash
