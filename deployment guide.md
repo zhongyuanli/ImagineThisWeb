@@ -107,7 +107,7 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-## Deploy Script
+## Deploy Script - This is already in the imaginethisweb repo
 root of project repo within your local copy (i.e. not on the server)
 
 within the file replace deploy@88.80.186.99 with username and ip address of the server
