@@ -6,7 +6,7 @@ import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import {DOMAIN, BACKEND_ADDRESS} from '../consts'
+import {DOMAIN, BACKEND_ADDRESS, CLIENT_ID} from '../consts'
 
 /*
 * A view handling all authentication
