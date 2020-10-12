@@ -3,7 +3,7 @@ export const DOMAIN = 'http://88.80.186.99'
 // export const DOMAIN = 'http://localhost:3000'
 
 /** backend address */
-export const BACKEND_ADDRESS = 'http://139.162.239.246:8080'
+export const BACKEND_ADDRESS = 'http://139.162.239.24:8080'
 
 /** Figma Client ID */
 export const CLIENT_ID = '30GYpNuEA2obzNnPS51yKg'
