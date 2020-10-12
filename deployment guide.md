@@ -34,7 +34,7 @@ adduser deploy sudo
 
 un: `deploy`
 
-pw: `deploy`
+pw: `imaginethis101`
 
 ## Prerequisites installs
 ### Nginx
