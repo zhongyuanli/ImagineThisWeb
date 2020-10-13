@@ -46,8 +46,8 @@ export class OauthCallBackPage extends Component {
                 dataType: "json",
                 async: false,
                 data: {
-                    'client_id': CLIENT_ID,
-                    'client_secret': CLIENT_SECRET,
+                    'client_id': CLIENT_ID+'',
+                    'client_secret': CLIENT_SECRET+'',
                     'redirect_uri': DOMAIN+'/auth',
                     'code':this.state.code,
                     'grant_type':'authorization_code'
