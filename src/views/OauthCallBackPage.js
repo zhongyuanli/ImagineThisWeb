@@ -6,7 +6,7 @@ import Cookies from "universal-cookie"
 import $ from 'jquery'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import {DOMAIN, BACKEND_ADDRESS, CLIENT_SECRET} from '../consts'
+import {DOMAIN, BACKEND_ADDRESS, CLIENT_SECRET, CLIENT_ID} from '../consts'
 
 /*
 * A view handling Figma project ID after successful OAuth authentication
@@ -46,8 +46,8 @@ export class OauthCallBackPage extends Component {
                 dataType: "json",
                 async: false,
                 data: {
-                    'client_id': 'HbTuw2lrfAC84htJy0Rtf1',
-                    'client_secret': CLIENT_SECRET,
+                    'client_id': CLIENT_ID+'',
+                    'client_secret': CLIENT_SECRET+'',
                     'redirect_uri': DOMAIN+'/auth',
                     'code':this.state.code,
                     'grant_type':'authorization_code'

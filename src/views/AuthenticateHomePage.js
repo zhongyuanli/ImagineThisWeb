@@ -6,7 +6,7 @@ import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import {DOMAIN, BACKEND_ADDRESS} from '../consts'
+import {DOMAIN, BACKEND_ADDRESS, CLIENT_ID} from '../consts'
 
 /*
 * A view handling all authentication
@@ -115,7 +115,7 @@ export class AuthenticateHomePage extends Component {
     * (Redirect to Figma's OAuth API)
     */
     oauthRedirect() {
-        window.location.href = "https://www.figma.com/oauth?client_id=HbTuw2lrfAC84htJy0Rtf1&redirect_uri="+DOMAIN+"/auth&scope=file_read&state=get_token&response_type=code"
+        window.location.href = "https://www.figma.com/oauth?client_id="+CLIENT_ID+"&redirect_uri="+DOMAIN+"/auth&scope=file_read&state=get_token&response_type=code"
     }
 
     render() {
