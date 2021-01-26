@@ -29,6 +29,22 @@ class Navigation extends Component {
                         <Nav className="mr-auto">
                             <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Get Started</Nav.Link>
                             <Nav.Link href="https://imaginethisucl.github.io/guidelines/design%20introduction.html">Guidelines</Nav.Link>
+
+                            <div className="input-group">
+                                <div className="input-group-prepend">
+                                    <button
+                                        className="btn btn-light"
+                                        type="button"> Find
+                                    </button>
+                                </div>
+
+                                <input
+                                className={"form-control navbar-input"}
+                                placeholder="Find Project With ID"
+                                />
+
+                            </div>
+
                         </Nav>
                         <Nav>
                             <NavDropdown

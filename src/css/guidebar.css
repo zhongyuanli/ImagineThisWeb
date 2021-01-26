@@ -12,3 +12,15 @@
     padding-bottom: 0px;
 }
 
+/*.navbar-input-group{*/
+/*    margin-left:2px;*/
+/*    padding-left: 5px;*/
+/*}*/
+
+/*For mobile view to take up full width of screen.*/
+@media screen and (min-width: 992px) {
+    .input-group{
+        width:275px;
+    }
+}
+
