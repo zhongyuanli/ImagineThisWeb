@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82ff6100-37d5-40cb-99d2-da68ca698610" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/authenticatehomepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/authenticatehomepage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/guidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/guidebar.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
       <workItem from="1611577288983" duration="4508000" />
       <workItem from="1611626018962" duration="1136000" />
       <workItem from="1611670984523" duration="2202000" />
-      <workItem from="1611712311785" duration="43000" />
+      <workItem from="1611712311785" duration="1444000" />
     </task>
     <servers />
   </component>

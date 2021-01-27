@@ -11,6 +11,10 @@ import "../css/guidebar.css"
 * Top navigation containing links to all external pages
 */
 class Navigation extends Component {
+    constructor(props) {
+        super(props);
+        this.findId = this.findId.bind(this);
+    }
     render() {
         return(
             <div className="guide-bar">
@@ -35,7 +39,7 @@ class Navigation extends Component {
                                     <button
                                         className="btn btn-light"
                                         type="button"
-                                        id="find_btn"> Find
+                                        id="find_btn" onClick={this.findId}> Find
                                     </button>
                                     <input
                                         className={"form-control navbar-input"}
@@ -64,6 +68,10 @@ class Navigation extends Component {
                 </Navbar>
             </div>
         )
+    }
+    findId(){
+        var projectID = document.getElementById("input_area").value;
+        console.log(projectID);
     }
 }
 
