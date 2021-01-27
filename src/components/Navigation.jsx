@@ -34,14 +34,17 @@ class Navigation extends Component {
                                 <div className="input-group-prepend">
                                     <button
                                         className="btn btn-light"
-                                        type="button"> Find
+                                        type="button"
+                                        id="find_btn"> Find
                                     </button>
+                                    <input
+                                        className={"form-control navbar-input"}
+                                        id="input_area"
+                                        placeholder="Find Project With ID"
+                                    />
                                 </div>
 
-                                <input
-                                className={"form-control navbar-input"}
-                                placeholder="Find Project With ID"
-                                />
+
 
                             </div>
 

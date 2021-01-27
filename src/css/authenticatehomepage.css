@@ -10,6 +10,11 @@
     margin-bottom: 60px;
 }
 
+.btn btn-light{
+    margin-top: 50px;
+    font-size: 30px;
+}
+
 .btn-primary{
     background-color: #005EB8;
 }
