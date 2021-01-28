@@ -9,7 +9,7 @@ export class CommentsPage extends Component {
     return (
       <Fragment>
         <Navigation />
-        <CommentBox url="data.json" />,
+        <CommentBox url="http://localhost:8080/api/v1/projects/MgWqYTZMdjG26oA1CxbWaE/feedback" />,
       </Fragment>
     );
   }
