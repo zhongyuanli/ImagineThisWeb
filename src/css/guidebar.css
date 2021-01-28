@@ -24,9 +24,16 @@
     }
 }
 
-.navbar-input {
+.navbar-input{
     height: auto;
+    border-right: none;
 }
+
+.navbar-input,
+.search-button {
+    border-radius: 20px;
+}
+
 .search-button:focus,
 .navbar-input:focus {
     outline: none;
@@ -38,4 +45,5 @@
 .search-button:focus {
     background: #fff;
     border: 1px solid #ced4da;
+    border-left: none;
 }
