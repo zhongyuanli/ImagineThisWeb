@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import $ from "jquery";
+import axios from "axios";
 import CommentList from "./CommentList.jsx";
 import CommentForm from "./CommentForm.jsx";
 import Badge from "react-bootstrap/Badge";
@@ -11,14 +11,10 @@ class CommentBox extends React.Component {
   }
 
   componentDidMount() {
-    fetch(this.props.url)
+    axios.get(this.props.url)
       .then(res => {
-        if (res.ok) {
-          res.json()
-            .then(data => {
-              console.log(data)
-              this.setState({ comments: data })
-            })
+        if (res.status == 200) {
+          this.setState({ comments: res.data })
         }
       })
   }
