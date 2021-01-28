@@ -8,7 +8,7 @@ class CommentList extends Component {
   render() {
     let commentNodes = this.props.comments.map(function (comment, index) {
       return (
-        <Comment key={index} author={comment.author} created={comment.created}>
+        <Comment key={index} author={comment.userName} created={new Date(comment.timestamp).toDateString()}>
           {comment.text}
         </Comment>
       );
