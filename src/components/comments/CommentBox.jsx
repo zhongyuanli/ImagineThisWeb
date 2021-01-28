@@ -11,17 +11,16 @@ class CommentBox extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      url: this.props.url,
-      dataType: "json",
-      cache: false,
-      success: function (resp) {
-        this.setState({ comments: resp });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this),
-    });
+    fetch(this.props.url)
+      .then(res => {
+        if (res.ok) {
+          res.json()
+            .then(data => {
+              console.log(data)
+              this.setState({ comments: data })
+            })
+        }
+      })
   }
 
   handleCommentSubmit(newComment) {
