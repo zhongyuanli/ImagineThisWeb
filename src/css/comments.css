@@ -1,0 +1,28 @@
+.vote_area {
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.vote_count {
+    font-size: 10px;
+    text-align: center;
+}
+
+
+.vote_icon {
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    border: none;
+}
+
+.upvote_icon {
+    background-image: url("../assets/upvote-icon-11.jpg");
+}
+
+.downvote_icon {
+
+    background-image: url("../assets/Daco_4461294.png");
+
+}
