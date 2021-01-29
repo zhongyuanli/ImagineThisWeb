@@ -3,25 +3,21 @@ import Card from "react-bootstrap/Card";
 import '../../assets/upvote-icon-11.jpg'
 import '../../css/comments.css'
 
-// const sectionStyle = {
-//   width: '30px',
-//   height: '30px',
-//   backgroundImage: "url(../../ assets / upvote-icon-11.jpg')",
-// }
-
 class Comment extends Component {
   constructor(props) {
-
     super(props);
-    this.state = { upCount: 0, downCount: 0 };
+
+    if (props.upvote == undefined && props.downvote == undefined) {
+      this.state = { upCount: 0, downCount: 0 };
+    }
+    else {
+      this.state = { upCount: props.upvote, downCount: props.downvote };
+    }
   }
 
   upvote = () => {
     var upcount = this.state.upCount;
     this.setState({ upCount: upcount + 1 });
-    // var upSpan = document.getElementById("upvote_count");
-    // var count = parseInt(upSpan.innerHTML);
-    // upSpan.innerHTML = count + 1;
 
   }
 

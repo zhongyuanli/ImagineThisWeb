@@ -3,18 +3,24 @@
     "id": "1",
     "author": "Kim Kardashian",
     "created": "3 hours ago",
-    "text": "Beautiful, just take my money."
+    "text": "Beautiful, just take my money.",
+    "upvote": 3,
+    "downvote": 0
   },
   {
     "id": "2",
     "author": "Bill Gates",
     "created": "5 hours ago",
-    "text": "Fantastic design."
+    "text": "Fantastic design.",
+    "upvote": 1,
+    "downvote": 10
   },
   {
     "id": "3",
     "author": "Steve Jobs",
     "created": "2 days ago",
-    "text": "I think the image in the second view should be a bit smaller."
+    "text": "I think the image in the second view should be a bit smaller.",
+    "upvote": 2,
+    "downvote": 1
   }
 ]
