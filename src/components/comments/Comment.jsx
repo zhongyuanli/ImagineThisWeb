@@ -7,7 +7,7 @@ class Comment extends Component {
     this.state = {
       upvote: false,
       downvote: false,
-      voteCount: this.props.votes,
+      voteCount: this.props.votes ?? 0,
     };
   }
 
@@ -17,7 +17,7 @@ class Comment extends Component {
         <br />
         <Card bg="light">
           <Card.Header>
-            {this.props.author} - {this.props.created}
+            {this.props.author} - {this.props.created ?? "just now"}
             <span>
               <i
                 className={`icon icon-downvote ${
