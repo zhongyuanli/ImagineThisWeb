@@ -23,15 +23,14 @@ class Comment extends Component {
                 className={`icon icon-downvote ${
                   this.state.downvote ? "voted" : null
                 }`}
-                onClick={() =>
-                  this.setState(
-                    {
+                onClick={
+                  !this.state.downvote &&
+                  (() =>
+                    this.setState({
                       downvote: !this.state.downvote,
                       upvote: false,
                       voteCount: this.state.voteCount - 1,
-                    },
-                    console.log(this.state)
-                  )
+                    }))
                 }
               ></i>
             </span>
@@ -41,15 +40,14 @@ class Comment extends Component {
                 className={`icon icon-upvote ${
                   this.state.upvote ? "voted" : null
                 }`}
-                onClick={() =>
-                  this.setState(
-                    {
+                onClick={
+                  !this.state.upvote &&
+                  (() =>
+                    this.setState({
                       upvote: !this.state.upvote,
                       downvote: false,
                       voteCount: this.state.voteCount + 1,
-                    },
-                    console.log(this.state)
-                  )
+                    }))
                 }
               ></i>
             </span>
