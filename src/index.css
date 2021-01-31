@@ -54,3 +54,8 @@ code {
 .voted {
   color: #007bff;
 }
+
+.share:before {
+  content: "\f136";
+  font-style: normal;
+}

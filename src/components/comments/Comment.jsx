@@ -11,6 +11,50 @@ class Comment extends Component {
     };
   }
 
+  toggle = (vote) => {
+    if (vote === "upvote") {
+      if (!this.state.upvote && !this.state.downvote) {
+        this.setState({
+          downvote: false,
+          upvote: !this.state.upvote,
+          voteCount: this.state.voteCount + 1,
+        });
+      } else if (this.state.downvote && !this.state.upvote) {
+        this.setState({
+          downvote: false,
+          upvote: !this.state.upvote,
+          voteCount: this.state.voteCount + 2,
+        });
+      } else {
+        this.setState({
+          downvote: false,
+          upvote: false,
+          voteCount: this.state.voteCount - 1,
+        });
+      }
+    } else {
+      if (!this.state.downvote && !this.state.upvote) {
+        this.setState({
+          downvote: !this.state.downvote,
+          upvote: false,
+          voteCount: this.state.voteCount - 1,
+        });
+      } else if (!this.state.downvote && this.state.upvote) {
+        this.setState({
+          downvote: !this.state.downvote,
+          upvote: false,
+          voteCount: this.state.voteCount - 2,
+        });
+      } else {
+        this.setState({
+          downvote: false,
+          upvote: false,
+          voteCount: this.state.voteCount + 1,
+        });
+      }
+    }
+  };
+
   render() {
     return (
       <div>
@@ -23,15 +67,7 @@ class Comment extends Component {
                 className={`icon icon-downvote ${
                   this.state.downvote ? "voted" : null
                 }`}
-                onClick={
-                  !this.state.downvote &&
-                  (() =>
-                    this.setState({
-                      downvote: !this.state.downvote,
-                      upvote: false,
-                      voteCount: this.state.voteCount - 1,
-                    }))
-                }
+                onClick={() => this.toggle("downvote")}
               ></i>
             </span>
             <span>{this.state.voteCount}</span>
@@ -40,24 +76,13 @@ class Comment extends Component {
                 className={`icon icon-upvote ${
                   this.state.upvote ? "voted" : null
                 }`}
-                onClick={
-                  !this.state.upvote &&
-                  (() =>
-                    this.setState({
-                      upvote: !this.state.upvote,
-                      downvote: false,
-                      voteCount: this.state.voteCount + 1,
-                    }))
-                }
+                onClick={() => this.toggle("upvote")}
               ></i>
             </span>
           </Card.Header>
           <Card.Body>
-            {/* <Card.Title>{this.props.children}</Card.Title> */}
             <Card.Text>{this.props.children}</Card.Text>
           </Card.Body>
-
-          {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
         </Card>
       </div>
     );

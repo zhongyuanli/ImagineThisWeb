@@ -40,7 +40,7 @@ class CommentBox extends React.Component {
               Feedback System for the Project ID:{" "}
               <Badge variant="primary">ds345dtfdf4ff</Badge>
             </h3>
-
+            <span className="icon share">Share</span>
             <CommentForm
               onCommentSubmit={this.handleCommentSubmit.bind(this)}
             />
