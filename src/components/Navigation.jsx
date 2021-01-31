@@ -1,5 +1,5 @@
 import React, {
-    Component,
+    Component
 } from 'react'
 import Logo from "../images/ImagineThisLogo.png"
 import Navbar from "react-bootstrap/Navbar"
@@ -10,6 +10,11 @@ import Form from "react-bootstrap/Form"
 import FormControl from "react-bootstrap/FormControl"
 import InputGroup from "react-bootstrap/InputGroup"
 import Button from "react-bootstrap/Button"
+import axios from "axios";
+
+import MyAlert from "../Alert";
+const host = "http://localhost:8080";
+
 
 /*
 * Top navigation containing links to all external pages
@@ -23,23 +28,44 @@ class Navigation extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
     handleChange(event) {
         this.setState({ value: event.target.value });
     }
 
     handleSubmit(event) {
-        if (this.state.value === '223') {
-            alert('ID:' + this.state.value + 'Found');
-        }
-        else if (this.state.value == "") {
-            alert("ID can not be empty");
-        }
-        else {
-            alert('ID Not Found')
-        }
+        var url = host +"/api/v1/projects/"+ this.state.value +"/feedback"
+        axios.get(url).then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    return(
+                        <>
+                          <MyAlert/>
+                        </>
+                    )
+                }
+
+                else {
+                    console.log("Not Here.")
+                }
+            }
+        );
+
+
+        // if (this.state.value === '223') {
+        //     alert('ID:' + this.state.value + 'Found');
+        // }
+        // else if (this.state.value === "") {
+        //     alert("ID can not be empty");
+        // }
+        // else {
+        //     alert('ID Not Found')
+        // }
 
         event.preventDefault();
     }
+
+
 
     render() {
         return (
@@ -59,37 +85,6 @@ class Navigation extends Component {
                         <Nav className="">
                             <Nav.Link href="https://imaginethisucl.github.io/getting%20started/how%20to%20use.html">Get Started</Nav.Link>
                             <Nav.Link href="https://imaginethisucl.github.io/guidelines/design%20introduction.html">Guidelines</Nav.Link>
-
-                            {/*   <Form className="input-group" onSubmit={this.handleSubmit}>*/}
-                            {/*    /!*<div className="input-group">*!/*/}
-                            {/*        <div className="input-group-prepend">*/}
-                            {/*            <button*/}
-                            {/*                className="btn btn-light search-button"*/}
-                            {/*                onClick=""*/}
-                            {/*                type="button">*/}
-                            {/*                <svg xmlns="http://www.w3.org/2000/svg"*/}
-                            {/*                     width="16" height="16"*/}
-                            {/*                     fill="currentColor"*/}
-                            {/*                     className="bi bi-search"*/}
-                            {/*                     viewBox="0 0 16 16">*/}
-                            {/*                    <path*/}
-                            {/*                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>*/}
-                            {/*                </svg>*/}
-                            {/*            </button>*/}
-                            {/*        </div>*/}
-
-                            {/*        <input*/}
-                            {/*            className={"form-control navbar-input"}*/}
-                            {/*            // placeholder="Find Project With ID"*/}
-                            {/*            name={this.projectID}*/}
-                            {/*            value={this.state.value}*/}
-                            {/*            onChange={this.handleChange}*/}
-
-                            {/*        />*/}
-                            {/*    /!*</div>*!/*/}
-                            {/*</Form>*/}
-
-                            {/*<div className="input-group">*/}
 
                         </Nav>
                         <Nav className="mr-auto">
