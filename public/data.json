@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "author": "Kim Kardashian",
+    "created": "3 hours ago",
+    "text": "Beautiful, just take my money."
+  },
+  {
+    "id": "2",
+    "author": "Bill Gates",
+    "created": "5 hours ago",
+    "text": "Fantastic design."
+  },
+  {
+    "id": "3",
+    "author": "Steve Jobs",
+    "created": "2 days ago",
+    "text": "I think the image in the second view should be a bit smaller."
+  }
+]
