@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import $ from "jquery";
 import CommentList from "./CommentList.jsx";
 import CommentForm from "./CommentForm.jsx";
 import Badge from "react-bootstrap/Badge";
@@ -11,12 +11,17 @@ class CommentBox extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(this.props.url)
-      .then(res => {
-        if (res.status == 200) {
-          this.setState({ comments: res.data })
-        }
-      })
+    $.ajax({
+      url: this.props.url,
+      dataType: "json",
+      cache: false,
+      success: function (resp) {
+        this.setState({ comments: resp });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this),
+    });
   }
 
   handleCommentSubmit(newComment) {
