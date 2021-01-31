@@ -7,7 +7,7 @@ class Comment extends Component {
     this.state = {
       upvote: false,
       downvote: false,
-      voteCount: 0,
+      voteCount: this.props.votes,
     };
   }
 
