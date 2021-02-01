@@ -11,10 +11,7 @@ import FormControl from "react-bootstrap/FormControl"
 import InputGroup from "react-bootstrap/InputGroup"
 import Button from "react-bootstrap/Button"
 import axios from "axios";
-
-import MyAlert from "../Alert";
 const host = "http://localhost:8080";
-
 
 /*
 * Top navigation containing links to all external pages
@@ -34,38 +31,21 @@ class Navigation extends Component {
     }
 
     handleSubmit(event) {
-        var url = host +"/api/v1/projects/"+ this.state.value +"/feedback"
+        var url = host + "/api/v1/projects/" + this.state.value + "/feedback"
         axios.get(url).then(res => {
-                if (res.status === 200) {
-                    console.log(res.data);
-                    return(
-                        <>
-                          <MyAlert/>
-                        </>
-                    )
-                }
-
-                else {
-                    console.log("Not Here.")
-                }
-            }
+              if (res.status === 200) {
+                  console.log(res.data);
+                  alert('ID:' + this.state.value + ' Found');
+              } else if (this.state.value === "") {
+                  alert("ID can not be empty");
+              } else {
+                  alert("Project ID doesn't exist")
+                  console.log("Not Here.")
+              }
+          }
         );
-
-
-        // if (this.state.value === '223') {
-        //     alert('ID:' + this.state.value + 'Found');
-        // }
-        // else if (this.state.value === "") {
-        //     alert("ID can not be empty");
-        // }
-        // else {
-        //     alert('ID Not Found')
-        // }
-
         event.preventDefault();
     }
-
-
 
     render() {
         return (
