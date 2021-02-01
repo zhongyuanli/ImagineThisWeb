@@ -14,11 +14,25 @@
     height: 30px;
     width: 30px;
     background-size: cover;
-    border: none;
 }
 
 .upvote_icon {
     background-image: url("../assets/upvote-icon-11.jpg");
+}
+
+.upvoted {
+    border-radius: 20px;
+    border-width: 2px;
+
+}
+
+.downvoted {
+    border-radius: 20px;
+    border-width: 2px;
+}
+
+.normal_btn {
+    border: none;
 }
 
 .downvote_icon {

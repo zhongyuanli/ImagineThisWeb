@@ -75,12 +75,17 @@ class Comment extends Component {
         <Card bg="light">
           <Card.Header>
             {this.props.author} - {this.props.created}
+
             <div className="vote_area" id="downvoting_area">
-              <button className="vote_icon downvote_icon" onClick={this.downvote}></button>
+              <button className={`vote_icon downvote_icon ${this.state.voted == "downvote" ? 'downvoted' : 'normal_btn'}`}
+                onClick={this.downvote}>
+              </button>
               <span className="vote_count" id="downvote_count">{downCount}</span>
             </div>
+
             <div className="vote_area" id="upvoting_area">
-              <button className="vote_icon upvote_icon" onClick={this.upvote}></button>
+              <button className={`vote_icon upvote_icon ${this.state.voted == "upvote" ? 'upvoted' : 'normal_btn'}`}
+                onClick={this.upvote}></button>
               <span className="vote_count" id="upvote_count" >{upCount}</span>
             </div>
 
