@@ -12,3 +12,38 @@
     padding-bottom: 0px;
 }
 
+/*.navbar-input-group{*/
+/*    margin-left:2px;*/
+/*    padding-left: 5px;*/
+/*}*/
+
+/*For mobile view to take up full width of screen.*/
+@media screen and (min-width: 992px) {
+    .navbar-group {
+        width: 275px;
+    }
+}
+
+.navbar-input{
+    height: auto;
+    border-right: none;
+}
+
+.navbar-input,
+.search-button {
+    border-radius: 20px;
+}
+
+.search-button:focus,
+.navbar-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-button,
+.search-button:hover,
+.search-button:focus {
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-left: none;
+}
