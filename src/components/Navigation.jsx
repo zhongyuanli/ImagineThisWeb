@@ -11,7 +11,10 @@ import FormControl from "react-bootstrap/FormControl"
 import InputGroup from "react-bootstrap/InputGroup"
 import Button from "react-bootstrap/Button"
 import axios from "axios";
+
+
 const host = "http://localhost:8080";
+
 
 /*
  * Top navigation containing links to all external pages
@@ -34,7 +37,9 @@ class Navigation extends Component {
     axios.get(url).then(res => {
         if (res.status === 200) {
           console.log(res.data);
-          alert('ID:' + this.state.value + ' Found');
+          // alert('ID:' + this.state.value + ' Found');
+          window.location.href="/comments"
+
         } else if (this.state.value === "") {
           alert("ID can not be empty");
         } else {
