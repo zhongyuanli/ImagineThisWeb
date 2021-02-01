@@ -1,13 +1,61 @@
+@font-face {
+  font-family: "redesignFont";
+  src: url("./assets/redesignFont.609ca751be826dcedc5191666a4365c5.eot"),
+    url("./assets/redesignFont.609ca751be826dcedc5191666a4365c5.woff"),
+    url("./assets/redesignFont.609ca751be826dcedc5191666a4365c5.ttf"),
+    url("./assets/redesignFont.609ca751be826dcedc5191666a4365c5.svg");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.card .card-header {
+  padding: 0.5rem 1.25rem;
+}
+
+.card .card-header span {
+  float: right;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.icon:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "redesignFont";
+}
+
+.icon-upvote:before {
+  content: "\f13d";
+  font-style: normal;
+}
+
+.icon-downvote:before {
+  content: "\f110";
+  font-style: normal;
+}
+
+.icon:hover {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.voted {
+  color: #007bff;
+}
+
+.share:before {
+  content: "\f136";
+  font-style: normal;
 }
