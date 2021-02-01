@@ -8,22 +8,62 @@ class Comment extends Component {
     super(props);
 
     if (props.upvote == undefined && props.downvote == undefined) {
-      this.state = { upCount: 0, downCount: 0 };
+      this.state = { upCount: 0, downCount: 0, voted: false };
     }
     else {
-      this.state = { upCount: props.upvote, downCount: props.downvote };
+      this.state = { upCount: props.upvote, downCount: props.downvote, voted: false };
     }
   }
 
   upvote = () => {
     var upcount = this.state.upCount;
-    this.setState({ upCount: upcount + 1 });
+    var downcount = this.state.downCount;
+    if (this.state.voted == false) {
+      this.setState({
+        upCount: upcount + 1,
+        voted: 'upvote'
+      });
+    }
+    else if (this.state.voted == 'upvote') {
+      this.setState({
+        upCount: upcount - 1,
+        voted: false
+      });
+    }
+    else if (this.state.voted == 'downvote') {
+      this.setState({
+        downCount: downcount - 1,
+        upCount: upcount + 1,
+        voted: "upvote"
+      })
+    }
+
 
   }
 
   downvote = () => {
+    var upcount = this.state.upCount;
     var downcount = this.state.downCount;
-    this.setState({ downCount: downcount + 1 });
+    if (this.state.voted == false) {
+      this.setState({
+        downCount: downcount + 1,
+        voted: 'downvote'
+      });
+    }
+    else if (this.state.voted == 'downvote') {
+      this.setState({
+        downCount: downcount - 1,
+        voted: false
+      });
+    }
+    else if (this.state.voted == 'upvote') {
+      this.setState({
+        downCount: downcount + 1,
+        upCount: upcount - 1,
+        voted: 'downvote'
+      })
+    }
+
   }
 
 
