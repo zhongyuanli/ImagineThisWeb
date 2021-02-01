@@ -1,7 +1,7 @@
 import React, {
     Component
 } from 'react'
-import Logo from "../images/ImagineThisLogo.png"
+import Logo from "../assets/ImagineThisLogo.png"
 import Navbar from "react-bootstrap/Navbar"
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
