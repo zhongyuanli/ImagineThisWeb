@@ -88,7 +88,7 @@ class Navigation extends Component {
             </Nav>
 
             <Nav>
-              <Form onSubmit={this.handleSubmit} className="input-group">
+              <Form onSubmit={this.handleSubmit} className="input-group navbar-group">
                 <InputGroup className="input-group-prepend">
                   <FormControl
                     className="form-control navbar-input"

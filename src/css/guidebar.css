@@ -19,7 +19,7 @@
 
 /*For mobile view to take up full width of screen.*/
 @media screen and (min-width: 992px) {
-    .input-group {
+    .navbar-group {
         width: 275px;
     }
 }
