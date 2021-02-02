@@ -38,7 +38,7 @@ class CommentBox extends React.Component {
           <div className="panel-body">
             <h3>
               Feedback System for the Project ID:{" "}
-              <Badge variant="primary">ds345dtfdf4ff</Badge>
+              <Badge variant="primary" id="projectID">ds345dtfdf4ff</Badge>
             </h3>
             <span className="icon share">Share</span>
             <CommentForm
