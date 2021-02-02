@@ -8,14 +8,18 @@ class CommentBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = { comments: [] };
+    console.log(this.props.url);
   }
 
   componentDidMount() {
+    var projectID = this.props.projectID;
     $.ajax({
-      url: this.props.url,
+      type:'GET',
+      url: "http://localhost:8080/api/v1/projects/"+projectID+"/feedback",
       dataType: "json",
       cache: false,
       success: function (resp) {
+        console.log(resp);
         this.setState({ comments: resp });
       }.bind(this),
       error: function (xhr, status, err) {
