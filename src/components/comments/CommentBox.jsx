@@ -8,7 +8,6 @@ class CommentBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = { comments: [] };
-    console.log(this.props.url);
   }
 
   componentDidMount() {
@@ -19,8 +18,22 @@ class CommentBox extends React.Component {
       dataType: "json",
       cache: false,
       success: function (resp) {
+        let commentlist = new Array();
+        for(let i = 0; i<resp.length ; i++){
+          var entity = {
+            "key":resp[i].projectID,
+            "author":resp[i].userName ,
+            "created":0,
+            "text":resp[i].text,
+            "votes":resp[i].upvotes - resp[i].downvotes
+          };
+          commentlist.push(entity);
+
+        }
+
+
         console.log(resp);
-        this.setState({ comments: resp });
+        this.setState({ comments: commentlist });
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
