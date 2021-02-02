@@ -22,12 +22,13 @@ class CommentForm extends Component {
 
     //firstly get the project ID
     let projectID = document.getElementById("projectID").innerHTML;
+    let date = new Date();
     var params = {
       "downvotes": 0,
       "feedbackID": "cb791e97-a402-4174-95ea-dab2c3f06b25",
       "projectID": projectID,
       "text": text,
-      "timestamp": 1611660815823,
+      "timestamp": date.getTime().toString(),
       "upvotes": 0,
       "userID": "bd96ccc0-eeff-48e8-8b4e-652675dbc9a2",
       "userName": author
