@@ -61,7 +61,7 @@ class Comment extends Component {
         <br />
         <Card bg="light">
           <Card.Header>
-            {this.props.author} - {this.props.created ?? "just now"}
+            <b> {this.props.author} </b> - {this.props.created ?? "just now"}{" "}
             <span>
               <i
                 className={`icon icon-downvote ${

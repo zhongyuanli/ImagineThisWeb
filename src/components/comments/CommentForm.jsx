@@ -4,8 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
-
-import $ from "jquery";
+import axios from "axios";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class CommentForm extends Component {
   constructor(props) {
@@ -21,10 +21,19 @@ class CommentForm extends Component {
       return;
     }
 
+    this.setComment(text, author);
+
+    this.props.onCommentSubmit({ author: author, text: text });
+    ReactDOM.findDOMNode(this.refs.author).value = "";
+    ReactDOM.findDOMNode(this.refs.text).value = "";
+    ReactDOM.findDOMNode(this.refs.author).focus();
+  }
+
+  setComment = (text, author) => {
     //firstly get the project ID
     let projectID = document.getElementById("projectID").innerHTML;
     let date = new Date();
-    var params = {
+    var data = {
       downvotes: 0,
       feedbackID: "cb791e97-a402-4174-95ea-dab2c3f06b25",
       projectID: projectID,
@@ -35,24 +44,15 @@ class CommentForm extends Component {
       userName: author,
     };
 
-    // send the ajax request
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:8080/api/v1/projects/" + projectID + "/feedback",
-      dataType: "json",
-      contentType: "application/json;charset=UTF-8",
-      data: JSON.stringify(params),
-      crossDomain: true,
-      success: function (resp) {
-        console.log(resp);
-      },
-    });
-
-    this.props.onCommentSubmit({ author: author, text: text });
-    ReactDOM.findDOMNode(this.refs.author).value = "";
-    ReactDOM.findDOMNode(this.refs.text).value = "";
-    ReactDOM.findDOMNode(this.refs.author).focus();
-  }
+    axios
+      .post(`http://localhost:8080/api/v1/projects/${projectID}/feedback`, data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   render() {
     return (
@@ -77,10 +77,11 @@ class CommentForm extends Component {
 
             <InputGroup>
               <FormControl
+                rows={4}
                 input
                 className="form-control"
                 type="text"
-                placeholder="Say somthing here..."
+                placeholder="Leave your feedback here.."
                 ref="text"
                 as="textarea"
                 aria-label="With textarea"
@@ -90,6 +91,16 @@ class CommentForm extends Component {
             <Button input variant="primary" type="submit" value="Post">
               Post
             </Button>
+            {/* <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Sort
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-2">Best</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">Newest</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown> */}
           </Form>
         </div>
       </div>

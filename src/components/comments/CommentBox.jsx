@@ -1,5 +1,4 @@
 import React from "react";
-import $ from "jquery";
 import CommentList from "./CommentList.jsx";
 import CommentForm from "./CommentForm.jsx";
 import Badge from "react-bootstrap/Badge";
@@ -27,7 +26,7 @@ class CommentBox extends React.Component {
 
           const comment = {
             author: userName,
-            created: moment(timestamp).format("DD/MM HH:mm:ss"),
+            created: moment(timestamp).format("DD/MM/YY HH:mm"),
             text,
             votes: upvotes - downvotes,
           };
@@ -58,11 +57,12 @@ class CommentBox extends React.Component {
         <div className="commentBox panel panel-default">
           <div className="panel-body">
             <h3>
-              Feedback System for the Project ID:{" "}
+              Feedback Board for the Project ID:{" "}
               <Badge variant="primary" id="projectID">
                 {this.props.projectID}
               </Badge>
             </h3>
+
             <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             <CommentList comments={this.state.comments} />
           </div>
