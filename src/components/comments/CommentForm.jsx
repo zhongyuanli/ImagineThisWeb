@@ -33,7 +33,7 @@ class CommentForm extends Component {
     //firstly get the project ID
     let projectID = document.getElementById("projectID").innerHTML;
     let date = new Date();
-    var data = {
+    const data = {
       downvotes: 0,
       feedbackID: "cb791e97-a402-4174-95ea-dab2c3f06b25",
       projectID: projectID,

@@ -19,7 +19,7 @@ class CommentBox extends React.Component {
     axios
       .get(`http://localhost:8080/api/v1/projects/${projectID}/feedback`)
       .then((res) => {
-        let commentlist = [];
+        const commentlist = [];
 
         for (let i in res.data) {
           const { downvotes, text, timestamp, upvotes, userName } = res.data[i];
