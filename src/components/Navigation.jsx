@@ -37,7 +37,7 @@ class Navigation extends Component {
     var url = host + "/api/v1/projects/" + this.state.value + "/feedback"
     axios.get(url).then(res => {
       console.log(res.data);
-      window.location.href = "/comments"
+      window.location.href = "/comments/"+this.state.value;
     }).catch(function (error) {
         alert("Project ID doesn't exist");
         console.log("Not Here.")

@@ -15,7 +15,7 @@ function App() {
           <Route exact path="/" component={AuthenticateHomePage} />
           <Route exact path="/auth" component={OauthCallBackPage} />
           <Route exact path="/wireframes" component={WireframesPage} />
-          <Route exact path="/comments" component={CommentsPage} />
+          <Route exact path="/comments/:projectID" component={CommentsPage} />
         </Switch>
       </div>
     </Router>
