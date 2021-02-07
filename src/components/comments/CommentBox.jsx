@@ -5,6 +5,9 @@ import moment from "moment";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import { LOCAL_HOST } from "../../consts";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -59,6 +62,50 @@ class CommentBox extends React.Component {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  componentDidMount() {
+    this.getComments();
+  }
+
+  sortComments = () => {
+    const allComments = this.state.comments;
+    let sortedArray = allComments.sort(this.sortByTime('created'));
+    console.log(sortedArray);
+    this.setState({comments:sortedArray });
+
+  }
+
+  test(e){
+    const allComments = this.state.comments;
+    if(e == "1"){
+      let sortedArray = allComments.sort(this.sortByTime('created'));
+      this.setState({comments: sortedArray});
+    }else if(e == "2"){
+      let sortedArray = allComments.sort(this.sortByVotes('votes'));
+      this.setState({comments: sortedArray});
+    }
+  }
+
+
+  sortByTime(field){
+      return function(a,b) {
+        let x = new Date(a[field])/1000;
+        let y = new Date(b[field])/1000;
+        return y - x;
+      }
+  }
+
+  sortByVotes(field){
+    return function(a,b){
+      return a[field] - b[field];
+    }
+  }
+
+  handleCommentSubmit(newComment) {
+    let comments = this.state.comments;
+    let newComments = comments.concat([newComment]);
+    this.setState({ comments: newComments });
   }
 
   render() {
@@ -72,9 +119,27 @@ class CommentBox extends React.Component {
               <Badge variant="primary" id="projectID">
                 {this.props.projectID}
               </Badge>
+
             </h3>
 
-            <CommentForm onCommentSubmit={this.handleCommentSubmit} projectID={this.props.projectID} />
+            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            {/*<button onClick={this.sortComments}>sort comments</button>*/}
+
+
+
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Sort the Comments
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={this.test.bind(this,"1")}>Sort Comments by Time</Dropdown.Item>
+                <Dropdown.Item onClick={this.test.bind(this,"2")}>Sort Comments by Votes Count</Dropdown.Item>
+              </Dropdown.Menu>
+
+            </Dropdown>
+
+
             <CommentList comments={this.state.comments} />
           </div>
         </div>
