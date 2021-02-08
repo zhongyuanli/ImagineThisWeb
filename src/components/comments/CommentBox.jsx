@@ -84,7 +84,12 @@ class CommentBox extends React.Component {
     }else if(e == "2"){
       let sortedArray = allComments.sort(this.sortByVotes('votes'));
       this.setState({comments: sortedArray});
+    }else if(e == "3"){
+      console.log("in the 3 option");
+      let sortedArray = allComments.sort(this.sortByTwoFields('votes','created'));
+      this.setState({comments: sortedArray});
     }
+
   }
 
 
@@ -98,9 +103,23 @@ class CommentBox extends React.Component {
 
   sortByVotes(field){
     return function(a,b){
-      return a[field] - b[field];
+      return b[field] - a[field];
     }
   }
+
+  sortByTwoFields(field1,field2){
+    return function (a,b){
+      if(a[field1] == b[field1]){
+        let aDate = new Date(a[field2]/1000);
+        let bDate = new Date(b[field2]/1000);
+        return aDate - bDate;
+      }
+      else{
+        return b[field1] - a[field1];
+      }
+    }
+  }
+
 
   handleCommentSubmit(newComment) {
     let comments = this.state.comments;
@@ -127,7 +146,7 @@ class CommentBox extends React.Component {
 
 
 
-            <Dropdown style={{top:"10px"}}>
+            <Dropdown style={{top:"-40px",float: "right", height: "20px",position:"relative"}}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Sort the Comments
               </Dropdown.Toggle>
@@ -135,6 +154,7 @@ class CommentBox extends React.Component {
               <Dropdown.Menu>
                 <Dropdown.Item onClick={this.test.bind(this,"1")}>Sort Comments by Time</Dropdown.Item>
                 <Dropdown.Item onClick={this.test.bind(this,"2")}>Sort Comments by Votes Count</Dropdown.Item>
+                <Dropdown.Item onClick={this.test.bind(this,"3")}>Defualt</Dropdown.Item>
               </Dropdown.Menu>
 
             </Dropdown>
