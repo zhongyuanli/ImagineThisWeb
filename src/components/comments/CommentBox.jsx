@@ -127,7 +127,7 @@ class CommentBox extends React.Component {
 
 
 
-            <Dropdown>
+            <Dropdown style={{top:"10px"}}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Sort the Comments
               </Dropdown.Toggle>
