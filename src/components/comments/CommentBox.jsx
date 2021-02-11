@@ -1,12 +1,13 @@
 import React from "react";
-import CommentList from "./CommentList.jsx";
-import CommentForm from "./CommentForm.jsx";
 import Badge from "react-bootstrap/Badge";
 import axios from "axios";
 import moment from "moment";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import Dropdown from "react-bootstrap/Dropdown";
+import CommentList from "./CommentList";
+import CommentForm from "./CommentForm";
+import { LOCAL_HOST } from "../../consts";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -17,14 +18,23 @@ class CommentBox extends React.Component {
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
   }
 
-  getComments = () => {
-    const projectID = this.props.projectID;
+  componentDidMount() {
+    this.getComments();
+  }
+
+  handleCommentSubmit(newComment) {
+    const comments = this.state.comments;
+    const newComments = comments.concat([newComment]);
+    this.setState({ comments: newComments });
+  }
+
+  getComments() {
     axios
-      .get(`http://localhost:8080/api/v1/projects/${projectID}/feedback`)
+      .get(`${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`)
       .then((res) => {
         const commentlist = [];
 
-        for (let i in res.data) {
+        for (const i in res.data) {
           const { downvotes, text, timestamp, upvotes, userName } = res.data[i];
 
           const comment = {
