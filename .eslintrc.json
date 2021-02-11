@@ -11,7 +11,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "only-warn"],
   "rules": {
     "sort-imports": "off",
     "comma-dangle": "warn",
@@ -24,6 +24,10 @@
     "no-use-before-define": "off",
     "prefer-destructuring": "off",
     "no-param-reassign": "off",
-    "callback-return": "off"
+    "callback-return": "off",
+    "react/jsx-filename-extension": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off",
+    "guard-for-in": "off"
   }
 }

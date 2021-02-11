@@ -14,14 +14,24 @@ class CommentBox extends React.Component {
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
   }
 
-  getComments = () => {
+  componentDidMount() {
+    this.getComments();
+  }
+
+  handleCommentSubmit(newComment) {
+    let comments = this.state.comments;
+    let newComments = comments.concat([newComment]);
+    this.setState({ comments: newComments });
+  }
+
+  getComments() {
     const projectID = this.props.projectID;
     axios
       .get(`http://localhost:8080/api/v1/projects/${projectID}/feedback`)
       .then((res) => {
         const commentlist = [];
 
-        for (let i in res.data) {
+        for (const i in res.data) {
           const { downvotes, text, timestamp, upvotes, userName } = res.data[i];
 
           const comment = {
@@ -38,16 +48,6 @@ class CommentBox extends React.Component {
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  componentDidMount() {
-    this.getComments();
-  }
-
-  handleCommentSubmit(newComment) {
-    let comments = this.state.comments;
-    let newComments = comments.concat([newComment]);
-    this.setState({ comments: newComments });
   }
 
   render() {
