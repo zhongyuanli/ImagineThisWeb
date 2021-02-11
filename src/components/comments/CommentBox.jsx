@@ -56,7 +56,10 @@ class CommentBox extends React.Component {
   // }
 
 
-  //basd on the scheme user chosed to perform sort
+  /**
+   * basd on the scheme user chosed to perform sort
+   * @param e
+   */
   sortComments(e){
     const allComments = this.state.comments;
     if(e == "1"){
@@ -73,7 +76,12 @@ class CommentBox extends React.Component {
 
   }
 
-  //sor the comments by the time they committed
+  /**
+   * sort the comments by the time they committed
+   *
+   * @param field
+   * @returns {function(*, *)}
+   */
   sortByTime(field){
       return function(a,b) {
         let x = new Date(a[field])/1000;
@@ -82,15 +90,24 @@ class CommentBox extends React.Component {
       }
   }
 
-  //sort the comments by the voting count
+
+  /**
+   * sort the comments by the voting count
+   * @param field
+   * @returns {function(*, *)}
+   */
   sortByVotes(field){
     return function(a,b){
       return b[field] - a[field];
     }
   }
 
-  //sort the comments based on two attribute,
-  //including the time and voting count
+  /**
+   * sort the comments based on two attribute,including the time and voting count
+   * @param field1
+   * @param field2
+   * @returns {function(*, *): *}
+   */
   sortByTwoFields(field1,field2){
     return function (a,b){
       if(a[field1] == b[field1]){
