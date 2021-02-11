@@ -28,6 +28,9 @@ class CommentBox extends React.Component {
     this.setState({ comments: newComments });
   }
 
+  /**
+   * Gets feedback from database associated with ProjectID
+   */
   getComments() {
     axios
       .get(`${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`)
@@ -78,8 +81,7 @@ class CommentBox extends React.Component {
 
 
   /**
-   * basd on the scheme user chosed to perform sort
-   * @param e
+   * Sorts feedback by the option the user chose to perform.
    */
   sortComments(e){
     const allComments = this.state.comments;
@@ -98,10 +100,7 @@ class CommentBox extends React.Component {
   }
 
   /**
-   * sort the comments by the time they committed
-   *
-   * @param field
-   * @returns {function(*, *)}
+   * Sorts the feedback by the time they are committed
    */
   sortByTime(field){
       return function(a,b) {
@@ -113,9 +112,7 @@ class CommentBox extends React.Component {
 
 
   /**
-   * sort the comments by the voting count
-   * @param field
-   * @returns {function(*, *)}
+   * Sort the feedback by calculating it vote count.
    */
   sortByVotes(field){
     return function(a,b){
@@ -124,14 +121,11 @@ class CommentBox extends React.Component {
   }
 
   /**
-   * sort the comments based on two attribute,including the time and voting count
-   * @param field1
-   * @param field2
-   * @returns {function(*, *): *}
+   * Sorts the feedback based on two attribute, including the time and voting count.
    */
   sortByTwoFields(field1,field2){
     return function (a,b){
-      if(a[field1] == b[field1]){
+      if (a[field1] == b[field1]){
         let aDate = new Date(a[field2]/1000);
         let bDate = new Date(b[field2]/1000);
         return aDate - bDate;
