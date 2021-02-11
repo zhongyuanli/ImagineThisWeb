@@ -1,8 +1,9 @@
 /** deployed version */
-export const DOMAIN = 'http://88.80.186.99';
-export const CLIENT_ID = 'ZSjQ3iai2GyJYhAXq1fI2D';
-export const CLIENT_SECRET = '64wrt6gPjuFdsnZCtpKj29ZQcjpvVN';
-export const BACKEND_ADDRESS = 'http://139.162.239.246:8080';
+export const DOMAIN = "http://88.80.186.99";
+export const CLIENT_ID = "ZSjQ3iai2GyJYhAXq1fI2D";
+export const CLIENT_SECRET = "64wrt6gPjuFdsnZCtpKj29ZQcjpvVN";
+export const BACKEND_ADDRESS = "http://139.162.239.246:8080";
+export const LOCAL_HOST = "http://localhost:8080";
 
 /** submission version */
 // export const DOMAIN = 'http://212.71.245.46'
