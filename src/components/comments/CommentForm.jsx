@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
-import Dropdown from "react-bootstrap/Dropdown";
 
 class CommentForm extends Component {
   constructor(props) {
@@ -14,8 +13,8 @@ class CommentForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let author = ReactDOM.findDOMNode(this.refs.author).value.trim();
-    let text = ReactDOM.findDOMNode(this.refs.text).value.trim();
+    const author = ReactDOM.findDOMNode(this.refs.author).value.trim();
+    const text = ReactDOM.findDOMNode(this.refs.text).value.trim();
     if (!text || !author) {
       alert("Please enter your name and comment");
       return;
@@ -23,21 +22,22 @@ class CommentForm extends Component {
 
     this.setComment(text, author);
 
-    this.props.onCommentSubmit({ author: author, text: text });
+    this.props.onCommentSubmit({ author, text });
     ReactDOM.findDOMNode(this.refs.author).value = "";
     ReactDOM.findDOMNode(this.refs.text).value = "";
     ReactDOM.findDOMNode(this.refs.author).focus();
   }
 
-  setComment = (text, author) => {
-    //firstly get the project ID
-    let projectID = document.getElementById("projectID").innerHTML;
-    let date = new Date();
+  // eslint-disable-next-line class-methods-use-this
+  setComment(text, author) {
+    // firstly get the project ID
+    const projectID = document.getElementById("projectID").innerHTML;
+    const date = new Date();
     const data = {
       downvotes: 0,
       feedbackID: "cb791e97-a402-4174-95ea-dab2c3f06b25",
-      projectID: projectID,
-      text: text,
+      projectID,
+      text,
       timestamp: date.getTime().toString(),
       upvotes: 0,
       userID: "bd96ccc0-eeff-48e8-8b4e-652675dbc9a2",
@@ -52,7 +52,7 @@ class CommentForm extends Component {
       .catch((err) => {
         console.error(err);
       });
-  };
+  }
 
   render() {
     return (
@@ -91,16 +91,6 @@ class CommentForm extends Component {
             <Button input variant="primary" type="submit" value="Post">
               Post
             </Button>
-            {/* <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                Sort
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-2">Best</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">Newest</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
           </Form>
         </div>
       </div>
