@@ -13,85 +13,47 @@ class Comment extends Component {
     };
   }
 
-  voteFeedback = (vote) => {
-    console.log(this.state.voteCount);
-    const { projectID, feedbackID, author } = this.props;
-    // axios
-    // .post(`${LOCAL_HOST}/api/v1/projects/${projectID}/${feedbackID}`, {
-    axios
-      .post(
-        `${LOCAL_HOST}/api/v1/projects/test/feedback/cb791e97-a402-4174-95ea-dab2c3f06b25/vote`,
-        {
-          userID: "bd96ccc0-eeff-48e8-8b4e-652675dbc9a2",
-          vote,
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  voteFeedback(voteCount, requestType) {
+    const { projectId, feedbackId, userID } = this.props;
+    const url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
+    const payload = { userID, voteCount };
+    console.log(userID);
+    switch (requestType) {
+      case "post":
+        axios.post(url, payload).then(() => console.log(voteCount));
+        break;
+      case "patch":
+        axios.patch(url, payload).then(() => console.log(voteCount));
+        break;
+      default:
+        axios.delete(url, payload).then(() => console.log(voteCount));
+    }
+  }
+
+  setVoteState(upvote, downvote, voteCount, requestType) {
+    this.setState({ upvote, downvote, voteCount }, () =>
+      this.voteFeedback(voteCount, requestType)
+    );
+  }
 
   toggle = (vote) => {
+    const { upvote, downvote, voteCount } = this.state;
+
     if (vote === "upvote") {
-      if (!this.state.upvote && !this.state.downvote) {
-        this.setState(
-          {
-            downvote: false,
-            upvote: !this.state.upvote,
-            voteCount: this.state.voteCount + 1,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
-      } else if (this.state.downvote && !this.state.upvote) {
-        this.setState(
-          {
-            downvote: false,
-            upvote: !this.state.upvote,
-            voteCount: this.state.voteCount + 2,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
+      if (!upvote && !downvote) {
+        this.setVoteState(!upvote, false, voteCount + 1, "post");
+      } else if (downvote && !upvote) {
+        this.setVoteState(!upvote, false, voteCount + 2, "patch");
       } else {
-        this.setState(
-          {
-            downvote: false,
-            upvote: false,
-            voteCount: this.state.voteCount - 1,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
+        this.setVoteState(false, false, voteCount - 1, "delete");
       }
     } else {
-      if (!this.state.downvote && !this.state.upvote) {
-        this.setState(
-          {
-            downvote: !this.state.downvote,
-            upvote: false,
-            voteCount: this.state.voteCount - 1,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
-      } else if (!this.state.downvote && this.state.upvote) {
-        this.setState(
-          {
-            downvote: !this.state.downvote,
-            upvote: false,
-            voteCount: this.state.voteCount - 2,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
+      if (!downvote && !upvote) {
+        this.setVoteState(false, !downvote, voteCount - 1, "post");
+      } else if (!downvote && upvote) {
+        this.setVoteState(false, !downvote, voteCount - 2, "patch");
       } else {
-        this.setState(
-          {
-            downvote: false,
-            upvote: false,
-            voteCount: this.state.voteCount + 1,
-          },
-          () => this.voteFeedback(this.state.voteCount)
-        );
+        this.setVoteState(false, false, voteCount + 1, "delete");
       }
     }
   };

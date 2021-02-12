@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { userID: uuidv4() };
   }
 
   handleSubmit(e) {
@@ -35,13 +36,13 @@ class CommentForm extends Component {
     const projectID = document.getElementById("projectID").innerHTML;
     const date = new Date();
     const data = {
+      upvotes: 0,
       downvotes: 0,
-      feedbackID: "cb791e97-a402-4174-95ea-dab2c3f06b25",
+      feedbackID: uuidv4(),
       projectID,
       text,
       timestamp: date.getTime().toString(),
-      upvotes: 0,
-      userID: "bd96ccc0-eeff-48e8-8b4e-652675dbc9a2",
+      userID: this.state.userID,
       userName: author,
     };
 
