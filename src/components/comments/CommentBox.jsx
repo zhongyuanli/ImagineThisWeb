@@ -71,13 +71,6 @@ class CommentBox extends React.Component {
     this.getComments();
   }
 
-  // sortComments = () => {
-  //   const allComments = this.state.comments;
-  //   let sortedArray = allComments.sort(this.sortByTime('created'));
-  //   console.log(sortedArray);
-  //   this.setState({comments:sortedArray });
-  //
-  // }
 
 
   /**
@@ -158,9 +151,6 @@ class CommentBox extends React.Component {
             </h3>
 
             <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-            {/*<button onClick={this.sortComments}>sort comments</button>*/}
-
-
 
             <Dropdown style={{top:"-40px",float: "right", height: "20px",position:"relative"}}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
