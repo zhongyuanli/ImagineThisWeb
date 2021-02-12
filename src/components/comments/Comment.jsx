@@ -16,18 +16,15 @@ class Comment extends Component {
   voteFeedback(voteCount, requestType) {
     const { projectId, feedbackId, userID } = this.props;
     const url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
-    const payload = { userID, voteCount };
-    console.log(userID);
-    switch (requestType) {
-      case "post":
-        axios.post(url, payload).then(() => console.log(voteCount));
-        break;
-      case "patch":
-        axios.patch(url, payload).then(() => console.log(voteCount));
-        break;
-      default:
-        axios.delete(url, payload).then(() => console.log(voteCount));
-    }
+    const data = { userID, voteCount };
+
+    axios({
+      method: requestType,
+      url,
+      data,
+    })
+      .then(() => console.log({ res }))
+      .catch((err) => console.log({ err }));
   }
 
   setVoteState(upvote, downvote, voteCount, requestType) {
