@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 class CommentForm extends Component {
   constructor(props) {

@@ -32,15 +32,27 @@ class CommentBox extends React.Component {
         const commentlist = [];
 
         for (const i in res.data) {
-          const { downvotes, text, timestamp, upvotes, userName } = res.data[i];
+          const {
+            userID,
+            projectID,
+            feedbackID,
+            downvotes,
+            text,
+            timestamp,
+            upvotes,
+            userName,
+          } = res.data[i];
 
           const comment = {
+            userID,
+            projectID,
+            feedbackID,
             author: userName,
             created: moment(timestamp).format("DD/MM/YY HH:mm"),
             text,
             votes: upvotes - downvotes,
           };
-
+          console.log(comment);
           commentlist.push(comment);
         }
         this.setState({ comments: commentlist });
