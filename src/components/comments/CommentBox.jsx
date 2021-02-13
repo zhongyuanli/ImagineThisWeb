@@ -47,12 +47,11 @@ class CommentBox extends React.Component {
             userID,
             projectID,
             feedbackID,
-            author: userName,
+            userName,
             created: moment(timestamp).format("DD/MM/YY HH:mm"),
             text,
             votes: upvotes - downvotes,
           };
-          console.log(comment);
           commentlist.push(comment);
         }
         this.setState({ comments: commentlist });

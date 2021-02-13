@@ -15,23 +15,18 @@ class CommentForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const author = ReactDOM.findDOMNode(this.refs.author).value.trim();
+    const userName = ReactDOM.findDOMNode(this.refs.userName).value.trim();
     const text = ReactDOM.findDOMNode(this.refs.text).value.trim();
-    if (!text || !author) {
+    if (!text || !userName) {
       alert("Please enter your name and comment");
       return;
     }
 
-    this.setComment(text, author);
-
-    this.props.onCommentSubmit({ author, text });
-    ReactDOM.findDOMNode(this.refs.author).value = "";
-    ReactDOM.findDOMNode(this.refs.text).value = "";
-    ReactDOM.findDOMNode(this.refs.author).focus();
+    this.setComment(text, userName);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  setComment(text, author) {
+  setComment(text, userName) {
     // firstly get the project ID
     const projectID = document.getElementById("projectID").innerHTML;
     const date = new Date();
@@ -43,13 +38,17 @@ class CommentForm extends Component {
       text,
       timestamp: date.getTime().toString(),
       userID: this.state.userID,
-      userName: author,
+      userName,
     };
 
     axios
       .post(`http://localhost:8080/api/v1/projects/${projectID}/feedback`, data)
       .then((res) => {
         console.log(res);
+        this.props.onCommentSubmit(data);
+        ReactDOM.findDOMNode(this.refs.userName).value = "";
+        ReactDOM.findDOMNode(this.refs.text).value = "";
+        ReactDOM.findDOMNode(this.refs.userName).focus();
       })
       .catch((err) => {
         console.error(err);
@@ -71,7 +70,7 @@ class CommentForm extends Component {
                 placeholder="Username"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                ref="author"
+                ref="userName"
                 className="form-control"
                 type="text"
               />

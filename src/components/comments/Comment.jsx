@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { LOCAL_HOST } from "../../consts";
+import { v4 as uuidv4 } from "uuid";
 
 class Comment extends Component {
   constructor(props) {
@@ -10,25 +11,31 @@ class Comment extends Component {
       upvote: false,
       downvote: false,
       voteCount: this.props.votes ?? 0,
+      voteID: "",
     };
   }
 
   voteFeedback(voteCount, requestType) {
     const { projectId, feedbackId, userID } = this.props;
-    const url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
-    const data = { userID, voteCount };
+    let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
+    const data = { userID, vote: voteCount };
+
+    url +=
+      requestType === "patch" || requestType === "delete"
+        ? `/${this.state.voteID}`
+        : "";
 
     axios({
       method: requestType,
       url,
       data,
     })
-      .then(() => console.log({ res }))
+      .then((res) => console.log({ res }))
       .catch((err) => console.log({ err }));
   }
 
   setVoteState(upvote, downvote, voteCount, requestType) {
-    this.setState({ upvote, downvote, voteCount }, () =>
+    this.setState({ upvote, downvote, voteCount, voteID: uuidv4() }, () =>
       this.voteFeedback(voteCount, requestType)
     );
   }
@@ -61,7 +68,7 @@ class Comment extends Component {
         <br />
         <Card bg="light">
           <Card.Header>
-            <b> {this.props.author} </b> - {this.props.created ?? "just now"}{" "}
+            <b> {this.props.userName} </b> - {this.props.created ?? "just now"}{" "}
             <span>
               <i
                 className={`icon icon-downvote ${
