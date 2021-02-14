@@ -33,20 +33,20 @@ class CommentBox extends React.Component {
 
         for (const i in res.data) {
           const {
-            userID,
-            projectID,
-            feedbackID,
+            userId,
+            projectId,
+            feedbackId,
             downvotes,
             text,
             timestamp,
             upvotes,
             userName,
           } = res.data[i];
-
+          
           const comment = {
-            userID,
-            projectID,
-            feedbackID,
+            userID: userId,
+            projectID: projectId,
+            feedbackID: feedbackId,
             userName,
             created: moment(timestamp).format("DD/MM/YY HH:mm"),
             text,

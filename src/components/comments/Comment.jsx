@@ -16,9 +16,17 @@ class Comment extends Component {
   }
 
   voteFeedback(voteCount, requestType) {
-    const { projectId, feedbackId, userID } = this.props;
+    let userID
+    // get userID from localStorage
+    if (localStorage.getItem('user') != null) {
+      userID = JSON.parse(localStorage.getItem('user')).userID
+    } else {
+      // TODO: create a new user credential and send a request to the user endpoint to create new user
+      return
+    }
+    const { projectId, feedbackId} = this.props;
     let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
-    const data = { userID, vote: voteCount };
+    const data = { userId: userID, voteValue: voteCount };
 
     url +=
       requestType === "patch" || requestType === "delete"
