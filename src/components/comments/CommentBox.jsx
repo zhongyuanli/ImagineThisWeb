@@ -74,7 +74,7 @@ class CommentBox extends React.Component {
               </Badge>
             </h3>
 
-            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            <CommentForm onCommentSubmit={this.handleCommentSubmit} projectID={this.props.projectID} />
             <CommentList comments={this.state.comments} />
           </div>
         </div>
