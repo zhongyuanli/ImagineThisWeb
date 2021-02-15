@@ -38,12 +38,16 @@ class Comment extends Component {
       url,
       data,
     })
-      .then((res) => console.log({ res }))
+      .then((res) => {
+        if (res.data.voteId) {
+          this.setState({voteID: res.data.voteId})
+        }
+      })
       .catch((err) => console.log({ err }));
   }
 
   setVoteState(upvote, downvote, voteCount, requestType) {
-    this.setState({ upvote, downvote, voteCount, voteID: uuidv4() }, () =>
+    this.setState({ upvote, downvote, voteCount, voteID: this.state.voteID }, () =>
       this.voteFeedback(voteCount, requestType)
     );
   }
