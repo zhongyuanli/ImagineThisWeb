@@ -6,6 +6,10 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import QRCode from 'qrcode.react';
+import {Col, Container, Row} from "react-bootstrap";
+
+
 
 class CommentForm extends Component {
   constructor(props) {
@@ -60,39 +64,59 @@ class CommentForm extends Component {
       <div className="commentForm panel panel-default">
         <div className="panel-body">
           <br />
-          <Form className="form" onSubmit={this.handleSubmit.bind(this)}>
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                input
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                ref="userName"
-                className="form-control"
-                type="text"
-              />
-            </InputGroup>
+          <Container>
+            <Row>
+              <Col>
+                <Form className="form" onSubmit={this.handleSubmit.bind(this)}>
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  input
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  ref="userName"
+                  className="form-control"
+                  type="text"
+                />
+              </InputGroup>
 
-            <InputGroup>
-              <FormControl
-                rows={4}
-                input
-                className="form-control"
-                type="text"
-                placeholder="Leave your feedback here.."
-                ref="text"
-                as="textarea"
-                aria-label="With textarea"
-              />
-            </InputGroup>
-            <br />
-            <Button input variant="primary" type="submit" value="Post">
-              Post
-            </Button>
-          </Form>
+              <InputGroup>
+                <FormControl
+                  rows={4}
+                  input
+                  className="form-control"
+                  type="text"
+                  placeholder="Leave your feedback here.."
+                  ref="text"
+                  as="textarea"
+                  aria-label="With textarea"
+                />
+              </InputGroup>
+              <br />
+              <Button input variant="primary" type="submit" value="Post">
+                Post
+              </Button>
+                </Form>
+              </Col>
+              <Col className="d-none d-sm-block">
+                <Row>
+                  <h4>Scan to run prototype on mobile device</h4>
+                </Row>
+                <Row>
+                  <Col md="auto">
+                    <QRCode value="exp://exp.host/@imaginethis/testing-application-imaginethis" />
+                  </Col>
+                    <Col>
+                      <p>To run the prototype for this project directly on your device, scan this QR code with the your device's built-in camera app.</p>
+                      <p><i>Prerequisite: Expo App must be installed for this to work.</i></p>
+                    </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </div>
     );
