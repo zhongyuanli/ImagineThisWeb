@@ -2,6 +2,9 @@ import React from "react";
 import Badge from "react-bootstrap/Badge";
 import axios from "axios";
 import moment from "moment";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
+import Dropdown from "react-bootstrap/Dropdown";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import { LOCAL_HOST } from "../../consts";
@@ -25,6 +28,9 @@ class CommentBox extends React.Component {
     this.setState({ comments: newComments });
   }
 
+  /**
+   * Gets feedback from database associated with ProjectID
+   */
   getComments() {
     axios
       .get(`${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`)
@@ -42,7 +48,7 @@ class CommentBox extends React.Component {
             upvotes,
             userName,
           } = res.data[i];
-          
+
           const comment = {
             userID: userId,
             projectID: projectId,
@@ -61,6 +67,71 @@ class CommentBox extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.getComments();
+  }
+
+  /**
+   * Sorts feedback by the option the user chose to perform.
+   */
+  sortComments(e) {
+    const allComments = this.state.comments;
+    if (e == "1") {
+      let sortedArray = allComments.sort(this.sortByTime("created"));
+      this.setState({ comments: sortedArray });
+    } else if (e == "2") {
+      let sortedArray = allComments.sort(this.sortByVotes("votes"));
+      this.setState({ comments: sortedArray });
+    } else if (e == "3") {
+      console.log("in the 3 option");
+      let sortedArray = allComments.sort(
+        this.sortByTwoFields("votes", "created")
+      );
+      this.setState({ comments: sortedArray });
+    }
+  }
+
+  /**
+   * Sorts the feedback by the time they are committed
+   */
+  sortByTime(field) {
+    return function (a, b) {
+      let x = new Date(a[field]) / 1000;
+      let y = new Date(b[field]) / 1000;
+      return y - x;
+    };
+  }
+
+  /**
+   * Sort the feedback by calculating it vote count.
+   */
+  sortByVotes(field) {
+    return function (a, b) {
+      return b[field] - a[field];
+    };
+  }
+
+  /**
+   * Sorts the feedback based on two attribute, including the time and voting count.
+   */
+  sortByTwoFields(field1, field2) {
+    return function (a, b) {
+      if (a[field1] == b[field1]) {
+        let aDate = new Date(a[field2] / 1000);
+        let bDate = new Date(b[field2] / 1000);
+        return aDate - bDate;
+      } else {
+        return b[field1] - a[field1];
+      }
+    };
+  }
+
+  handleCommentSubmit(newComment) {
+    let comments = this.state.comments;
+    let newComments = comments.concat([newComment]);
+    this.setState({ comments: newComments });
+  }
+
   render() {
     return (
       <div className="container">
@@ -74,7 +145,10 @@ class CommentBox extends React.Component {
               </Badge>
             </h3>
 
-            <CommentForm onCommentSubmit={this.handleCommentSubmit} projectID={this.props.projectID} />
+            <CommentForm
+              onCommentSubmit={this.handleCommentSubmit}
+              projectID={this.props.projectID}
+            />
             <CommentList comments={this.state.comments} />
           </div>
         </div>
