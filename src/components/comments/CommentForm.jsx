@@ -11,16 +11,16 @@ import { LOCAL_HOST } from "../../consts";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { userID: null, userName: '', isNewUser: false };
+    this.state = { userID: null, userName: "", isNewUser: false };
     // check if user record exist in localStorage
-    if (localStorage.getItem('user') != null) {
-      let storedUser = JSON.parse(localStorage.getItem('user'))
-      this.state.userID = storedUser.userID
-      this.state.userName = storedUser.userName
-      this.setState(storedUser)
+    if (localStorage.getItem("user") != null) {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      this.state.userID = storedUser.userID;
+      this.state.userName = storedUser.userName;
+      this.setState(storedUser);
     } else {
-      this.state.isNewUser = true
-      console.log('initilising new user')
+      this.state.isNewUser = true;
+      console.log("initilising new user");
     }
   }
 
@@ -36,25 +36,31 @@ class CommentForm extends Component {
     // set state for current user credential
     if (this.state.isNewUser) {
       // setState operation is asynchronous, thus use async/await to wait for the state to update
-      await this.setState({userID: uuidv4()})
-      console.log('after setState ' + this.state.userID)
+      await this.setState({ userID: uuidv4() });
+      console.log("after setState " + this.state.userID);
       // store user credential in localStorage
-      localStorage.setItem('user', JSON.stringify({userID: this.state.userID, userName}))
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ userID: this.state.userID, userName })
+      );
       // send a request to create new user first
-      let newUser = {userId: this.state.userID, userName: this.state.userName}
+      let newUser = {
+        userId: this.state.userID,
+        userName: this.state.userName,
+      };
       axios
         .post(`${LOCAL_HOST}/api/v1/users`, newUser)
-        .then(res => {
+        .then((res) => {
           if (res.data.success) {
-            console.log(res.data)
+            console.log(res.data);
             // then update comment
             this.setComment(text, userName);
           }
         })
-        .catch(err => {
-          console.log(err)
-        })
-      this.setState({isNewUser: false})
+        .catch((err) => {
+          console.log(err);
+        });
+      this.setState({ isNewUser: false });
     } else {
       // user credential already exist
       this.setComment(text, userName);
@@ -71,7 +77,10 @@ class CommentForm extends Component {
     };
 
     axios
-      .post(`${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`, data)
+      .post(
+        `${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`,
+        data
+      )
       .then((res) => {
         console.log(res);
         this.props.onCommentSubmit(data);
@@ -103,7 +112,9 @@ class CommentForm extends Component {
                 className="form-control"
                 type="text"
                 value={this.state.userName}
-                onChange={e => {this.setState({userName: e.target.value})}}
+                onChange={(e) => {
+                  this.setState({ userName: e.target.value });
+                }}
               />
             </InputGroup>
 

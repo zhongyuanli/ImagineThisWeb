@@ -16,15 +16,24 @@ class Comment extends Component {
   }
 
   voteFeedback(voteCount, requestType) {
-    let userID
+    // WGkLkaYQV9c4ZsvrpFXrwt
+    let userID;
     // get userID from localStorage
-    if (localStorage.getItem('user') != null) {
-      userID = JSON.parse(localStorage.getItem('user')).userID
+    if (localStorage.getItem("user") != null) {
+      userID = JSON.parse(localStorage.getItem("user")).userID;
     } else {
-      // TODO: create a new user credential and send a request to the user endpoint to create new user
-      return
+      axios
+        .post(`${LOCAL_HOST}/api/v1/users`)
+        .then((res) => {
+          console.log(res.data);
+          // TODO: Retrieve userID and put in state
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return;
     }
-    const { projectId, feedbackId} = this.props;
+    const { projectId, feedbackId } = this.props;
     let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
     const data = { userId: userID, voteValue: voteCount };
 
