@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { LOCAL_HOST } from "../../consts";
-import { v4 as uuidv4 } from "uuid";
 
 class Comment extends Component {
   constructor(props) {
@@ -49,15 +48,16 @@ class Comment extends Component {
     })
       .then((res) => {
         if (res.data.voteId) {
-          this.setState({voteID: res.data.voteId})
+          this.setState({ voteID: res.data.voteId });
         }
       })
       .catch((err) => console.log({ err }));
   }
 
   setVoteState(upvote, downvote, voteCount, requestType) {
-    this.setState({ upvote, downvote, voteCount, voteID: this.state.voteID }, () =>
-      this.voteFeedback(voteCount, requestType)
+    this.setState(
+      { upvote, downvote, voteCount, voteID: this.state.voteID },
+      () => this.voteFeedback(voteCount, requestType)
     );
   }
 
