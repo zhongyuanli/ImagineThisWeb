@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../components/Navigation";
 import CommentBox from "../components/comments/CommentBox";
+import Feedback from "../components/Feedback";
 
 export class CommentsPage extends Component {
   componentDidMount() {}
@@ -9,7 +10,8 @@ export class CommentsPage extends Component {
     return (
       <>
         <Navigation />
-        <CommentBox url="data.json" projectID={this.props.match.params.projectID} />
+        {/*<CommentBox url="data.json" projectID={this.props.match.params.projectID} />*/}
+        <Feedback />
         ,
       </>
     );
