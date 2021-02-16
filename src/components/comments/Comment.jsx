@@ -16,14 +16,15 @@ class Comment extends Component {
   }
 
   voteFeedback(voteCount, requestType) {
-    let userID
+    // WGkLkaYQV9c4ZsvrpFXrwt
+    let userID;
     // get userID from localStorage
-    if (localStorage.getItem('user') != null) {
-      userID = JSON.parse(localStorage.getItem('user')).userID
+    if (localStorage.getItem("user") != null) {
+      userID = JSON.parse(localStorage.getItem("user")).userID;
     } else {
       return
     }
-    const { projectId, feedbackId} = this.props;
+    const { projectId, feedbackId } = this.props;
     let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
     const data = { userId: userID, voteValue: voteCount };
 

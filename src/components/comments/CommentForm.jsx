@@ -80,7 +80,10 @@ class CommentForm extends Component {
     };
 
     axios
-      .post(`${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`, data)
+      .post(
+        `${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`,
+        data
+      )
       .then((res) => {
         console.log(res);
         this.props.onCommentSubmit(data);
@@ -112,7 +115,9 @@ class CommentForm extends Component {
                 className="form-control"
                 type="text"
                 value={this.state.userName}
-                onChange={e => {this.setState({userName: e.target.value})}}
+                onChange={(e) => {
+                  this.setState({ userName: e.target.value });
+                }}
               />
             </InputGroup>
 
