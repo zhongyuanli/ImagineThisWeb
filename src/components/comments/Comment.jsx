@@ -21,7 +21,6 @@ class Comment extends Component {
     if (localStorage.getItem('user') != null) {
       userID = JSON.parse(localStorage.getItem('user')).userID
     } else {
-      // TODO: create a new user credential and send a request to the user endpoint to create new user
       return
     }
     const { projectId, feedbackId} = this.props;

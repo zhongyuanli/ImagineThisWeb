@@ -11,16 +11,35 @@ import { LOCAL_HOST } from "../../consts";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { userID: null, userName: '', isNewUser: false };
-    // check if user record exist in localStorage
-    if (localStorage.getItem('user') != null) {
-      let storedUser = JSON.parse(localStorage.getItem('user'))
-      this.state.userID = storedUser.userID
-      this.state.userName = storedUser.userName
-      this.setState(storedUser)
+    this.state = { userID: null, userName: '' };
+    /**
+     * check if there is a user credential stored in localStorage
+     * if not, create a new user credential
+     *  */ 
+    let storedUserStr = localStorage.getItem('user')
+    if (storedUserStr === null) {
+      // create an anonymous user
+      console.log('Generating new user credential')
+      let userName = 'Anonymous User'
+      let userID = uuidv4()
+      // send a request to the server
+      axios
+        .post(`${LOCAL_HOST}/api/v1/users`, {userId: userID, userName})
+        .then(res => {
+          if (res.data.success) {
+            console.log('Setting up local Storage')
+            // update localStorage
+            localStorage.setItem('user', JSON.stringify({ userID, userName }))
+            this.state.userID = userID
+            this.state.userName = userName
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     } else {
-      this.state.isNewUser = true
-      console.log('initilising new user')
+      let storedUser = JSON.parse(storedUserStr)
+      this.state = storedUser
     }
   }
 
@@ -32,33 +51,23 @@ class CommentForm extends Component {
       alert("Please enter your name and comment");
       return;
     }
-    // TODO: find a better way to store user credential
-    // set state for current user credential
-    if (this.state.isNewUser) {
-      // setState operation is asynchronous, thus use async/await to wait for the state to update
-      await this.setState({userID: uuidv4()})
-      console.log('after setState ' + this.state.userID)
-      // store user credential in localStorage
-      localStorage.setItem('user', JSON.stringify({userID: this.state.userID, userName}))
-      // send a request to create new user first
-      let newUser = {userId: this.state.userID, userName: this.state.userName}
-      axios
-        .post(`${LOCAL_HOST}/api/v1/users`, newUser)
+    // check if the user has updated the user name
+    let storedUser = JSON.parse(localStorage.getItem('user'))
+    if (storedUser.userName != this.state.userName) {
+      // send a request to update the user name
+      await axios
+        .patch(`${LOCAL_HOST}/api/v1/users/${this.state.userID}`, {userId: this.state.userID, userName})
         .then(res => {
+          console.log(res.data)
           if (res.data.success) {
-            console.log(res.data)
-            // then update comment
-            this.setComment(text, userName);
+            // update localStorage
+            storedUser.userName = this.state.userName
+            localStorage.setItem('user', JSON.stringify(storedUser))
           }
         })
-        .catch(err => {
-          console.log(err)
-        })
-      this.setState({isNewUser: false})
-    } else {
-      // user credential already exist
-      this.setComment(text, userName);
+        .catch(err => console.log)
     }
+    this.setComment(text, userName);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -75,7 +84,7 @@ class CommentForm extends Component {
       .then((res) => {
         console.log(res);
         this.props.onCommentSubmit(data);
-        ReactDOM.findDOMNode(this.refs.userName).value = "";
+        // ReactDOM.findDOMNode(this.refs.userName).value = "";
         ReactDOM.findDOMNode(this.refs.text).value = "";
         ReactDOM.findDOMNode(this.refs.userName).focus();
       })
