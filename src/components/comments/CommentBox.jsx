@@ -12,10 +12,27 @@ import Dropdown from "react-bootstrap/Dropdown";
 class CommentBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { comments: [] };
+    this.state = { comments: [], votedComments: {}, userID: "", userName: "" };
 
     this.getComments = this.getComments.bind(this);
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+    this.createAnonymousUser = this.createAnonymousUser.bind(this);
+    this.getVotesForUser = this.getVotesForUser.bind(this);
+
+    // check if there is a user credential stored in localStorage
+    // if not, create a new user credential
+    let storedUserStr = localStorage.getItem('user');
+    if (storedUserStr === null) {
+      this.createAnonymousUser();
+    } else {
+      // get user credential from localStorage
+      let storedUser = JSON.parse(storedUserStr);
+      this.state.userID = storedUser.userID;
+      this.state.userName = storedUser.userName;
+      // check if there's any vote associated to the current user
+      this.getVotesForUser()
+    }
+    
   }
 
   componentDidMount() {
@@ -55,6 +72,7 @@ class CommentBox extends React.Component {
             feedbackID: feedbackId,
             userName,
             created: moment(timestamp).format("DD/MM/YY HH:mm"),
+            timestamp,
             text,
             votes: upvotes - downvotes,
           };
@@ -67,11 +85,40 @@ class CommentBox extends React.Component {
       });
   };
 
-  componentDidMount() {
-    this.getComments();
+  async getVotesForUser() {
+    await axios
+      .get(`${LOCAL_HOST}/api/v1/users/${this.state.userID}/votes`)
+      .then(res => {
+        if (res.status == 200 && res.data.length > 0) {
+          res.data.map(vote => {
+            this.state.votedComments[vote.feedbackId] = { voteID: vote.voteId, voteValue: vote.voteValue }
+          })
+        }
+      })
+      .catch(err => console.log)
   }
 
-
+  async createAnonymousUser() {
+    // create an anonymous user
+    console.log('Generating new user credential');
+    let userName = 'Anonymous User';
+    let userID = uuidv4();
+    // send a request to the server
+    await axios
+      .post(`${LOCAL_HOST}/api/v1/users`, {userId: userID, userName})
+      .then(res => {
+        if (res.data.success) {
+          console.log('Setting up local Storage');
+          // update localStorage
+          localStorage.setItem('user', JSON.stringify({ userID, userName }));
+          this.state.userID = userID;
+          this.state.userName = userName;
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   /**
    * Sorts feedback by the option the user chose to perform.
@@ -79,14 +126,13 @@ class CommentBox extends React.Component {
   sortComments(e){
     const allComments = this.state.comments;
     if(e == "1"){
-      let sortedArray = allComments.sort(this.sortByTime('created'));
+      let sortedArray = allComments.sort(this.sortByTime('timestamp'));
       this.setState({comments: sortedArray});
     }else if(e == "2"){
       let sortedArray = allComments.sort(this.sortByVotes('votes'));
       this.setState({comments: sortedArray});
     }else if(e == "3"){
-      console.log("in the 3 option");
-      let sortedArray = allComments.sort(this.sortByTwoFields('votes','created'));
+      let sortedArray = allComments.sort(this.sortByTwoFields('votes','timestamp'));
       this.setState({comments: sortedArray});
     }
 
@@ -97,9 +143,7 @@ class CommentBox extends React.Component {
    */
   sortByTime(field){
       return function(a,b) {
-        let x = new Date(a[field])/1000;
-        let y = new Date(b[field])/1000;
-        return y - x;
+        return b[field] - a[field]
       }
   }
 
@@ -119,86 +163,12 @@ class CommentBox extends React.Component {
   sortByTwoFields(field1,field2){
     return function (a,b){
       if (a[field1] == b[field1]){
-        let aDate = new Date(a[field2]/1000);
-        let bDate = new Date(b[field2]/1000);
-        return aDate - bDate;
+        return b[field2] - a[field2];
       }
       else{
         return b[field1] - a[field1];
       }
     }
-  }
-
-
-  handleCommentSubmit(newComment) {
-    let comments = this.state.comments;
-    let newComments = comments.concat([newComment]);
-    this.setState({ comments: newComments });
-  }
-
-  componentDidMount() {
-    this.getComments();
-  }
-
-  /**
-   * Sorts feedback by the option the user chose to perform.
-   */
-  sortComments(e) {
-    const allComments = this.state.comments;
-    if (e == "1") {
-      let sortedArray = allComments.sort(this.sortByTime("created"));
-      this.setState({ comments: sortedArray });
-    } else if (e == "2") {
-      let sortedArray = allComments.sort(this.sortByVotes("votes"));
-      this.setState({ comments: sortedArray });
-    } else if (e == "3") {
-      console.log("in the 3 option");
-      let sortedArray = allComments.sort(
-        this.sortByTwoFields("votes", "created")
-      );
-      this.setState({ comments: sortedArray });
-    }
-  }
-
-  /**
-   * Sorts the feedback by the time they are committed
-   */
-  sortByTime(field) {
-    return function (a, b) {
-      let x = new Date(a[field]) / 1000;
-      let y = new Date(b[field]) / 1000;
-      return y - x;
-    };
-  }
-
-  /**
-   * Sort the feedback by calculating it vote count.
-   */
-  sortByVotes(field) {
-    return function (a, b) {
-      return b[field] - a[field];
-    };
-  }
-
-  /**
-   * Sorts the feedback based on two attribute, including the time and voting count.
-   */
-  sortByTwoFields(field1, field2) {
-    return function (a, b) {
-      if (a[field1] == b[field1]) {
-        let aDate = new Date(a[field2] / 1000);
-        let bDate = new Date(b[field2] / 1000);
-        return aDate - bDate;
-      } else {
-        return b[field1] - a[field1];
-      }
-    };
-  }
-
-  handleCommentSubmit(newComment) {
-    let comments = this.state.comments;
-    let newComments = comments.concat([newComment]);
-    this.setState({ comments: newComments });
   }
 
   render() {
@@ -215,7 +185,12 @@ class CommentBox extends React.Component {
 
             </h3>
 
-            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            <CommentForm 
+              onCommentSubmit={this.handleCommentSubmit}
+              projectID={this.props.projectID}
+              userID={this.state.userID}
+              userName={this.state.userName}
+            />
 
             <Dropdown style={{top:"-40px",float: "right", height: "20px",position:"relative"}}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -231,7 +206,7 @@ class CommentBox extends React.Component {
             </Dropdown>
 
 
-            <CommentList comments={this.state.comments} />
+            <CommentList comments={this.state.comments} votedComments={this.state.votedComments} />
           </div>
         </div>
       </div>

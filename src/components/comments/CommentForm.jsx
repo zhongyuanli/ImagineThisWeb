@@ -11,36 +11,7 @@ import { LOCAL_HOST } from "../../consts";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { userID: null, userName: '' };
-    /**
-     * check if there is a user credential stored in localStorage
-     * if not, create a new user credential
-     *  */ 
-    let storedUserStr = localStorage.getItem('user')
-    if (storedUserStr === null) {
-      // create an anonymous user
-      console.log('Generating new user credential')
-      let userName = 'Anonymous User'
-      let userID = uuidv4()
-      // send a request to the server
-      axios
-        .post(`${LOCAL_HOST}/api/v1/users`, {userId: userID, userName})
-        .then(res => {
-          if (res.data.success) {
-            console.log('Setting up local Storage')
-            // update localStorage
-            localStorage.setItem('user', JSON.stringify({ userID, userName }))
-            this.state.userID = userID
-            this.state.userName = userName
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    } else {
-      let storedUser = JSON.parse(storedUserStr)
-      this.state = storedUser
-    }
+    this.state = { userID: this.props.userID ?? null, userName: this.props.userName ?? '' };
   }
 
   async handleSubmit(e) {

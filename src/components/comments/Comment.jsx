@@ -7,11 +7,15 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      upvote: false,
-      downvote: false,
+      upvote: this.props.upvoted,
+      downvote: this.props.downvoted,
       voteCount: this.props.votes ?? 0,
-      voteID: "",
+      voteID: this.props.voteID ?? "",
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ voteCount: nextProps.votes });
   }
 
   voteFeedback(voteCount, requestType) {
