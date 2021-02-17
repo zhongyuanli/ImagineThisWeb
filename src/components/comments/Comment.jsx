@@ -1,56 +1,80 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
+import axios from "axios";
+import { LOCAL_HOST } from "../../consts";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      upvote: false,
-      downvote: false,
+      upvote: this.props.upvoted,
+      downvote: this.props.downvoted,
       voteCount: this.props.votes ?? 0,
+      voteID: this.props.voteID ?? "",
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ voteCount: nextProps.votes });
+  }
+
+  voteFeedback(voteCount, requestType) {
+    // WGkLkaYQV9c4ZsvrpFXrwt
+    let userID;
+    // get userID from localStorage
+    if (localStorage.getItem("user") != null) {
+      userID = JSON.parse(localStorage.getItem("user")).userID;
+    } else {
+      return
+    }
+    const { projectId, feedbackId } = this.props;
+    let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
+    const data = { userId: userID, voteValue: voteCount };
+
+    url +=
+      requestType === "patch" || requestType === "delete"
+        ? `/${this.state.voteID}`
+        : "";
+
+    axios({
+      method: requestType,
+      url,
+      data,
+    })
+      .then((res) => {
+        if (res.data.voteId) {
+          this.setState({ voteID: res.data.voteId });
+        }
+      })
+      .catch((err) => console.log({ err }));
+  }
+
+  setVoteState(upvote, downvote, voteCount, requestType) {
+    let voteValue = voteCount - this.state.voteCount < 0 ? -1 : 1
+    this.setState(
+      { upvote, downvote, voteCount, voteID: this.state.voteID },
+      () => this.voteFeedback(voteValue, requestType)
+    );
+  }
+
   toggle = (vote) => {
+    const { upvote, downvote, voteCount } = this.state;
+
     if (vote === "upvote") {
-      if (!this.state.upvote && !this.state.downvote) {
-        this.setState({
-          downvote: false,
-          upvote: !this.state.upvote,
-          voteCount: this.state.voteCount + 1,
-        });
-      } else if (this.state.downvote && !this.state.upvote) {
-        this.setState({
-          downvote: false,
-          upvote: !this.state.upvote,
-          voteCount: this.state.voteCount + 2,
-        });
+      if (!upvote && !downvote) {
+        this.setVoteState(!upvote, false, voteCount + 1, "post");
+      } else if (downvote && !upvote) {
+        this.setVoteState(!upvote, false, voteCount + 2, "patch");
       } else {
-        this.setState({
-          downvote: false,
-          upvote: false,
-          voteCount: this.state.voteCount - 1,
-        });
+        this.setVoteState(false, false, voteCount - 1, "delete");
       }
     } else {
-      if (!this.state.downvote && !this.state.upvote) {
-        this.setState({
-          downvote: !this.state.downvote,
-          upvote: false,
-          voteCount: this.state.voteCount - 1,
-        });
-      } else if (!this.state.downvote && this.state.upvote) {
-        this.setState({
-          downvote: !this.state.downvote,
-          upvote: false,
-          voteCount: this.state.voteCount - 2,
-        });
+      if (!downvote && !upvote) {
+        this.setVoteState(false, !downvote, voteCount - 1, "post");
+      } else if (!downvote && upvote) {
+        this.setVoteState(false, !downvote, voteCount - 2, "patch");
       } else {
-        this.setState({
-          downvote: false,
-          upvote: false,
-          voteCount: this.state.voteCount + 1,
-        });
+        this.setVoteState(false, false, voteCount + 1, "delete");
       }
     }
   };
@@ -61,7 +85,7 @@ class Comment extends Component {
         <br />
         <Card bg="light">
           <Card.Header>
-            <b> {this.props.author} </b> - {this.props.created ?? "just now"}{" "}
+            <b> {this.props.userName} </b> - {this.props.created ?? "just now"}{" "}
             <span>
               <i
                 className={`icon icon-downvote ${

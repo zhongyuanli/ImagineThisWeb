@@ -5,49 +5,62 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { LOCAL_HOST } from "../../consts";
 
 class CommentForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { userID: this.props.userID ?? null, userName: this.props.userName ?? '' };
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    const author = ReactDOM.findDOMNode(this.refs.author).value.trim();
+    const userName = ReactDOM.findDOMNode(this.refs.userName).value.trim();
     const text = ReactDOM.findDOMNode(this.refs.text).value.trim();
-    if (!text || !author) {
+    if (!text || !userName) {
       alert("Please enter your name and comment");
       return;
     }
-
-    this.setComment(text, author);
-
-    this.props.onCommentSubmit({ author, text });
-    ReactDOM.findDOMNode(this.refs.author).value = "";
-    ReactDOM.findDOMNode(this.refs.text).value = "";
-    ReactDOM.findDOMNode(this.refs.author).focus();
+    // check if the user has updated the user name
+    let storedUser = JSON.parse(localStorage.getItem('user'))
+    if (storedUser.userName != this.state.userName) {
+      // send a request to update the user name
+      await axios
+        .patch(`${LOCAL_HOST}/api/v1/users/${this.state.userID}`, {userId: this.state.userID, userName})
+        .then(res => {
+          console.log(res.data)
+          if (res.data.success) {
+            // update localStorage
+            storedUser.userName = this.state.userName
+            localStorage.setItem('user', JSON.stringify(storedUser))
+          }
+        })
+        .catch(err => console.log)
+    }
+    this.setComment(text, userName);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  setComment(text, author) {
+  setComment(text, userName) {
     // firstly get the project ID
-    const projectID = document.getElementById("projectID").innerHTML;
-    const date = new Date();
     const data = {
-      downvotes: 0,
-      feedbackID: "cb791e97-a402-4174-95ea-dab2c3f06b25",
-      projectID,
       text,
-      timestamp: date.getTime().toString(),
-      upvotes: 0,
-      userID: "bd96ccc0-eeff-48e8-8b4e-652675dbc9a2",
-      userName: author,
+      userId: this.state.userID,
+      userName,
     };
 
     axios
-      .post(`http://localhost:8080/api/v1/projects/${projectID}/feedback`, data)
+      .post(
+        `${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`,
+        data
+      )
       .then((res) => {
         console.log(res);
+        this.props.onCommentSubmit(data);
+        // ReactDOM.findDOMNode(this.refs.userName).value = "";
+        ReactDOM.findDOMNode(this.refs.text).value = "";
+        ReactDOM.findDOMNode(this.refs.userName).focus();
       })
       .catch((err) => {
         console.error(err);
@@ -69,9 +82,13 @@ class CommentForm extends Component {
                 placeholder="Username"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                ref="author"
+                ref="userName"
                 className="form-control"
                 type="text"
+                value={this.state.userName}
+                onChange={(e) => {
+                  this.setState({ userName: e.target.value });
+                }}
               />
             </InputGroup>
 

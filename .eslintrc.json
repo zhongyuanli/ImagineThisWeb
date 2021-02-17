@@ -28,6 +28,8 @@
     "react/jsx-filename-extension": "off",
     "react/destructuring-assignment": "off",
     "react/prop-types": "off",
-    "guard-for-in": "off"
+    "guard-for-in": "off",
+    "prefer-arrow-callback": "warn",
+    "react/prefer-stateless-function": "off"
   }
 }
