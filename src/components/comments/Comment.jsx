@@ -52,7 +52,13 @@ class Comment extends Component {
   setVoteState(upvote, downvote, voteCount, requestType) {
     this.setState(
       { upvote, downvote, voteCount, voteID: this.state.voteID },
-      () => this.voteFeedback(voteCount, requestType)
+      () => {
+        if (upvote) {
+          this.voteFeedback(1, requestType)
+        } else if (downvote) {
+          this.voteFeedback(-1, requestType)
+        }
+      }
     );
   }
 
