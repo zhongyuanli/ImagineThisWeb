@@ -8,6 +8,7 @@ import { LOCAL_HOST } from "../../consts";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import Dropdown from "react-bootstrap/Dropdown";
+import { v4 as uuidv4 } from 'uuid';
 
 class CommentBox extends React.Component {
   constructor(props) {
