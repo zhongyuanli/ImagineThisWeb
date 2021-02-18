@@ -205,7 +205,7 @@ class CommentBox extends React.Component {
               <Dropdown.Menu>
                 <Dropdown.Item onClick={this.sortComments.bind(this, "1")}>Sort by Time</Dropdown.Item>
                 <Dropdown.Item onClick={this.sortComments.bind(this, "2")}>Sort by Votes Count</Dropdown.Item>
-                <Dropdown.Item onClick={this.sortComments.bind(this, "3")}>Defualt</Dropdown.Item>
+                {/*<Dropdown.Item onClick={this.sortComments.bind(this, "3")}>Defualt</Dropdown.Item>*/}
               </Dropdown.Menu>
 
             </Dropdown>
