@@ -7,17 +7,15 @@ import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import QRCode from 'qrcode.react';
-import {Col, Container, Row} from "react-bootstrap";
-
-
+import { LOCAL_HOST } from "../../consts";
 
 class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { userID: uuidv4() };
+    this.state = { userID: this.props.userID ?? null, userName: this.props.userName ?? '' };
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     const userName = ReactDOM.findDOMNode(this.refs.userName).value.trim();
     const text = ReactDOM.findDOMNode(this.refs.text).value.trim();
@@ -25,32 +23,43 @@ class CommentForm extends Component {
       alert("Please enter your name and comment");
       return;
     }
-
+    // check if the user has updated the user name
+    let storedUser = JSON.parse(localStorage.getItem('user'))
+    if (storedUser.userName != this.state.userName) {
+      // send a request to update the user name
+      await axios
+        .patch(`${LOCAL_HOST}/api/v1/users/${this.state.userID}`, {userId: this.state.userID, userName})
+        .then(res => {
+          console.log(res.data)
+          if (res.data.success) {
+            // update localStorage
+            storedUser.userName = this.state.userName
+            localStorage.setItem('user', JSON.stringify(storedUser))
+          }
+        })
+        .catch(err => console.log)
+    }
     this.setComment(text, userName);
   }
 
   // eslint-disable-next-line class-methods-use-this
   setComment(text, userName) {
     // firstly get the project ID
-    const projectID = document.getElementById("projectID").innerHTML;
-    const date = new Date();
     const data = {
-      upvotes: 0,
-      downvotes: 0,
-      feedbackID: uuidv4(),
-      projectID,
       text,
-      timestamp: date.getTime().toString(),
-      userID: this.state.userID,
+      userId: this.state.userID,
       userName,
     };
 
     axios
-      .post(`http://localhost:8080/api/v1/projects/${projectID}/feedback`, data)
+      .post(
+        `${LOCAL_HOST}/api/v1/projects/${this.props.projectID}/feedback`,
+        data
+      )
       .then((res) => {
         console.log(res);
         this.props.onCommentSubmit(data);
-        ReactDOM.findDOMNode(this.refs.userName).value = "";
+        // ReactDOM.findDOMNode(this.refs.userName).value = "";
         ReactDOM.findDOMNode(this.refs.text).value = "";
         ReactDOM.findDOMNode(this.refs.userName).focus();
       })
@@ -64,59 +73,42 @@ class CommentForm extends Component {
       <div className="commentForm panel panel-default">
         <div className="panel-body">
           <br />
-          <Container>
-            <Row>
-              <Col>
-                <Form className="form" onSubmit={this.handleSubmit.bind(this)}>
-              <InputGroup className="mb-3">
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  input
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  ref="userName"
-                  className="form-control"
-                  type="text"
+          <Form className="form" onSubmit={this.handleSubmit.bind(this)}>
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                input
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                ref="userName"
+                className="form-control"
+                type="text"
+                value={this.state.userName}
+                onChange={(e) => {
+                  this.setState({ userName: e.target.value });
+                }}
+              />
+            </InputGroup>
+            <InputGroup>
+              <FormControl
+                rows={4}
+                input
+                className="form-control"
+                type="text"
+                placeholder="Leave your feedback here.."
+                ref="text"
+                as="textarea"
+                aria-label="With textarea"
                 />
-              </InputGroup>
-
-              <InputGroup>
-                <FormControl
-                  rows={4}
-                  input
-                  className="form-control"
-                  type="text"
-                  placeholder="Leave your feedback here.."
-                  ref="text"
-                  as="textarea"
-                  aria-label="With textarea"
-                />
-              </InputGroup>
-              <br />
-              <Button input variant="primary" type="submit" value="Post">
+            </InputGroup>
+            <br />
+            <Button input variant="primary" type="submit" value="Post">
                 Post
-              </Button>
-                </Form>
-              </Col>
-              <Col className="d-none d-sm-block">
-                <Row>
-                  <h4>Scan to run prototype on mobile device</h4>
-                </Row>
-                <Row>
-                  <Col md="auto">
-                    <QRCode value="exp://exp.host/@imaginethis/testing-application-imaginethis" />
-                  </Col>
-                    <Col>
-                      <p>To run the prototype for this project directly on your device, scan this QR code with the your device's built-in camera app.</p>
-                      <p><i>Prerequisite: Expo App must be installed for this to work.</i></p>
-                    </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
+            </Button>
+          </Form>
         </div>
       </div>
     );

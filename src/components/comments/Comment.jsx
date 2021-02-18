@@ -2,23 +2,34 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { LOCAL_HOST } from "../../consts";
-import { v4 as uuidv4 } from "uuid";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      upvote: false,
-      downvote: false,
+      upvote: this.props.upvoted,
+      downvote: this.props.downvoted,
       voteCount: this.props.votes ?? 0,
-      voteID: "",
+      voteID: this.props.voteID ?? "",
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ voteCount: nextProps.votes });
+  }
+
   voteFeedback(voteCount, requestType) {
-    const { projectId, feedbackId, userID } = this.props;
+    // WGkLkaYQV9c4ZsvrpFXrwt
+    let userID;
+    // get userID from localStorage
+    if (localStorage.getItem("user") != null) {
+      userID = JSON.parse(localStorage.getItem("user")).userID;
+    } else {
+      return
+    }
+    const { projectId, feedbackId } = this.props;
     let url = `${LOCAL_HOST}/api/v1/projects/${projectId}/feedback/${feedbackId}/vote`;
-    const data = { userID, vote: voteCount };
+    const data = { userId: userID, voteValue: voteCount };
 
     url +=
       requestType === "patch" || requestType === "delete"
@@ -30,13 +41,19 @@ class Comment extends Component {
       url,
       data,
     })
-      .then((res) => console.log({ res }))
+      .then((res) => {
+        if (res.data.voteId) {
+          this.setState({ voteID: res.data.voteId });
+        }
+      })
       .catch((err) => console.log({ err }));
   }
 
   setVoteState(upvote, downvote, voteCount, requestType) {
-    this.setState({ upvote, downvote, voteCount, voteID: uuidv4() }, () =>
-      this.voteFeedback(voteCount, requestType)
+    let voteValue = voteCount - this.state.voteCount < 0 ? -1 : 1
+    this.setState(
+      { upvote, downvote, voteCount, voteID: this.state.voteID },
+      () => this.voteFeedback(voteValue, requestType)
     );
   }
 
