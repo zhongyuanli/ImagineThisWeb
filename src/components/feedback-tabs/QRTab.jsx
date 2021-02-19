@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import QRCode from "qrcode.react";
 import Tab from "react-bootstrap/Tab";
+import "../../css/feedback-tab/QRtab.css"
 
 class QRTab extends Component{
   constructor(props) {
@@ -9,17 +10,17 @@ class QRTab extends Component{
 
   render() {
     return (
-      <div className="container" style={{overflow:"hidden"}}>
-        <div style={{float:"left",position:"relative",left:"4%"}}>
+      <div className="container" >
+        <div id="QRdiv" >
           <a   href="exp://exp.host/@imaginethis/testing-application-imaginethis">
-            <QRCode style={{height:"200px",width:"200px",float:"left",marginTop:"10%"}} value="exp://exp.host/@imaginethis/testing-application-imaginethis" />
+            <QRCode  id="QRCode" style={{height:"150px",width:"150px",margin:"0px"}} value="exp://exp.host/@imaginethis/testing-application-imaginethis" />
           </a>
         </div>
-        <div style={{float:"left",position:"relative",left:"50px",width:"70%"}}>
-          <h3 style={{textAlign:"center"}}>QRcode Using Instructions</h3>
-          {/*<p style={{fontSize:"18px"}}>In order to successfully run the prototype, please do the following steps</p>*/}
-          <ol style={{fontSize:"18px",textAlign:"justify"}}>
-            <p style={{fontSize:"18px"}}>In order to successfully run the prototype, please do the following steps</p>
+        <div id="instructionDiv" >
+          <h3 className="QRTab_Title">QRcode Using Instructions</h3>
+          {/*<p>In order to successfully run the prototype, please do the following steps</p>*/}
+          <ol>
+            <p>In order to successfully run the prototype, please do the following steps</p>
 
             <li>To run this app, You are required to install the"
               <a href="https://expo.io/tools">Expo Go</a>" App on your personal devices</li>
@@ -30,7 +31,7 @@ class QRTab extends Component{
           {/*<p>To run the prototype for this project directly on your device, scan this QR code with the your device's built-in camera app.</p>*/}
           {/*<p><i>Prerequisite: Expo App must be installed for this to work.</i></p>*/}
         </div>
-        <div className="clear" style={{clear:"both"}}></div>
+        <div className="clear" ></div>
       </div>
     );
   }
