@@ -175,16 +175,15 @@ class CommentBox extends React.Component {
   render() {
     return (
       <div className="container">
-        <br />
+        {/*<br />*/}
         <div className="commentBox panel panel-default">
           <div className="panel-body">
-            <h3>
-              Feedback Board for the Project ID:{" "}
-              <Badge variant="primary" id="projectID">
-                {this.props.projectID}
-              </Badge>
-
-            </h3>
+            {/*<h3>*/}
+            {/*  Feedback Board for the Project ID:{" "}*/}
+            {/*  <Badge variant="primary" id="projectID">*/}
+            {/*    {this.props.projectID}*/}
+            {/*  </Badge>*/}
+            {/*</h3>*/}
 
             <CommentForm 
               onCommentSubmit={this.handleCommentSubmit}

@@ -10,8 +10,8 @@ export class CommentsPage extends Component {
     return (
       <>
         <Navigation />
-        {/*<CommentBox url="data.json" projectID={this.props.match.params.projectID} />*/}
-        <Feedback />
+        {/*<CommentBox projectID={this.props.match.params.projectID} />*/}
+        <Feedback projectID={this.props.match.params.projectID} />
         ,
       </>
     );
