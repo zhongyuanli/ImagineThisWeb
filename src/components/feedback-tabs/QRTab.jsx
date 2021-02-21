@@ -24,12 +24,12 @@ class QRTab extends Component{
 
             <li>To run this app, You are required to install the"
               <a href="https://expo.io/tools">Expo Go</a>" App on your personal devices</li>
-            <li>After opening the App, select the "Scan QR Code" option on the top on the sceen</li>
+            <li>After opening the App, select the "Scan QR Code" option on the top of the sceen</li>
             <li>Using the device cemera to scan the QRcode on the imagineThis website</li>
             <li>The builed prototype will be running on your phone soon</li>
+              <p><br/>Please check for other related details： <a href="https://expo.io/">expo.io</a></p>
           </ol>
-          {/*<p>To run the prototype for this project directly on your device, scan this QR code with the your device's built-in camera app.</p>*/}
-          {/*<p><i>Prerequisite: Expo App must be installed for this to work.</i></p>*/}
+
         </div>
         <div className="clear" ></div>
       </div>
