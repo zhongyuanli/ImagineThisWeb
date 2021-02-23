@@ -18,7 +18,7 @@ class QRTab extends Component {
           </a>
         </div>
         {/*this is the instruction for the PC device*/}
-        <div id="instructionDiv" className="d-sm-block d-none">
+        <div id="instructionDiv" className="d-none d-xl-block d-lg-block d-xl-none d-xl-block d-md-block d-lg-none">
           <h3 className="QRTab_Title">QR Code  Instructions</h3>
           {/* <p>In order to successfully run the prototype, please do the following steps</p> */}
           <ol>
@@ -42,7 +42,7 @@ class QRTab extends Component {
           </ol>
         </div>
         {/* this is the instruction for the mobile device */}
-        <div id="instructionDiv" className="d-xl-none">
+        <div id="instructionDiv" className="d-block d-sm-none d-none d-sm-block d-md-none">
           <h3 className="QRTab_Title">QR Code Instructions</h3>
           {/* <p>In order to successfully run the prototype, please do the following steps</p> */}
           <ol>
