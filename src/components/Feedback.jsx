@@ -33,28 +33,42 @@ class Feedback extends Component {
     return (
       <div className="container">
         <div className="feedback-header">
-            <h3>
-              Project Name: {this.state.projectName}
-              <br />
-            </h3>
-              Project ID:
-              <Badge variant="primary" id="projectID">
-                {this.state.projectID}
-              </Badge>
+          <h3>
+            Project: {this.state.projectName}
+            {/*<br/>*/}
+
+            <Badge variant="primary" id="projectID">
+              {this.state.projectID}
+            </Badge>
+          </h3>
+          {/*Project ID:*/}
+          {/*<Badge variant="primary" id="projectID">*/}
+          {/*  {this.state.projectID}*/}
+          {/*</Badge>*/}
+
         </div>
 
+        {/*<div>*/}
+        {/*  <hr/>*/}
+        {/*  <p> On this page you can:*/}
+        {/*    post feedback project's prototype,*/}
+        {/*    learn how to run this project's prototype on your device,*/}
+        {/*    download the prototype's source code for the prototype.*/}
+        {/*  </p>*/}
+        {/*  <hr/>*/}
+        {/*</div>*/}
         <Tabs defaultActiveKey="feedback" id="uncontrolled-tab-example">
           <Tab eventKey="feedback" title="Feedback">
             <CommentBox />
           </Tab>
           <Tab eventKey="run" title="Run App">
-           <QRTab/>
+            <QRTab />
           </Tab>
-          <Tab eventKey="download" title="Download" >
-            <DownloadTab/>
+          <Tab eventKey="download" title="Download Code">
+            <DownloadTab />
           </Tab>
         </Tabs>
-          </div>
+      </div>
     );
   }
 }
