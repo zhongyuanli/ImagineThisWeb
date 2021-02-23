@@ -33,7 +33,7 @@ class CommentBox extends React.Component {
       // check if there's any vote associated to the current user
       this.getVotesForUser()
     }
-    
+
   }
 
   componentDidMount() {
@@ -175,15 +175,8 @@ class CommentBox extends React.Component {
   render() {
     return (
       <div className="container">
-        {/*<br />*/}
         <div className="commentBox panel panel-default">
           <div className="panel-body">
-            {/*<h3>*/}
-            {/*  Feedback Board for the Project ID:{" "}*/}
-            {/*  <Badge variant="primary" id="projectID">*/}
-            {/*    {this.props.projectID}*/}
-            {/*  </Badge>*/}
-            {/*</h3>*/}
             <h4>Post Feedback / Vote on Feedback</h4>
             <span>
               In this section, you can post feedback about this project's prototype (see "Run App" tab for more details), and also view feedback posted from other people.

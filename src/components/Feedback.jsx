@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import axios from "axios";
-import "../css/feedbackpage.css";
+import "../css/projectpage.css";
 import CommentBox from "./comments/CommentBox";
 import { LOCAL_HOST } from "../consts";
 import QRTab from "./feedback-tabs/QRTab";
@@ -32,9 +32,6 @@ class Feedback extends Component {
         <div className="feedback-header">
           <h3>
             Project:{ this.state.projectName }
-            {/* <Badge variant="primary" id="projectID"> */}
-            {/*  {this.state.projectID} */}
-            {/* </Badge> */}
           </h3>
         </div>
 
