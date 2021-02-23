@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import QRCode from "qrcode.react";
-import Tab from "react-bootstrap/Tab";
 import "../../css/feedback-tab/QRtab.css";
 import "react-bootstrap";
 
