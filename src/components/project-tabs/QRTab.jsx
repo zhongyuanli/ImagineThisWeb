@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import QRCode from "qrcode.react";
-import "../../css/feedback-tab/QRtab.css";
+import "../../css/project-tabs/QRtab.css";
 import "react-bootstrap";
 
 class QRTab extends Component {

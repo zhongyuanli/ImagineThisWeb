@@ -4,8 +4,8 @@ import Tab from "react-bootstrap/Tab";
 import axios from "axios";
 import Navigation from "../components/Navigation";
 import CommentBox from "../components/comments/CommentBox";
-import QRTab from "../components/feedback-tabs/QRTab";
-import DownloadTab from "../components/feedback-tabs/DownloadTab";
+import QRTab from "../components/project-tabs/QRTab";
+import DownloadTab from "../components/project-tabs/DownloadTab";
 import { LOCAL_HOST } from "../consts";
 import "../css/projectpage.css";
 
