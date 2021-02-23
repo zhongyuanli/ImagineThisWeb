@@ -6,6 +6,7 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import QRCode from 'qrcode.react';
 import { LOCAL_HOST } from "../../consts";
 
 class CommentForm extends Component {
@@ -91,7 +92,6 @@ class CommentForm extends Component {
                 }}
               />
             </InputGroup>
-
             <InputGroup>
               <FormControl
                 rows={4}
@@ -102,11 +102,11 @@ class CommentForm extends Component {
                 ref="text"
                 as="textarea"
                 aria-label="With textarea"
-              />
+                />
             </InputGroup>
             <br />
             <Button input variant="primary" type="submit" value="Post">
-              Post
+                Post
             </Button>
           </Form>
         </div>
