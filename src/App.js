@@ -16,13 +16,13 @@ function App() {
   /**
    * Create an user credential when the user first enters the homepage
    */
-  const createAnonymousUser = async () => {
+  const createAnonymousUser = () => {
     // create an anonymous user
     console.log('Generating new user credential');
     const userName = 'Anonymous User';
     const userID = uuidv4();
     // send a request to the server
-    await userAPI('POST', undefined, { userId: userID, userName })
+    userAPI('POST', undefined, { userId: userID, userName })
       .then((res) => {
         if (res.data.success) {
           console.log('Setting up local Storage');
