@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 
 import "../css/wireframespage.css";
-import $ from "jquery";
 import Button from "react-bootstrap/Button";
 import Cookies from "universal-cookie";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -9,6 +8,7 @@ import Loader from "react-loader-spinner";
 import Navigation from "../components/Navigation";
 import WireframeCard from "../components/WireframeCard";
 import { DOMAIN, BACKEND_ADDRESS } from "../consts";
+import api from "../api";
 
 /*
  * A view showing the thumbnails of Figma frames/artboards available for
@@ -86,31 +86,25 @@ export class WireframesPage extends Component {
    * Request the conversion
    */
   toConvertPage() {
-    this.calcTimeEstimate(this.state.selected.length);
+    const { projectID, authType, accessToken, selected, userID } = this.state;
+
+    this.calcTimeEstimate(selected.length);
     this.setState({
       loaderVisible: true,
     });
-    $.ajax({
-      type: "POST",
-      url: `${BACKEND_ADDRESS}/api/v1/projects/${this.state.projectID}/build?authType=${this.state.authType}&accessToken=${this.state.accessToken}`,
-      contentType: "application/json",
-      dataType: "json",
-      async: true,
-      data: JSON.stringify({
-        wireframeList: this.state.selected,
-        userId: this.state.userID,
-      }),
-      success: function (data) {
-        if (data.success) {
-          window.location.href = `${BACKEND_ADDRESS}/api/v1/projects/${this.state.projectID}/download`;
-        }
-        this.setState({ loaderVisible: false });
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.log("error");
-        this.setState({ loaderVisible: false });
-      }.bind(this),
-    });
+
+    api
+      .post(
+        `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/build?authType=${authType}&accessToken=${accessToken}`,
+        { wireframeList: selected, userId: userID }
+      )
+      .then((res) => {
+        window.location.href = `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/download`;
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   }
 
   /*
@@ -143,7 +137,7 @@ export class WireframesPage extends Component {
   render() {
     return (
       <>
-        <Navigation history={this.props.history}/>
+        <Navigation history={this.props.history} />
         <div className="container-fluid container--margin-bottom">
           <div className="row">
             <div className="col-12 d-flex flex-column align-items-center">
@@ -185,9 +179,7 @@ export class WireframesPage extends Component {
             </Button>
           </div>
           <span className="bottom-actionbar__selected-text">
-            Currently selected:
-            {' '}
-            {this.state.selected.length}
+            Currently selected: {this.state.selected.length}
           </span>
           <Button
             className="bottom-actionbar__button-convert mt-1"
@@ -203,16 +195,8 @@ export class WireframesPage extends Component {
               <h4 className="mb-4">We are generating your App template</h4>
               <Loader type="Watch" color="#005EB8" width={50} height={50} />
               <p className="lead mt-4">
-                This will take approximately
-                {' '}
-                {this.state.timeMinutes}
-                {' '}
-                minute(s)
-                and
-                {' '}
-                {this.state.timeSeconds}
-                {' '}
-                seconds.
+                This will take approximately {this.state.timeMinutes} minute(s)
+                and {this.state.timeSeconds} seconds.
               </p>
             </div>
           </div>
