@@ -47,9 +47,9 @@ const QRTab = (props) => {
   // Depending on the status of last conversion show different contents
   if (!lastConversion || lastConversion.publishStatus == "NOT_TRIGGERED") {
     return (
-      <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: 200}}>
+      <div className="qr-code-status-tab">
         <Icon.Box color="#005EB8" size={70} />
-        <div style={{display: "inline-block", marginLeft: 30}}>
+        <div className="qr-code-status-tab-text-box">
           <h3>Project has not been built or publish has not been triggered.</h3>
           <h5>Please create a new build.</h5>
         </div>
@@ -57,9 +57,9 @@ const QRTab = (props) => {
     )
   } else if (lastConversion.publishStatus == "RUNNING" || lastConversion.publishStatus == "NOT_STARTED") {
     return (
-      <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: 200}}>
-        <Loader type="BallTriangle" color="#005EB8" width={100} height={100} style={{display: "inline-block"}}/>
-        <div style={{display: "inline-block", marginLeft: 30}}>
+      <div className="qr-code-status-tab">
+        <Loader type="BallTriangle" color="#005EB8" width={100} height={100} />
+        <div className="qr-code-status-tab-text-box">
           <h3>We are currently publishing your project! It may take couple minutes...</h3>
           <h5>User {lastConversion.userName} triggered build on {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}</h5>
         </div>
@@ -67,9 +67,9 @@ const QRTab = (props) => {
     )
   } else if (lastConversion.publishStatus == "FAILED") {
     return (
-      <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: 200}}>
+      <div className="qr-code-status-tab">
         <Icon.Bug color="#005EB8" size={70} />
-        <div style={{display: "inline-block", marginLeft: 30}}>
+        <div className="qr-code-status-tab-text-box">
           <h3>Oops! Your build failed.</h3>
           <h5>User {lastConversion.userName} triggered build on {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}</h5>
         </div>

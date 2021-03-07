@@ -62,5 +62,15 @@ p{
     font-weight:bold;
 }
 
+.qr-code-status-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
 
+.qr-code-status-tab-text-box {
+    display: inline-block;
+    margin-left: 30px;
+}
 
