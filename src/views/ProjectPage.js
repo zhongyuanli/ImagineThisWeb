@@ -88,7 +88,7 @@ export default class ProjectPage extends Component {
               <FeedbackTab projectID={this.state.projectID}/>
             </Tab>
             <Tab eventKey="run" title="Run App">
-              <QRTab />
+              <QRTab projectID={this.state.projectID}/>
             </Tab>
             <Tab eventKey="download" title="Download Code">
               <DownloadTab />

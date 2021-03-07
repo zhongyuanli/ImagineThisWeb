@@ -99,6 +99,7 @@ export class WireframesPage extends Component {
       data: JSON.stringify({
         wireframeList: this.state.selected,
         userId: this.state.userID,
+        publish: true
       }),
       success: function (data) {
         if (data.success) {
