@@ -31,28 +31,31 @@ const QRTab = (props) => {
   const sortByTimestamp = function (a, b) {
     return b.timestamp - a.timestamp;
   };
-  var conversions = [];
-  var lastConversion = {};
-  if (!!state.conversions) {
+  var conversions, lastConversion;
+  if (!!state.conversions.length) {
     conversions = state.conversions.sort(sortByTimestamp);
     lastConversion = conversions[0];
+    console.log(`Last conversion ${lastConversion.conversionId} for project ${lastConversion.projectId} has status ${lastConversion.publishStatus}`);
+  } else {
+    console.log(`No conversions found for project ${state.projectID}`);
   }
+  
 
   // Create QR code link
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
 
   // Depending on the status of last conversion show different contents
-  if (!lastConversion) {
+  if (!lastConversion || lastConversion.publishStatus == "NOT_TRIGGERED") {
     return (
       <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: 200}}>
         <Icon.Box color="#005EB8" size={70} />
         <div style={{display: "inline-block", marginLeft: 30}}>
-          <h3>Project has not been built.</h3>
+          <h3>Project has not been built or publish has not been triggered.</h3>
           <h5>Please create a new build.</h5>
         </div>
       </div>
     )
-  } else if (lastConversion.publishStatus == "RUNNING") {
+  } else if (lastConversion.publishStatus == "RUNNING" || lastConversion.publishStatus == "NOT_STARTED") {
     return (
       <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: 200}}>
         <Loader type="BallTriangle" color="#005EB8" width={100} height={100} style={{display: "inline-block"}}/>
