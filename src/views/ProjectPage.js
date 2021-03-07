@@ -23,8 +23,8 @@ export default class ProjectPage extends Component {
   componentDidMount() {
     // init local state with global state
     const [context, dispatch] = this.context;
-    // check if global state exists
-    if (context.projectID === "") {
+    // check if global state exists or user navigated to a different project
+    if (!context.projectID || context.projectID != this.props.match.params.projectID) {
       // get projectID from url param
       const param = this.props.match.params.projectID;
       api
@@ -88,7 +88,7 @@ export default class ProjectPage extends Component {
               <FeedbackTab projectID={this.state.projectID}/>
             </Tab>
             <Tab eventKey="run" title="Run App">
-              <QRTab />
+              <QRTab projectID={this.state.projectID}/>
             </Tab>
             <Tab eventKey="download" title="Download Code">
               <DownloadTab />

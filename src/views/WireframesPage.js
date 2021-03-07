@@ -99,10 +99,13 @@ export class WireframesPage extends Component {
       data: JSON.stringify({
         wireframeList: this.state.selected,
         userId: this.state.userID,
+        publish: true
       }),
       success: function (data) {
         if (data.success) {
-          window.location.href = `${BACKEND_ADDRESS}/api/v1/projects/${this.state.projectID}/download`;
+          this.props.history.push({
+            pathname: `/project/${this.state.projectID}`
+          });
         }
         this.setState({ loaderVisible: false });
       }.bind(this),
@@ -148,7 +151,7 @@ export class WireframesPage extends Component {
           <div className="row">
             <div className="col-12 d-flex flex-column align-items-center">
               <h3 className="mt-5 mb-3">
-                Please select the wireframes that you wish to convert:
+                Please select the wireframes that you wish to build:
               </h3>
             </div>
           </div>
@@ -194,7 +197,7 @@ export class WireframesPage extends Component {
             onClick={() => this.toConvertPage()}
             disabled={this.state.selected.length === 0}
           >
-            Convert to code
+            Build app
           </Button>
         </nav>
         {this.state.loaderVisible && (
