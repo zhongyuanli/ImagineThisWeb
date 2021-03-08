@@ -103,11 +103,15 @@ export class WireframesPage extends Component {
       }),
       success: function (data) {
         if (data.success) {
-          this.props.history.push({
-            pathname: `/project/${this.state.projectID}`
-          });
+          // Timeout is required so that backend has enough time to start the Expo container
+          // This is needed so that the QR tab has correct status of the publishing job, in particular 'RUNNING'
+          setTimeout(() => { this.props.history.push({
+              pathname: `/project/${this.state.projectID}`
+            });
+          }, 1000);          
+        } else {
+          this.setState({ loaderVisible: false });
         }
-        this.setState({ loaderVisible: false });
       }.bind(this),
       error: function (xhr, status, err) {
         console.log("error");
