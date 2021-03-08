@@ -10,6 +10,7 @@ const globalState = {
   userID: "",
   userName: "",
   feedbacks: [],
+  conversions: [],
   votedFeedbacks: {},
   projectExists: true,
 };
@@ -46,6 +47,11 @@ const reducer = (state, action) => {
         ...state,
         feedbacks: action.payload,
       };
+    case "SET_CONVERSIONS":
+        return {
+          ...state,
+          conversions: action.payload,
+        };
     case "ADD_FEEDBACK":
       return {
         ...state,

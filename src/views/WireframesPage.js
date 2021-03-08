@@ -5,6 +5,11 @@ import Button from "react-bootstrap/Button";
 import Cookies from "universal-cookie";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import {
+  CheckCircleFill,
+  ArrowCounterclockwise,
+  ExclamationCircleFill,
+} from "react-bootstrap-icons";
 import Navigation from "../components/Navigation";
 import WireframeCard from "../components/WireframeCard";
 import { DOMAIN, BACKEND_ADDRESS } from "../consts";
@@ -34,7 +39,6 @@ export class WireframesPage extends Component {
       loaderVisible: false,
       successModal: false,
       errorModal: false,
-      loaderMessage: "",
       timeMinutes: 0,
       timeSeconds: 0,
     };
@@ -43,23 +47,6 @@ export class WireframesPage extends Component {
     this.addToSelected = this.addToSelected.bind(this);
     this.removeSelected = this.removeSelected.bind(this);
     this.calcTimeEstimate = this.calcTimeEstimate.bind(this);
-  }
-
-  // componentDidMount() {
-  //   if (this.state.errorModal) {
-  //     startAnimation();
-  //   }
-  // }
-
-  /*
-   * Select all wireframes
-   */
-  selectAll() {
-    const array = [];
-    this.state.wireframeList.forEach((element) => {
-      array.push(element.name);
-    });
-    this.setState({ selected: array });
   }
 
   /*
@@ -79,6 +66,17 @@ export class WireframesPage extends Component {
     } else {
       this.addToSelected(name);
     }
+  }
+
+  /*
+   * Select all wireframes
+   */
+  selectAll() {
+    const array = [];
+    this.state.wireframeList.forEach((element) => {
+      array.push(element.name);
+    });
+    this.setState({ selected: array });
   }
 
   /*
@@ -106,42 +104,35 @@ export class WireframesPage extends Component {
    * Request the conversion
    */
   toConvertPage() {
-    const {
-      projectID,
-      authType,
-      accessToken,
-      selected,
-      userID,
-      timeMinutes,
-      timeSeconds,
-      successModal,
-      errorModal,
-    } = this.state;
+    const { projectID, authType, accessToken, selected, userID } = this.state;
 
     this.calcTimeEstimate(selected.length);
 
     this.setState({
+      errorModal: false,
       loaderVisible: true,
     });
 
     api
       .post(
         `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/build?authType=${authType}&accessToken=${accessToken}`,
-        { wireframeList: selected, userId: userID }
+        { wireframeList: selected, userId: userID, publish: true }
       )
       .then(() => {
-        window.location.href = `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/download`;
         this.setState({
           loaderVisible: false,
           successModal: true,
-          loaderMessage: `Project converted successfully!`,
         });
+
+        setTimeout(() => {
+          this.props.history.push({ pathname: `/project/${projectID}` });
+          this.setState({ successModal: false });
+        }, 2500);
       })
       .catch((err) => {
         this.setState({
           loaderVisible: false,
           errorModal: true,
-          loaderMessage: `Erorr converting project!`,
         });
         console.log({ err });
       });
@@ -182,7 +173,7 @@ export class WireframesPage extends Component {
           <div className="row">
             <div className="col-12 d-flex flex-column align-items-center">
               <h3 className="mt-5 mb-3">
-                Please select the wireframes that you wish to convert:
+                Please select the wireframes that you wish to build:
               </h3>
             </div>
           </div>
@@ -226,7 +217,7 @@ export class WireframesPage extends Component {
             onClick={() => this.toConvertPage()}
             disabled={this.state.selected.length === 0}
           >
-            Convert to code
+            Build App
           </Button>
         </nav>
         {this.state.loaderVisible && (
@@ -245,11 +236,9 @@ export class WireframesPage extends Component {
         {this.state.successModal && (
           <div className="d-flex justify-content-center align-items-center loader-background">
             <div className="d-flex align-items-center flex-column loader-wrapper">
-              <h4 className="mb-4">{this.state.loaderMessage}</h4>
-              <p className="lead mt-4">Check your Download folder</p>
-              <Button className="btn-success" onClick={() => this.hideModal()}>
-                Continue
-              </Button>
+              <h4>Project built successfully!</h4>
+              <p className="lead">You will now be redirected..</p>
+              <CheckCircleFill color="green" size={40} />
             </div>
           </div>
         )}
@@ -257,23 +246,19 @@ export class WireframesPage extends Component {
         {this.state.errorModal && (
           <div className="d-flex justify-content-center align-items-center loader-background">
             <div className="d-flex align-items-center flex-column loader-wrapper">
-              <h4 className="mb-4">{this.state.loaderMessage}</h4>
-              <p className="lead mt-4">Please try again</p>
-              <div
-                class="container__item ui-container flash-message-container"
-                id="flash-message"
-              >
-                <a class="flash-message-btn error" href="#">
-                  <div class="flash-message-btn__icon">
-                    <div class="flash-message-btn__icon--inner">
-                      <span class="flash-message-btn__icon__line"></span>
-                    </div>
-                  </div>
-                </a>
+              <h4>
+                Erorr building project!{" "}
+                <ExclamationCircleFill color="red" size={25} />
+              </h4>
+              <p className="lead">Please try again</p>
+              <div>
+                <Button variant="secondary" onClick={() => this.hideModal()}>
+                  Close
+                </Button>{" "}
+                <Button variant="danger" onClick={() => this.toConvertPage()}>
+                  Re-try <ArrowCounterclockwise />
+                </Button>
               </div>
-              <Button className="btn-danger" onClick={() => this.hideModal()}>
-                Continue
-              </Button>
             </div>
           </div>
         )}
