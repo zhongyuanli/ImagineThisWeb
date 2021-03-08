@@ -31,9 +31,12 @@ const QRTab = (props) => {
   const sortByTimestamp = function (a, b) {
     return b.timestamp - a.timestamp;
   };
-  var conversions, lastConversion;
+  let conversions, lastConversion;
   if (!!state.conversions.length) {
-    conversions = state.conversions.sort(sortByTimestamp);
+    // We are only interested in the latest conversion that had run or is running
+    const executedStatuses = ["RUNNING", "SUCCEEDED", "FAILED"];
+    conversions = state.conversions.filter((el) => executedStatuses.includes(el.publishStatus));
+    conversions = conversions.sort(sortByTimestamp);
     lastConversion = conversions[0];
     console.log(`Last conversion ${lastConversion.conversionId} for project ${lastConversion.projectId} has status ${lastConversion.publishStatus}`);
   } else {
@@ -45,7 +48,7 @@ const QRTab = (props) => {
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
 
   // Depending on the status of last conversion show different contents
-  if (!lastConversion || lastConversion.publishStatus == "NOT_TRIGGERED") {
+  if (!lastConversion) {
     return (
       <div className="qr-code-status-tab">
         <Icon.Box color="#005EB8" size={70} />
@@ -55,7 +58,7 @@ const QRTab = (props) => {
         </div>
       </div>
     )
-  } else if (lastConversion.publishStatus == "RUNNING" || lastConversion.publishStatus == "NOT_STARTED") {
+  } else if (lastConversion.publishStatus == "RUNNING") {
     return (
       <div className="qr-code-status-tab">
         <Loader type="BallTriangle" color="#005EB8" width={100} height={100} />
