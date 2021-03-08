@@ -91,7 +91,7 @@ export default class ProjectPage extends Component {
               <QRTab projectID={this.state.projectID}/>
             </Tab>
             <Tab eventKey="download" title="Download Code">
-              <DownloadTab />
+              <DownloadTab projectID={this.state.projectID} />
             </Tab>
           </Tabs>
         </div>
