@@ -32,6 +32,9 @@ export class WireframesPage extends Component {
       authType: cookie.get("authType"),
       selected: [],
       loaderVisible: false,
+      successModal: false,
+      errorModal: false,
+      loaderMessage: "",
       timeMinutes: 0,
       timeSeconds: 0,
     };
@@ -41,6 +44,12 @@ export class WireframesPage extends Component {
     this.removeSelected = this.removeSelected.bind(this);
     this.calcTimeEstimate = this.calcTimeEstimate.bind(this);
   }
+
+  // componentDidMount() {
+  //   if (this.state.errorModal) {
+  //     startAnimation();
+  //   }
+  // }
 
   /*
    * Select all wireframes
@@ -73,6 +82,17 @@ export class WireframesPage extends Component {
   }
 
   /*
+   * Hides notification modal
+
+   */
+  hideModal() {
+    this.setState({
+      successModal: false,
+      errorModal: false,
+    });
+  }
+
+  /*
    * Add the wireframe to the list of selected wireframes
    */
   addToSelected(name) {
@@ -86,9 +106,20 @@ export class WireframesPage extends Component {
    * Request the conversion
    */
   toConvertPage() {
-    const { projectID, authType, accessToken, selected, userID } = this.state;
+    const {
+      projectID,
+      authType,
+      accessToken,
+      selected,
+      userID,
+      timeMinutes,
+      timeSeconds,
+      successModal,
+      errorModal,
+    } = this.state;
 
     this.calcTimeEstimate(selected.length);
+
     this.setState({
       loaderVisible: true,
     });
@@ -98,11 +129,20 @@ export class WireframesPage extends Component {
         `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/build?authType=${authType}&accessToken=${accessToken}`,
         { wireframeList: selected, userId: userID }
       )
-      .then((res) => {
+      .then(() => {
         window.location.href = `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/download`;
-        console.log(res);
+        this.setState({
+          loaderVisible: false,
+          successModal: true,
+          loaderMessage: `Project converted successfully!`,
+        });
       })
       .catch((err) => {
+        this.setState({
+          loaderVisible: false,
+          errorModal: true,
+          loaderMessage: `Erorr converting project!`,
+        });
         console.log({ err });
       });
   }
@@ -198,6 +238,42 @@ export class WireframesPage extends Component {
                 This will take approximately {this.state.timeMinutes} minute(s)
                 and {this.state.timeSeconds} seconds.
               </p>
+            </div>
+          </div>
+        )}
+
+        {this.state.successModal && (
+          <div className="d-flex justify-content-center align-items-center loader-background">
+            <div className="d-flex align-items-center flex-column loader-wrapper">
+              <h4 className="mb-4">{this.state.loaderMessage}</h4>
+              <p className="lead mt-4">Check your Download folder</p>
+              <Button className="btn-success" onClick={() => this.hideModal()}>
+                Continue
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {this.state.errorModal && (
+          <div className="d-flex justify-content-center align-items-center loader-background">
+            <div className="d-flex align-items-center flex-column loader-wrapper">
+              <h4 className="mb-4">{this.state.loaderMessage}</h4>
+              <p className="lead mt-4">Please try again</p>
+              <div
+                class="container__item ui-container flash-message-container"
+                id="flash-message"
+              >
+                <a class="flash-message-btn error" href="#">
+                  <div class="flash-message-btn__icon">
+                    <div class="flash-message-btn__icon--inner">
+                      <span class="flash-message-btn__icon__line"></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <Button className="btn-danger" onClick={() => this.hideModal()}>
+                Continue
+              </Button>
             </div>
           </div>
         )}
