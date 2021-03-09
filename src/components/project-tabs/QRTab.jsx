@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import QRCode from "qrcode.react";
 import "../../css/project-tabs/QRtab.css";
 import Loader from "react-loader-spinner";
-import "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, FormControl, Button } from "react-bootstrap";
 import moment from "moment";
-import api, { generationAPI } from "../../api.js";
 import * as Icon from "react-bootstrap-icons";
+import api, { generationAPI } from "../../api.js";
 import { FeedbackContext } from "../../contexts/feedback-context";
+import Search from "../../assets/Search.svg";
+
+
 
 const QRTab = (props) => {
   // useContext can be used to access global context and dispatch changes
@@ -127,18 +130,18 @@ const QRTab = (props) => {
                 className="input-group navbar-group"
                 style={{ margin: "", width: "50%" }}
               >
-                <InputGroup className="input-group-prepend">
+                <InputGroup className="input-group-append">
                   <FormControl
                       ref={inputEl}
-                      className="form-control navbar-input"
+                      className="form-control md-4"
                       aria-describedby="basic-addon1"
                       placeholder="Enter your Expo account email address"
                     />
                   <InputGroup.Append>
-                      <Button variant="btn btn-light search-button" type="submit">
-                        <img alt="search button" src={Search} />
-                      </Button>
-                    </InputGroup.Append>
+                     <Button type="submit">
+                       Submit
+                     </Button>
+                  </InputGroup.Append>
                 </InputGroup>
               </Form>
               <ol className="pc-ordered-list">
@@ -150,13 +153,14 @@ const QRTab = (props) => {
                 <li>Sign into your Expo account, or create one if you don't already have one.</li>
                 <li>
                   Add yourself to the ImagineThis Expo organisation by entering in your account's
-                  email via the text box below
+                  email via the text box above.
                   </li>
                 <li>
                   Go to your email and accept the invitation to the organisation.
                   If you are already a member you can skip this step.
                   </li>
-                <li>Open your device's built-in camera app and point it at the QR code on this page</li>
+                <li>Open your device's built-in camera app and point it at the QR code on this page.</li>
+
                 <li>A notification will appear saying to open the build in Expo. Click on this.</li>
                 <li>The expo app should then open and the prototype should begin to run on your device.</li>
               </ol>
@@ -173,7 +177,6 @@ const QRTab = (props) => {
                 by
                 {lastConversion.userName}
                 {' '}
-                Anthony Hopkins
               </div>
             </Col>
           </Row>
@@ -250,13 +253,13 @@ const QRTab = (props) => {
             <li>Sign into your Expo account, or create one if you don't already have one.</li>
             <li>
               Add yourself to the ImagineThis Expo organisation by entering in your account's
-              email via the text box below
+              email via the text box below.
             </li>
             <li>
               Go to your email and accept the invitation to the organisation.
               If you are already a member you can skip this step.
             </li>
-            <li>Open your device's built-in camera app and point it at the QR code on this page</li>
+            <li>Then click on the QR code below to open the build.</li>
             <li>A notification will appear saying to open the build in Expo. Click on this.</li>
             <li>The expo app should then open and the prototype should begin to run on your device.</li>
           </ol>
@@ -273,17 +276,18 @@ const QRTab = (props) => {
           >
             <InputGroup className="input-group-prepend">
               <FormControl
-                ref={inputEl}
+                // ref={inputEl}
                 style={{ fontSize: "12px" }}
-                className="form-control navbar-input"
+                className="form-control md-4"
                 aria-describedby="basic-addon1"
-                placeholder="Enter Expo Email Address"
+                placeholder="Enter Expo Account Email Address"
               />
-              <InputGroup.Append>
-                <Button variant="btn btn-light search-button" type="submit">
-                  <img alt="search button" src={Search} />
-                </Button>
-              </InputGroup.Append>
+              {/*<InputGroup.Append>*/}
+              {/*  <Button variant="btn btn-light search-button" type="submit">*/}
+              {/*    <img alt="search button" src={Search} />*/}
+              {/*  </Button>*/}
+              {/*</InputGroup.Append>*/}
+
             </InputGroup>
           </Form>
 
