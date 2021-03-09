@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import "../css/wireframespage.css";
 import Button from "react-bootstrap/Button";
@@ -246,11 +246,10 @@ export class WireframesPage extends Component {
         {this.state.errorModal && (
           <div className="d-flex justify-content-center align-items-center loader-background">
             <div className="d-flex align-items-center flex-column loader-wrapper">
-              <h4>
-                Erorr building project!{" "}
-                <ExclamationCircleFill color="red" size={25} />
-              </h4>
-              <p className="lead">Please try again</p>
+              <h4>Error building project!</h4>
+              <p className="lead">
+                Please try again <ExclamationCircleFill color="red" />
+              </p>
               <div>
                 <Button variant="secondary" onClick={() => this.hideModal()}>
                   Close
