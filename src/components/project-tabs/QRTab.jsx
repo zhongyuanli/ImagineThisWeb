@@ -6,6 +6,7 @@ import "react-bootstrap";
 import moment from "moment";
 import api, { generationAPI } from "../../api.js";
 import * as Icon from "react-bootstrap-icons";
+import { FeedbackContext } from "../../contexts/feedback-context";
 
 const QRTab = (props) => {
   // useContext can be used to access global context and dispatch changes
