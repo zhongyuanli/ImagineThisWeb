@@ -118,16 +118,23 @@ export class WireframesPage extends Component {
         `${BACKEND_ADDRESS}/api/v1/projects/${projectID}/build?authType=${authType}&accessToken=${accessToken}`,
         { wireframeList: selected, userId: userID, publish: true }
       )
-      .then(() => {
-        this.setState({
-          loaderVisible: false,
-          successModal: true,
-        });
-
-        setTimeout(() => {
-          this.props.history.push({ pathname: `/project/${projectID}` });
-          this.setState({ successModal: false });
-        }, 2500);
+      .then((res) => {
+        if (res.data.success) {
+          this.setState({
+            loaderVisible: false,
+            successModal: true,
+          });
+  
+          setTimeout(() => {
+            this.props.history.push({ pathname: `/project/${projectID}` });
+            this.setState({ successModal: false });
+          }, 2500);
+        } else {
+          this.setState({
+            loaderVisible: false,
+            errorModal: true,
+          });
+        }
       })
       .catch((err) => {
         this.setState({
