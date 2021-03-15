@@ -72,7 +72,7 @@ const QRTab = (props) => {
 
   // Create QR code link
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
-
+  lastConversion = "aasd"
   // Depending on the status of last conversion show different contents
   if (!lastConversion) {
     return (
@@ -125,25 +125,7 @@ const QRTab = (props) => {
         <Container>
           <Row>
             <Col>
-              <Form
-                onSubmit={sendEmail}
-                className="input-group navbar-group"
-                style={{ margin: "", width: "50%" }}
-              >
-                <InputGroup className="input-group-append">
-                  <FormControl
-                      ref={inputEl}
-                      className="form-control md-4"
-                      aria-describedby="basic-addon1"
-                      placeholder="Enter your Expo account email address"
-                    />
-                  <InputGroup.Append>
-                     <Button type="submit">
-                       Submit
-                     </Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              </Form>
+
               <ol className="pc-ordered-list">
                 <li>
                   Install the "
@@ -164,13 +146,32 @@ const QRTab = (props) => {
                 <li>A notification will appear saying to open the build in Expo. Click on this.</li>
                 <li>The expo app should then open and the prototype should begin to run on your device.</li>
               </ol>
+              <Form
+                  onSubmit={sendEmail}
+                  className="input-group navbar-group"
+                  style={{ margin: "", width: "50%",marginLeft:"2%" }}
+              >
+                <InputGroup className="input-group-append">
+                  <FormControl
+                      ref={inputEl}
+                      className="form-control md-4"
+                      aria-describedby="basic-addon1"
+                      placeholder="Enter your Expo account email address"
+                  />
+                  <InputGroup.Append>
+                    <Button type="submit">
+                      Submit
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form>
             </Col>
             <Col xs={3} className="pc-qr-col">
               <a href={qrCodeLink}>
-                <QRCode className=" qrcode" style={{ height: "125px", width: "125px", margin: "0px" }} value={qrCodeLink} />
+                <QRCode className=" qrcode" style={{ height: "125px", width: "125px", margin: "0px",marginLeft:"20%" }} value={qrCodeLink} />
               </a>
 
-              <div style={{ textAlign: "center", marginLeft: "-22%" }}>
+              <div style={{ textAlign: "center", marginLeft: "-2%" }}>
                 Last build:
                 {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
                 {' '}
