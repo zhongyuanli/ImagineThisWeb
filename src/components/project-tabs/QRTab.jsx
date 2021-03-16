@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import QRCode from "qrcode.react";
 import "../../css/project-tabs/QRtab.css";
 import Loader from "react-loader-spinner";
@@ -31,25 +31,31 @@ const QRTab = (props) => {
       .then((res) => {
         if (res.data !== "Error") {
           console.log(`Invitation ID: ${res.data}`);
-          dispatch({ type: "SET_SUCCESS_MODAL", payload: true });
-
-          setTimeout(() => {
-            hideModal();
-          }, 2500);
+          modalSucces();
         } else {
-          // payload: { errorModal: true },
-          dispatch({ type: "SET_ERROR_MODAL", payload: true });
+          modalFail();
         }
       })
-      .catch((e) => {
-        console.log(e);
-        dispatch({ type: "SET_ERROR_MODAL", payload: true });
+      .catch((error) => {
+        console.log({ error });
+        modalFail();
       });
   };
 
-  const hideModal = () => {
-    dispatch({ type: "SET_SUCCESS_MODAL", payload: false });
-    dispatch({ type: "SET_ERROR_MODAL", payload: false });
+  const modalSucces = () => {
+    dispatch({ type: "SET_SUCCESS_MODAL", payload: true });
+    // Hide modal
+    setTimeout(() => {
+      dispatch({ type: "SET_SUCCESS_MODAL", payload: false });
+    }, 3500);
+  };
+
+  const modalFail = () => {
+    dispatch({ type: "SET_ERROR_MODAL", payload: true });
+    // Hide modal
+    setTimeout(() => {
+      dispatch({ type: "SET_ERROR_MODAL", payload: false });
+    }, 3500);
   };
 
   useEffect(() => {
@@ -357,7 +363,7 @@ const QRTab = (props) => {
         <div className="d-flex justify-content-center align-items-center loader-background">
           <div className="d-flex align-items-center flex-column loader-wrapper">
             <h4>Invitation sent successfully!</h4>
-            <p className="lead">Check yoour email..</p>
+            <p className="lead">Check your email..</p>
             <Icon.CheckCircleFill color="green" size={40} />
           </div>
         </div>
@@ -367,17 +373,8 @@ const QRTab = (props) => {
         <div className="d-flex justify-content-center align-items-center loader-background">
           <div className="d-flex align-items-center flex-column loader-wrapper">
             <h4>Error sending invitation!</h4>
-            <p className="lead">
-              Please try again <Icon.ExclamationCircleFill color="red" />
-            </p>
-            <div>
-              <Button variant="secondary" onClick={() => hideModal()}>
-                Close
-              </Button>{" "}
-              <Button variant="danger" onClick={() => sendEmail()}>
-                Re-try <Icon.ArrowCounterclockwise />
-              </Button>
-            </div>
+            <p className="lead">Please try again</p>
+            <Icon.ArrowCounterclockwise size={40} />
           </div>
         </div>
       )}
