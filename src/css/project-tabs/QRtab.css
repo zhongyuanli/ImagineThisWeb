@@ -31,6 +31,67 @@
 p{
     /*font-size: 18px;*/
 }
+
+/* PC style */
+@media screen and (min-width: 768px) {
+    .ordered-list{
+        font-size: 18px;
+        text-align: justify;
+        margin-top: 3%;
+        margin-right: 8%;
+    }
+
+    .ordered-list-p{
+        /* margin-left: -2.5%; */
+        
+    }
+
+    .mobile-qr{
+        display: none;
+    }
+
+    .pc-qr-col{
+        margin: auto;
+    }
+
+    .input-field-email{
+        /*margin: "", width: "50%",marginLeft:"2%"*/
+        margin: auto;
+        width: 50%;
+        margin-left: 2%;
+    }
+}
+
+/* Mobile style */
+@media screen and (max-width: 768px) {
+    .ordered-list{
+        font-size: 12px;
+        padding-left: 8%;
+    }
+
+    .ordered-list-p{
+        font-size: 12px;
+        /* text-align: center;
+        padding-right: 8%; */
+    }
+
+    .mobile-qr{
+        display: block;
+        text-align: center;
+    }
+
+    .pc-qr-col{
+        display: none;
+    }
+
+    .input-field-email{
+        /*margin: "", width: "50%",marginLeft:"2%"*/
+        margin: auto;
+        width: 90%;
+    }
+}
+
+
 .pc-ordered-list{
     font-size: 18px;
     text-align: justify;
@@ -41,16 +102,9 @@ p{
 .pc-ordered-list-p{
     margin-left: -2.5%;
 }
-.pc-qr-col{
-    margin: auto;
-}
 
 .clear{
     clear: both;
-}
-
-.mobile-qr{
-    text-align: center;
 }
 
 .mobile-qrtab-title{
@@ -85,13 +139,6 @@ p{
 .qr-code-status-tab-text-box {
     display: inline-block;
     margin-left: 30px;
-}
-
-.input-field-email{
-    /*margin: "", width: "50%",marginLeft:"2%"*/
-    margin: auto;
-    width: 50%;
-    margin-left: 2%;
 }
 
 .last-built-div{

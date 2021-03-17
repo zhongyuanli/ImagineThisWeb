@@ -71,6 +71,7 @@ const QRTab = (props) => {
   }
 
   // Create QR code link
+  lastConversion = "7687"
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
   // Depending on the status of last conversion show different contents
   if (!lastConversion) {
@@ -116,16 +117,19 @@ const QRTab = (props) => {
   // Default successful page
   return (
     <div>
-      <div className="container d-none d-xl-block d-lg-block d-xl-none d-xl-block d-md-block d-lg-none">
+      <div className="container">
         <h4 className="">QR Code Instructions</h4>
         {/* <p>In order to successfully run the prototype, please do the following steps</p> */}
-        <span>To run this prototype on your device, do the following steps:</span>
+        <p className="ordered-list-p">
+          To run the prototype your device, please do the following steps:
+          <br/>
+        </p>
         <hr />
         <Container>
           <Row>
             <Col>
 
-              <ol className="pc-ordered-list">
+              <ol className="ordered-list">
                 <li>
                   Install the "
                     <a href="https://expo.io/tools">Expo Go</a>
@@ -180,6 +184,24 @@ const QRTab = (props) => {
             </Col>
           </Row>
         </Container>
+        <div className="mobile-qr">
+          <a href={qrCodeLink}>
+            <QRCode
+              className=" qrcode"
+              style={{
+                height: "100px", width: "100px", margin: "0px", marginTop: "10%",
+              }}
+              value={qrCodeLink}
+            />
+          </a>
+          <div className="mobile-last-built-div" >
+            Last build:
+            {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
+            {' '}
+            by
+            {lastConversion.userName}
+          </div>
+        </div>
 
         {/* this is the instruction for the PC device */}
         {/* <div id="instruction-div" className=""> */}
@@ -231,81 +253,6 @@ const QRTab = (props) => {
         {/* </div> */}
 
         {/* <div className="clear" /> */}
-      </div>
-
-      <div className="container d-block d-sm-none d-none d-sm-block d-md-none">
-        {/* this is the instruction for the mobile device */}
-        <div className="mobile_instruction-div">
-          <h3 className="mobile-qrtab-title">QR Code Using Instructions</h3>
-          <p className="mobile-ordered-p mobile-ordered-list ">
-            To run the prototype your device, please do the following steps:
-            <br />
-          </p>
-
-          <ol className="mobile-ordered-list">
-
-            <li>
-              Install the "
-              <a href="https://expo.io/tools">Expo Go</a>
-              " app on your mobile device.
-            </li>
-            <li>Sign into your Expo account, or create one if you don't already have one.</li>
-            <li>
-              Add yourself to the ImagineThis Expo organisation by entering in your account's
-              email via the text box below.
-            </li>
-            <li>
-              Go to your email and accept the invitation to the organisation.
-              If you are already a member you can skip this step.
-            </li>
-            <li>Then click on the QR code below to open the build.</li>
-            <li>A notification will appear saying to open the build in Expo. Click on this.</li>
-            <li>The expo app should then open and the prototype should begin to run on your device.</li>
-          </ol>
-          <p className="mobile-ordered-p mobile-ordered-list">
-
-            Please check for other related details：
-            {' '}
-            <a href="https://expo.io/">expo.io</a>
-          </p>
-          <Form
-            onSubmit={sendEmail}
-            className="input-group navbar-group mobile-inputfield-email"
-          >
-            <InputGroup className="input-group-prepend">
-              <FormControl
-                className="form-control md-4 mobile-form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Enter Expo Account Email Address"
-              />
-              {/*<InputGroup.Append>*/}
-              {/*  <Button variant="btn btn-light search-button" type="submit">*/}
-              {/*    <img alt="search button" src={Search} />*/}
-              {/*  </Button>*/}
-              {/*</InputGroup.Append>*/}
-
-            </InputGroup>
-          </Form>
-
-        </div>
-        <div className="mobile-qr">
-          <a href={qrCodeLink}>
-            <QRCode
-              className=" qrcode"
-              style={{
-                height: "100px", width: "100px", margin: "0px", marginTop: "10%",
-              }}
-              value={qrCodeLink}
-            />
-          </a>
-          <div className="mobile-last-built-div" >
-            Last build:
-            {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
-            {' '}
-            by
-            {lastConversion.userName}
-          </div>
-        </div>
       </div>
     </div>
   );
