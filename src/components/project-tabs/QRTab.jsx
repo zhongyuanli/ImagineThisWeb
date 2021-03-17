@@ -71,7 +71,6 @@ const QRTab = (props) => {
   }
 
   // Create QR code link
-  lastConversion = "7687"
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
   // Depending on the status of last conversion show different contents
   if (!lastConversion) {
