@@ -87,3 +87,32 @@ p{
     margin-left: 30px;
 }
 
+.input-field-email{
+    /*margin: "", width: "50%",marginLeft:"2%"*/
+    margin: auto;
+    width: 50%;
+    margin-left: 2%;
+}
+
+.last-built-div{
+    /*textAlign: "center", marginLeft: "-2%"*/
+    text-align: center;
+    margin-left: -2%;
+}
+
+.mobile-inputfield-email{
+    /*margin: "auto", width: "90%"*/
+    margin: auto;
+    width: 90%;
+}
+
+.mobile-form-control{
+    font-size: 12px
+}
+
+.mobile-last-built-div{
+    text-align: center;
+    font-size: 12px;
+}
+
+

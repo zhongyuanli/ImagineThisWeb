@@ -72,7 +72,6 @@ const QRTab = (props) => {
 
   // Create QR code link
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
-  lastConversion = "aasd"
   // Depending on the status of last conversion show different contents
   if (!lastConversion) {
     return (
@@ -148,8 +147,7 @@ const QRTab = (props) => {
               </ol>
               <Form
                   onSubmit={sendEmail}
-                  className="input-group navbar-group"
-                  style={{ margin: "", width: "50%",marginLeft:"2%" }}
+                  className="input-group navbar-group input-field-email"
               >
                 <InputGroup className="input-group-append">
                   <FormControl
@@ -171,7 +169,7 @@ const QRTab = (props) => {
                 <QRCode className=" qrcode" style={{ height: "125px", width: "125px", margin: "0px",marginLeft:"20%" }} value={qrCodeLink} />
               </a>
 
-              <div style={{ textAlign: "center", marginLeft: "-2%" }}>
+              <div className="last-built-div">
                 Last build:
                 {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
                 {' '}
@@ -272,14 +270,11 @@ const QRTab = (props) => {
           </p>
           <Form
             onSubmit={sendEmail}
-            className="input-group navbar-group"
-            style={{ margin: "auto", width: "90%" }}
+            className="input-group navbar-group mobile-inputfield-email"
           >
             <InputGroup className="input-group-prepend">
               <FormControl
-                // ref={inputEl}
-                style={{ fontSize: "12px" }}
-                className="form-control md-4"
+                className="form-control md-4 mobile-form-control"
                 aria-describedby="basic-addon1"
                 placeholder="Enter Expo Account Email Address"
               />
@@ -303,7 +298,7 @@ const QRTab = (props) => {
               value={qrCodeLink}
             />
           </a>
-          <div style={{ textAlign: "center", fontSize: "12px" }}>
+          <div className="mobile-last-built-div" >
             Last build:
             {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
             {' '}
