@@ -374,7 +374,7 @@ const QRTab = (props) => {
           <div className="d-flex align-items-center flex-column loader-wrapper">
             <h4>Error sending invitation!</h4>
             <p className="lead">Please try again</p>
-            <Icon.ArrowCounterclockwise size={40} />
+            <Icon.ExclamationCircleFill size={40} />
           </div>
         </div>
       )}
