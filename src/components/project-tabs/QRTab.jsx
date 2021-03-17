@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import QRCode from "qrcode.react";
 import "../../css/project-tabs/QRtab.css";
 import Loader from "react-loader-spinner";
-import { Container, Row, Col, Form, InputGroup, FormControl, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  InputGroup,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 import moment from "moment";
 import * as Icon from "react-bootstrap-icons";
 import api, { generationAPI } from "../../api.js";
 import { FeedbackContext } from "../../contexts/feedback-context";
 import Search from "../../assets/Search.svg";
-
-
 
 const QRTab = (props) => {
   // useContext can be used to access global context and dispatch changes
@@ -23,22 +29,42 @@ const QRTab = (props) => {
     const id = props.projectID;
     generationAPI("POST", id, email)
       .then((res) => {
-        if (res.data != "Error") {
+        if (res.data !== "Error") {
           console.log(`Invitation ID: ${res.data}`);
+          modalSucces();
+        } else {
+          modalFail();
         }
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        console.log({ error });
+        modalFail();
       });
+  };
+
+  const modalSucces = () => {
+    dispatch({ type: "SET_SUCCESS_MODAL", payload: true });
+    // Hide modal
+    setTimeout(() => {
+      dispatch({ type: "SET_SUCCESS_MODAL", payload: false });
+    }, 3500);
+  };
+
+  const modalFail = () => {
+    dispatch({ type: "SET_ERROR_MODAL", payload: true });
+    // Hide modal
+    setTimeout(() => {
+      dispatch({ type: "SET_ERROR_MODAL", payload: false });
+    }, 3500);
   };
 
   useEffect(() => {
     const param = props.projectID;
-    if (param === '') return;
+    if (param === "") return;
     api
       .get(`/projects/${param}/conversions`)
       .then((res) => {
-        if (res.status == 200 && res.data.length > 0) {
+        if (res.status === 200 && res.data.length > 0) {
           dispatch({
             type: "SET_CONVERSIONS",
             payload: res.data,
@@ -54,15 +80,20 @@ const QRTab = (props) => {
   const sortByTimestamp = function (a, b) {
     return b.timestamp - a.timestamp;
   };
-  let conversions; let lastConversion;
+  let conversions;
+  let lastConversion;
   if (state.conversions.length) {
     // We are only interested in the latest conversion that had run or is running
     const executedStatuses = ["RUNNING", "SUCCEEDED", "FAILED"];
     try {
-      conversions = state.conversions.filter((el) => executedStatuses.includes(el.publishStatus));
+      conversions = state.conversions.filter((el) =>
+        executedStatuses.includes(el.publishStatus)
+      );
       conversions = conversions.sort(sortByTimestamp);
       lastConversion = conversions[0];
-      console.log(`Last conversion ${lastConversion.conversionId} for project ${lastConversion.projectId} has status ${lastConversion.publishStatus}`);
+      console.log(
+        `Last conversion ${lastConversion.conversionId} for project ${lastConversion.projectId} has status ${lastConversion.publishStatus}`
+      );
     } catch (e) {
       console.log(e);
     }
@@ -192,6 +223,25 @@ const QRTab = (props) => {
                 by
                 {lastConversion.userName}
               </div>
+              {state.successModal && (
+              <div className="d-flex justify-content-center align-items-center loader-background">
+                <div className="d-flex align-items-center flex-column loader-wrapper">
+                  <h4>Invitation sent successfully!</h4>
+                  <p className="lead">Check your email..</p>
+                  <Icon.CheckCircleFill color="green" size={40} />
+                </div>
+              </div>
+            )}
+
+            {state.errorModal && (
+              <div className="d-flex justify-content-center align-items-center loader-background">
+                <div className="d-flex align-items-center flex-column loader-wrapper">
+                  <h4>Error sending invitation!</h4>
+                  <p className="lead">Please try again</p>
+                  <Icon.ExclamationCircleFill color="red" size={40} />
+                </div>
+              </div>
+            )}
             </Col>
           </Row>
         </Container>
