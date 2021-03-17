@@ -116,145 +116,88 @@ const QRTab = (props) => {
   // Default successful page
   return (
     <div>
-      <div className="container">
-        <h4 className="">QR Code Instructions</h4>
-        {/* <p>In order to successfully run the prototype, please do the following steps</p> */}
-        <p className="ordered-list-p">
+      <Container>
+        <h4 className="">QR Code Using Instructions</h4>
+        <p>
           To run the prototype your device, please do the following steps:
           <br/>
         </p>
-        <hr />
+        <hr/>
         <Container>
           <Row>
-            <Col>
+            {/* Instruction column */}
+            <Col md={8} sm={12} xs={12}>
+              {/* Instruction content row */}
+              <Row>
+                <ol>
+                  <li>
+                    Install the "
+                      <a href="https://expo.io/tools">Expo Go</a>
+                    " app on your mobile device.
+                    </li>
+                  <li>Sign into your Expo account, or create one if you don't already have one.</li>
+                  <li>
+                    Add yourself to the ImagineThis Expo organisation by entering in your account's
+                    email via the text box above.
+                    </li>
+                  <li>
+                    Go to your email and accept the invitation to the organisation.
+                    If you are already a member you can skip this step.
+                    </li>
+                  <li>Open your device's built-in camera app and point it at the QR code on this page.</li>
 
-              <ol className="ordered-list">
-                <li>
-                  Install the "
-                    <a href="https://expo.io/tools">Expo Go</a>
-                  " app on your mobile device.
-                  </li>
-                <li>Sign into your Expo account, or create one if you don't already have one.</li>
-                <li>
-                  Add yourself to the ImagineThis Expo organisation by entering in your account's
-                  email via the text box above.
-                  </li>
-                <li>
-                  Go to your email and accept the invitation to the organisation.
-                  If you are already a member you can skip this step.
-                  </li>
-                <li>Open your device's built-in camera app and point it at the QR code on this page.</li>
-
-                <li>A notification will appear saying to open the build in Expo. Click on this.</li>
-                <li>The expo app should then open and the prototype should begin to run on your device.</li>
-              </ol>
-              <Form
-                  onSubmit={sendEmail}
-                  className="input-group navbar-group input-field-email"
-              >
-                <InputGroup className="input-group-append">
-                  <FormControl
-                      ref={inputEl}
-                      className="form-control md-4"
-                      aria-describedby="basic-addon1"
-                      placeholder="Enter your Expo account email address"
-                  />
-                  <InputGroup.Append>
-                    <Button type="submit">
-                      Submit
-                    </Button>
-                  </InputGroup.Append>
-                </InputGroup>
+                  <li>A notification will appear saying to open the build in Expo. Click on this.</li>
+                  <li>The expo app should then open and the prototype should begin to run on your device.</li>
+                </ol>
+              </Row>
+              {/* Input field row */}
+              <Form onSubmit={sendEmail}>
+                <Form.Group as={Row} >
+                  <Col>
+                    <InputGroup>
+                      <FormControl
+                        ref={inputEl}
+                        aria-describedby="basic-addon1"
+                        placeholder="Enter your Expo account email address"
+                      />
+                      <InputGroup.Append>
+                        <Button type="submit">
+                          Submit
+                        </Button>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </Col>
+                </Form.Group>
               </Form>
             </Col>
-            <Col xs={3} className="pc-qr-col">
-              <a href={qrCodeLink}>
-                <QRCode className=" qrcode" style={{ height: "125px", width: "125px", margin: "0px",marginLeft:"20%" }} value={qrCodeLink} />
-              </a>
-
-              <div className="last-built-div">
+            {/* QR Code column */}
+            <Col md={4} sm={12} xs={12} className="align-self-center">
+              <div style={{
+                textAlign: "center",
+              }}>
+                <a href={qrCodeLink}>
+                  <QRCode
+                    className=" qrcode"
+                    style={{
+                      height: "100px", width: "100px",
+                    }}
+                    value={qrCodeLink}
+                  />
+                </a>
+              </div>
+              <div className="mobile-last-built-div" >
                 Last build:
                 {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
                 {' '}
                 by
                 {lastConversion.userName}
-                {' '}
               </div>
             </Col>
           </Row>
         </Container>
-        <div className="mobile-qr">
-          <a href={qrCodeLink}>
-            <QRCode
-              className=" qrcode"
-              style={{
-                height: "100px", width: "100px", margin: "0px", marginTop: "10%",
-              }}
-              value={qrCodeLink}
-            />
-          </a>
-          <div className="mobile-last-built-div" >
-            Last build:
-            {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")}
-            {' '}
-            by
-            {lastConversion.userName}
-          </div>
-        </div>
-
-        {/* this is the instruction for the PC device */}
-        {/* <div id="instruction-div" className=""> */}
-        {/*  <h4 className="">QR Code Instructions</h4> */}
-        {/*  /!* <p>In order to successfully run the prototype, please do the following steps</p> *!/ */}
-        {/*  <span>To run this prototype on your device, do the following steps:</span> */}
-        {/*  <hr /> */}
-        {/*  <Form */}
-        {/*    // onSubmit={this.handleSubmit} */}
-        {/*    className="input-group navbar-group" */}
-        {/*    style={{margin: "",width:"50%"}} */}
-        {/*  > */}
-        {/*    <InputGroup className="input-group-prepend"> */}
-        {/*      <FormControl */}
-        {/*        className="form-control navbar-input" */}
-        {/*        aria-describedby="basic-addon1" */}
-        {/*        placeholder="Enter your Expo account email address" */}
-        {/*      /> */}
-        {/*      <InputGroup.Append> */}
-        {/*        <Button variant="btn btn-light search-button" type="submit"> */}
-        {/*          <img alt="search button" src={Search}/> */}
-        {/*        </Button> */}
-        {/*      </InputGroup.Append> */}
-        {/*    </InputGroup> */}
-        {/*  </Form> */}
-        {/*  <ol className="pc-ordered-list"> */}
-        {/*    /!*<p className="pc-ordered-list-p">To run this prototype on your device, do the following steps:</p>*!/ */}
-        {/*    <li> */}
-        {/*      Install the " */}
-        {/*      <a href="https://expo.io/tools">Expo Go</a> */}
-        {/*      " app on your mobile device. */}
-        {/*    </li> */}
-        {/*    <li>Sign into your Expo account, or create one if you don't already have one.</li> */}
-        {/*    <li>Add yourself to the ImagineThis Expo organisation by entering in your account's */}
-        {/*      email via the text box below</li> */}
-        {/*    <li>Go to your email and accept the invitation to the organisation. */}
-        {/*      If you are already a member you can skip this step.</li> */}
-        {/*    <li>Open your device's built-in camera app and point it at the QR code on this page</li> */}
-        {/*    <li>A notification will appear saying to open the build in Expo. Click on this.</li> */}
-        {/*    <li>The expo app should then open and the prototype should begin to run on your device.</li> */}
-        {/*  </ol> */}
-        {/* </div> */}
-
-        {/* <div id="qr-div"> */}
-        {/*  <a href={qrCodeLink}> */}
-        {/*    <QRCode className="qrcode" style={{ height: "150px", width: "150px", margin: "0px" }} value={qrCodeLink} /> */}
-        {/*  </a> */}
-        {/*  <div style={{textAlign: "center", marginLeft:"-22%"}}>Last build: {moment(lastConversion.timestamp).format("DD/MM/YY HH:mm")} by {lastConversion.userName}</div> */}
-        {/* </div> */}
-
-        {/* <div className="clear" /> */}
-      </div>
+      </Container>
     </div>
-  );
+  )
 };
 
 export default QRTab;
