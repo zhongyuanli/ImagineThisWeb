@@ -204,9 +204,7 @@ const QRTab = (props) => {
             </Col>
             {/* QR Code column */}
             <Col md={4} sm={12} xs={12} className="align-self-center">
-              <div style={{
-                textAlign: "center",
-              }}>
+              <div className="col-div">
                 <a href={qrCodeLink}>
                   <QRCode
                     className="qrcode"
