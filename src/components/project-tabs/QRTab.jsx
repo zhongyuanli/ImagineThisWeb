@@ -225,7 +225,7 @@ const QRTab = (props) => {
               <div className="d-flex justify-content-center align-items-center loader-background">
                 <div className="d-flex align-items-center flex-column loader-wrapper">
                   <h4>Invitation sent successfully!</h4>
-                  <p className="lead">Check your email..</p>
+                  <p className="lead">Check your email</p>
                   <Icon.CheckCircleFill color="green" size={40} />
                 </div>
               </div>

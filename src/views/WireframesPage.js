@@ -244,7 +244,7 @@ export class WireframesPage extends Component {
           <div className="d-flex justify-content-center align-items-center loader-background">
             <div className="d-flex align-items-center flex-column loader-wrapper">
               <h4>Project built successfully!</h4>
-              <p className="lead">You will now be redirected..</p>
+              <p className="lead">You will now be redirected...</p>
               <CheckCircleFill color="green" size={40} />
             </div>
           </div>
