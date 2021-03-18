@@ -2,13 +2,10 @@
     overflow: hidden;
 }
 
-.qrcode{
-    height: 50px;
-    width: 50px;
-    /*margin: 0px;*/
-
+/*Stops buttons from appearing in foreground when modal is up.*/
+.input-group-append{
+    z-index: 0;
 }
-
 
 /* PC style */
 @media screen and (min-width: 768px) {
@@ -21,7 +18,6 @@
 
     .ordered-list-p{
         /* margin-left: -2.5%; */
-        
     }
 
     .mobile-qr{
@@ -39,7 +35,7 @@
 
     .input-email-group{
         margin: auto;
-        width: 80%;
+        width: 60%;
         height: 100%;
         margin-left: 2%;
     }
@@ -89,7 +85,10 @@
     .input-email-field{
         font-size: 12px;
         height: 100%;
+    }
 
+    .qrcode{
+        margin-top: 10%;
     }
 }
 

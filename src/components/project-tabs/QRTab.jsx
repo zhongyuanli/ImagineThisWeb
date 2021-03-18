@@ -169,11 +169,10 @@ const QRTab = (props) => {
                   <li>Sign into your Expo account, or create one if you don't already have one.</li>
                   <li>
                     Add yourself to the ImagineThis Expo organisation by entering in your account's
-                    email via the text box above.
+                    email via the text box below. If you're already a member, you can skip this step and the next.
                     </li>
                   <li>
                     Go to your email and accept the invitation to the organisation.
-                    If you are already a member you can skip this step.
                     </li>
                   <li>Open your device's built-in camera app and point it at the QR code on this page.</li>
 
@@ -211,9 +210,6 @@ const QRTab = (props) => {
                 <a href={qrCodeLink}>
                   <QRCode
                     className="qrcode"
-                    style={{
-                      height: "100px", width: "100px",
-                    }}
                     value={qrCodeLink}
                   />
                 </a>
