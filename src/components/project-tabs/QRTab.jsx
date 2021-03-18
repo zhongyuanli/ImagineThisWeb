@@ -160,7 +160,7 @@ const QRTab = (props) => {
             <Col md={8} sm={12} xs={12}>
               {/* Instruction content row */}
               <Row>
-                <ol>
+                <ol className="ordered-list">
                   <li>
                     Install the "
                       <a href="https://expo.io/tools">Expo Go</a>
@@ -169,11 +169,10 @@ const QRTab = (props) => {
                   <li>Sign into your Expo account, or create one if you don't already have one.</li>
                   <li>
                     Add yourself to the ImagineThis Expo organisation by entering in your account's
-                    email via the text box above.
+                    email via the text box below. If you're already a member, you can skip this step and the next.
                     </li>
                   <li>
                     Go to your email and accept the invitation to the organisation.
-                    If you are already a member you can skip this step.
                     </li>
                   <li>Open your device's built-in camera app and point it at the QR code on this page.</li>
 
@@ -182,17 +181,19 @@ const QRTab = (props) => {
                 </ol>
               </Row>
               {/* Input field row */}
-              <Form onSubmit={sendEmail}>
+              <Form onSubmit={sendEmail} >
+                <span className="input-email-text">Enter Expo Email Address: </span>
                 <Form.Group as={Row} >
                   <Col>
-                    <InputGroup>
+                    <InputGroup className="input-email-group">
                       <FormControl
                         ref={inputEl}
                         aria-describedby="basic-addon1"
-                        placeholder="Enter your Expo account email address"
+                        placeholder="example@example.com"
+                        className="input-email-field"
                       />
                       <InputGroup.Append>
-                        <Button type="submit">
+                        <Button type="submit" className="input-email-field">
                           Submit
                         </Button>
                       </InputGroup.Append>
@@ -203,15 +204,10 @@ const QRTab = (props) => {
             </Col>
             {/* QR Code column */}
             <Col md={4} sm={12} xs={12} className="align-self-center">
-              <div style={{
-                textAlign: "center",
-              }}>
+              <div className="col-div">
                 <a href={qrCodeLink}>
                   <QRCode
-                    className=" qrcode"
-                    style={{
-                      height: "100px", width: "100px",
-                    }}
+                    className="qrcode"
                     value={qrCodeLink}
                   />
                 </a>
@@ -227,7 +223,7 @@ const QRTab = (props) => {
               <div className="d-flex justify-content-center align-items-center loader-background">
                 <div className="d-flex align-items-center flex-column loader-wrapper">
                   <h4>Invitation sent successfully!</h4>
-                  <p className="lead">Check your email..</p>
+                  <p className="lead">Check your email</p>
                   <Icon.CheckCircleFill color="green" size={40} />
                 </div>
               </div>

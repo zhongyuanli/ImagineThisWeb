@@ -1,132 +1,69 @@
 .container{
     overflow: hidden;
 }
-#qr-div{
-    float:left;
-    position:relative;
-    /*left:4%;*/
-    margin-top: 10%;
-    margin-left: 10%;
-    width: 200px;
-    height: 200px;
-    display: block;
-}
-.qrcode{
-    height: 200px;
-    width: 200px;
-    margin: 0px;
 
-}
-#instruction-div{
-    float: left;
-    position: relative;
-
-    /*left: 0.5%;*/
-    width: 70%;
-}
-.qrtab-title{
-    text-align: left;
-    margin-left: 3%;
-}
-p{
-    /*font-size: 18px;*/
+/*Stops buttons from appearing in foreground when modal is up.*/
+.input-group-append{
+    z-index: 0;
 }
 
 /* PC style */
 @media screen and (min-width: 768px) {
     .ordered-list{
-        font-size: 18px;
+        font-size: 16px;
         text-align: justify;
         margin-top: 3%;
         margin-right: 8%;
     }
 
-    .ordered-list-p{
-        /* margin-left: -2.5%; */
-        
-    }
 
-    .mobile-qr{
-        display: none;
-    }
-
-    .pc-qr-col{
-        margin: auto;
-    }
-
-    .input-field-email{
-        /*margin: "", width: "50%",marginLeft:"2%"*/
-        margin: auto;
-        width: 50%;
+    .input-email-text{
+        font-size: 14px;
         margin-left: 2%;
+    }
+
+    .input-email-group{
+        margin: auto;
+        width: 60%;
+        height: 100%;
+        margin-left: 2%;
+    }
+
+    .input-email-field{
+        font-size: 14px;
+        height: 100%;
+
     }
 }
 
 /* Mobile style */
 @media screen and (max-width: 768px) {
     .ordered-list{
-        font-size: 12px;
+        font-size: 14px;
         padding-left: 8%;
     }
 
-    .ordered-list-p{
+    .input-email-text{
         font-size: 12px;
-        /* text-align: center;
-        padding-right: 8%; */
+        margin-left: 2%;
     }
 
-    .mobile-qr{
-        display: block;
-        text-align: center;
-    }
-
-    .pc-qr-col{
-        display: none;
-    }
-
-    .input-field-email{
+    .input-email-group{
         /*margin: "", width: "50%",marginLeft:"2%"*/
         margin: auto;
-        width: 90%;
+        width: 100%;
+        height: 100%;
+
     }
-}
 
+    .input-email-field{
+        font-size: 12px;
+        height: 100%;
+    }
 
-.pc-ordered-list{
-    font-size: 18px;
-    text-align: justify;
-    margin-top: 3%;
-    margin-right: 8%;
-}
-
-.pc-ordered-list-p{
-    margin-left: -2.5%;
-}
-
-.clear{
-    clear: both;
-}
-
-.mobile-qrtab-title{
-    text-align: center;
-    /*left: 100%;*/
-    font-size: 20px;
-}
-.mobile_instruction-div{
-    width: 100%;
-    /*display: block;*/
-}
-.mobile-ordered-list{
-    font-size: 12px;
-    padding-left: 8%;
-}
-
-.mobile-ordered-p{
-    text-align: center;
-    padding-right: 8%;
-}
-.mobile-device-name{
-    font-weight:bold;
+    .qrcode{
+        margin-top: 10%;
+    }
 }
 
 .qr-code-status-tab {
@@ -141,25 +78,13 @@ p{
     margin-left: 30px;
 }
 
-.last-built-div{
-    /*textAlign: "center", marginLeft: "-2%"*/
-    text-align: center;
-    margin-left: -2%;
-}
-
-.mobile-inputfield-email{
-    /*margin: "auto", width: "90%"*/
-    margin: auto;
-    width: 90%;
-}
-
-.mobile-form-control{
-    font-size: 12px
-}
-
 .mobile-last-built-div{
     text-align: center;
     font-size: 12px;
+}
+
+.col-div{
+    text-align: center;
 }
 
 
