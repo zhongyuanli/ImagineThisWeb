@@ -210,7 +210,7 @@ const QRTab = (props) => {
               }}>
                 <a href={qrCodeLink}>
                   <QRCode
-                    className=" qrcode"
+                    className="qrcode"
                     style={{
                       height: "100px", width: "100px",
                     }}
