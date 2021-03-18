@@ -3,9 +3,7 @@
 }
 
 /*Stops buttons from appearing in foreground when modal is up.*/
-.input-group-append{
-    z-index: 0;
-}
+
 
 /* PC style */
 @media screen and (min-width: 768px) {
@@ -16,17 +14,6 @@
         margin-right: 8%;
     }
 
-    .ordered-list-p{
-        /* margin-left: -2.5%; */
-    }
-
-    .mobile-qr{
-        display: none;
-    }
-
-    .pc-qr-col{
-        margin: auto;
-    }
 
     .input-email-text{
         font-size: 14px;
@@ -52,21 +39,6 @@
     .ordered-list{
         font-size: 14px;
         padding-left: 8%;
-    }
-
-    .ordered-list-p{
-        font-size: 12px;
-        /* text-align: center;
-        padding-right: 8%; */
-    }
-
-    .mobile-qr{
-        display: block;
-        text-align: center;
-    }
-
-    .pc-qr-col{
-        display: none;
     }
 
     .input-email-text{
@@ -102,11 +74,6 @@
 .qr-code-status-tab-text-box {
     display: inline-block;
     margin-left: 30px;
-}
-
-
-.mobile-form-control{
-    font-size: 12px
 }
 
 .mobile-last-built-div{
