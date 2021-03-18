@@ -100,7 +100,7 @@ const QRTab = (props) => {
   } else {
     console.log(`No conversions found for project ${state.projectID}`);
   }
-
+  lastConversion = "a"
   // Create QR code link
   const qrCodeLink = `exp://exp.host/@imaginethis/${state.projectID}`;
   // Depending on the status of last conversion show different contents
@@ -160,7 +160,7 @@ const QRTab = (props) => {
             <Col md={8} sm={12} xs={12}>
               {/* Instruction content row */}
               <Row>
-                <ol>
+                <ol className="ordered-list">
                   <li>
                     Install the "
                       <a href="https://expo.io/tools">Expo Go</a>
@@ -182,17 +182,19 @@ const QRTab = (props) => {
                 </ol>
               </Row>
               {/* Input field row */}
-              <Form onSubmit={sendEmail}>
+              <Form onSubmit={sendEmail} >
+                <span className="input-email-text">Enter Expo Email Address: </span>
                 <Form.Group as={Row} >
                   <Col>
-                    <InputGroup>
+                    <InputGroup className="input-email-group">
                       <FormControl
                         ref={inputEl}
                         aria-describedby="basic-addon1"
-                        placeholder="Enter your Expo account email address"
+                        placeholder="example@example.com"
+                        className="input-email-field"
                       />
                       <InputGroup.Append>
-                        <Button type="submit">
+                        <Button type="submit" className="input-email-field">
                           Submit
                         </Button>
                       </InputGroup.Append>
